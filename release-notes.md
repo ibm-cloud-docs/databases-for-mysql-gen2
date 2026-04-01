@@ -20,8 +20,8 @@ content-type: release-note
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql-gen2_full}} that are grouped by date.
 {: shortdesc}
 
-## 31 March 2026
-{: #databases-for-mysql-gen2-mar3126}
+## June 2026
+{: #databases-for-mysql-gen2-jun2326}
 {: release-note}
 
 {{site.data.keyword.databases-for-mysql-gen2_full}} General Availability
