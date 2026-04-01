@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "title": "IBM Cloud® Databases for MySQL Gen 2 docs",
+  "introduction": "IBM Cloud® Databases for MySQL Gen 2 is a serverless, cloud database service that is fully integrated into the IBM Cloud environment. Use IBM Cloud® Databases for MySQL Gen 2 to use a cloud database system without purchasing and setting up your own hardware, installing your own database software, or managing the database yourself.",
+  "product_page": "https://www.ibm.com/products/databases-for-mysql",
+  "console_page": "/databases/databases-for-mysql-gen2/create",
+  "section_topics": {
+    "links": [
+      {
+        "title": "Getting started with Databases for MySQL Gen 2",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-getting-started"
+      },
+      {
+        "title": "Changing your deployment configuration",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-changing-configuration&interface=cli"
+      },
+      {
+        "title": "Connecting with mysql",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql"
+      },
+      {
+        "title": "Managing MySQL connections",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections"
+      },
+      {
+        "title": "Managing Cloud Databases backups",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-dashboard-backups&interface=ui"
+      },
+      {
+        "title": "Resource configuration FAQ",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-faq-resource-config&interface=ui"
+      },
+      {
+        "title": "Configuring",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-provisioning&interface=ui"
+      }
+    ]
+  },
+  "section_highlights": [
+    {
+      "title": "IBM named a leader for cloud database management systems",
+      "description": "Gartner named IBM a leader in Gartner Magic Quadrant for 2021 Cloud Database Management Systems.",
+      "href": "https://www.ibm.com/blog/ibm-is-named-a-leader-in-the-2021-gartner-magic-quadrant-for-cloud-database-management-systems-dbms/",
+      "type": "blog"
+    },
+    {
+      "title": "IBM Training - Cloud",
+      "description": "Includes Power Virtual Server, SAP, VMware, Advocate, Architect, Developer, and Site Reliability Engineer, and more",
+      "href": "https://www.ibm.com/training/cloud",
+      "type": "training"
+    }
+  ],
+  "section_devtools": {
+    "api": "/apidocs/cloud-databases-api/cloud-databases-api-v5#introduction",
+    "cli": "/docs/databases-cli-plugin",
+    "terraform": "https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest"
+  },
+  "section_updates": {
+    "view_more": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-mysql-relnotes&interface=ui",
+    "tiles": [
+      {
+        "date": "31 March 2026",
+        "title": "Databases for MySQL Gen 2 now available"
+      },
+      {
+        "date": "31 March 2026",
+        "title": "Enhanced performance and isolated compute"
+      }
+    ]
+  }
+}
