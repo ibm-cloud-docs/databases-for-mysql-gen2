@@ -1,9 +1,9 @@
----
+﻿---
 copyright:
-  years: 2022, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql, databases, mysql connection strings, 
+keywords: mysql, databases, mysql connection strings, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,14 +14,16 @@ subcollection: databases-for-mysql-gen2
 # Getting connection strings
 {: #connection-strings}
 
-To connect to {{site.data.keyword.databases-for-mysql-gen2_full}}, you need some users and connection strings. Connection Strings for your deployment are displayed on the _Dashboard Overview_, in the _Endpoints_ panel. 
+[Gen 2]{: tag-purple}
+
+To connect to {{site.data.keyword.databases-for-mysql_full}}, you need some users and connection strings. Connection Strings for your deployment are displayed on the _Dashboard Overview_, in the _Endpoints_ panel.
 
 ![Endpoints panel on the Dashboard Overview](images/getting-started-endpoints-panel.png){: caption="Endpoints panel on the Dashboard Overview" caption-side="bottom"}
 
-A {{site.data.keyword.databases-for-mysql-gen2}} deployment is provisioned with an admin user and, after [setting the admin password](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management&interface=ui#user-management-set-admin-password-ui), use its connection strings to connect to your deployment.
+A {{site.data.keyword.databases-for-mysql}} deployment is provisioned with an admin user and, after [setting the admin password](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management&interface=ui#user-management-set-admin-password-ui), use its connection strings to connect to your deployment.
 {: .tip}
 
-**CLI**  
+**CLI**
 You can also grab connection strings from the [CLI](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-connections).
 ```sh
 ibmcloud cdb deployment-connections example-deployment -u <newusername> [--endpoint-type <endpoint type>]
@@ -39,7 +41,7 @@ If you don't specify a user, the `deployment-connections` commands return inform
 To use the `ibmcloud cdb` CLI commands, you must [install the {{site.data.keyword.databases-for}} plug-in](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-icd-cli&interface=ui#icd-cli-install).
 {: .tip}
 
-**API** 
+**API**
 To retrieve user's connection strings from the API, use the [`/users/{userid}/connections`](https://{DomainName}/apidocs/cloud-databases-api#discover-connection-information-for-a-deployment-f-e81026) endpoint. You must specify in the path the user endpoint (public or private) in the returned connection strings. The user and endpoint type is not enforced. You can use any user on your deployment with either endpoint (if both exist on your deployment).
 ```sh
 curl -X GET -H "Authorization: Bearer $APIKEY" 'https://api.{region}.databases.cloud.ibm.com/v4/ibm/deployments/{id}/users/{userid}/connections/{endpoint_type}'

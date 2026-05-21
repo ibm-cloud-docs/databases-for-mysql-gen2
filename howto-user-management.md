@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2021, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: admin, superuser, roles, service credentials, mysql users, mysql roles, mysql privileges, mysql connection strings, mysql service credentials
+keywords: admin, superuser, roles, service credentials, mysql users, mysql roles, mysql privileges, mysql connection strings, mysql service credentials, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,6 +14,8 @@ subcollection: databases-for-mysql-gen2
 
 # Managing users, roles, and privileges
 {: #user-management}
+
+[Gen 2]{: tag-purple}
 
 MySQL uses a system of roles to manage database permissions. Create users from both the UI and from [MySQL Shell](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html). Users who are created from the UI have nearly identical privileges as `admin`, but cannot create other users. Since `admin` has both `CREATE USER` and `GRANT` options, it can create a user and give them all the privileges that it has, including the privilege to create new users.
 
@@ -109,7 +111,7 @@ The Foundation Endpoint that is shown on the Overview panel Deployment Details s
 ```sh
 curl -X PATCH `https://api.{region}.databases.cloud.ibm.com/v5/ibm/deployments/{id}/users/admin` \
 -H `Authorization: Bearer <>` \
--H `Content-Type: application/json` \ 
+-H `Content-Type: application/json` \
 -d `{"password":"newrootpasswordsupersecure21"}` \
 ```
 {: pre}
@@ -124,7 +126,7 @@ The `ibm` and the `ibm-replication` accounts are the only superusers on your dep
 
 You can bypass creating users through {{site.data.keyword.cloud_notm}} entirely, and create users directly in MySQL with `mysql`. This allows you to make use of MySQL's native [role and user management](https://dev.mysql.com/doc/refman/8.4/en/privileges-provided.html). Users/roles created in `mysql` must have all of their privileges set manually, as well as privileges to the objects that they create.
 
-Users that are created directly in MySQL do not appear in _Service credentials_, but you can [add them](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connection-strings#adding-users-to-_service-credentials_) if you choose. 
+Users that are created directly in MySQL do not appear in _Service credentials_, but you can [add them](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connection-strings#adding-users-to-_service-credentials_) if you choose.
 
 Note that these users are not integrated with IAM controls, even if added to _Service Credentials_.
 {: .tip}
@@ -132,7 +134,7 @@ Note that these users are not integrated with IAM controls, even if added to _Se
 ## User access to tables
 {: #user-management-user-tables}
 
-While you cannot delete `mysql database`, users can drop tables, including the `mysql.users` table that contains internal users. Clients shouldn't delete any table belonging to `mysql database` as this action can result in a broken formation, which can only be resolved with a Point-in-time recovery (PITR).  
+While you cannot delete `mysql database`, users can drop tables, including the `mysql.users` table that contains internal users. Clients shouldn't delete any table belonging to `mysql database` as this action can result in a broken formation, which can only be resolved with a Point-in-time recovery (PITR).
 
 {{site.data.keyword.cloud_notm}} does not alert on formation breaking because of a system table dropped by a client.
 {: .important}
@@ -140,7 +142,7 @@ While you cannot delete `mysql database`, users can drop tables, including the `
 ## More users and connection strings
 {: #creating_users}
 
-Access to your {{site.data.keyword.databases-for-mysql-gen2}} deployment is not limited to the admin user. You can create users by using the _Service credentials_ panel, the {{site.data.keyword.IBM_notm}} CLI, or through the {{site.data.keyword.IBM_notm}} {{site.data.keyword.databases-for}} API. 
+Access to your {{site.data.keyword.databases-for-mysql}} deployment is not limited to the admin user. You can create users by using the _Service credentials_ panel, the {{site.data.keyword.IBM_notm}} CLI, or through the {{site.data.keyword.IBM_notm}} {{site.data.keyword.databases-for}} API.
 
 All users on your deployment can use the connection strings, including connection strings for either public or private endpoints.
 
@@ -153,7 +155,7 @@ When you create a user, it is assigned certain database roles and privileges. Th
 1. Navigate to the service dashboard for your service.
 2. Click _Service credentials_ to open the _Service credentials_ panel.
 3. Click **New credential**.
-4. Choose a descriptive name for your new credential. 
+4. Choose a descriptive name for your new credential.
 5. (Optional) Specify whether the new credentials should use a public or private endpoint. Use either `{ "service-endpoints": "public" }` / `{ "service-endpoints": "private" }` in the _Add inline configuration parameters_ field to generate connection strings using the specified endpoint. Use of the endpoint is not enforced. It just controls which hostnames are in the connection strings. Public endpoints are generated by default.
 6. Click **Add** to provision the new credentials. A username and password, and an associated database user in the MySQL database are auto-generated.
 

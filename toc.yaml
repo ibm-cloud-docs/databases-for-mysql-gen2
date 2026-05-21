@@ -35,7 +35,6 @@ toc:
       topics:
       - howto-provisioning.md
       - howto-user-management.md
-      - howto-upgrade.md
       - howto-getting-connection-strings.md
       - include: ../cloud-databases-gen2/ha-dr.md
       - topicgroup:
@@ -48,7 +47,6 @@ toc:
           label: Managing resources
           topics:
           - howto-resources-scaling.md
-          - howto-autoscale-mysql.md
           - howto-managing-connections.md
       - topicgroup:
           label: Configuring MySQL
@@ -56,8 +54,6 @@ toc:
           - howto-changing-config.md
       - include: ../cloud-databases-gen2/howto-manage-backups.md
       - include: ../cloud-databases-gen2/backup-restore.md
-      - howto-pitr.md
-      - howto-read-replica.md
       - howto-migration.md
       - topicgroup:
           label: Observability

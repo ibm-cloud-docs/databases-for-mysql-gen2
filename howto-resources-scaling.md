@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2021, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql, databases, scaling, memory, disk IOPS, CPU, mysql dedicated cores, sclaing mysql
+keywords: mysql, databases, scaling, memory, disk IOPS, CPU, mysql dedicated cores, sclaing mysql, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -15,33 +15,41 @@ subcollection: databases-for-mysql-gen2
 # Scaling disk, RAM, and CPU
 {: #resources-scaling}
 
-The Shared Compute hosting model supports more fine-grained resource allocations that are not shown in the UI to maintain clarity. For more information, see [Hosting models](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=cli).
-{: ui}
+[Gen 2]{: tag-purple}
 
-To scale an [Isolated Compute](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models&interface=cli#hosting-models-iso-compute-cli) host flavor instance, set the relevant `hostflavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
+Gen 2 supports **Isolated Compute only** at launch. To scale an Isolated Compute instance, set the relevant `hostflavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
+
+**Gen 2 Scaling Limits:**
+- Maximum CPU: 30 vCPU at GA
+- Maximum RAM: 240 GB at GA
+- Maximum Disk: 9 TB at GA (scaling to 32 TB in Q3 hardening)
+- Disk can be scaled up but not down
 {: cli}
 
-To scale a [Shared Compute](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=cli#hosting-models-iso-compute-cli) host flavor instance between the minimum CPU value and 2 CPU, set the CPU to 0 and scale the RAM allocation using the following commands in this documentation. The CPU value will scale as a ratio of 1 CPU : 8 GB RAM, up to 2 CPU. To scale above 2 CPU, set the CPU and RAM allocations to your target allocation. For both, make sure to include the relevant `hostflavor` parameter of "multitenant".
-{: cli}
+Gen 2 supports **Isolated Compute only** at launch. To scale an Isolated Compute instance, set the relevant `host_flavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
 
-To scale an [Isolated Compute](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=api#hosting-models-iso-compute-api) host flavor instance, set the relevant `host_flavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
+**Gen 2 Scaling Limits:**
+- Maximum CPU: 30 vCPU at GA
+- Maximum RAM: 240 GB at GA
+- Maximum Disk: 9 TB at GA (scaling to 32 TB in Q3 hardening)
+- Disk can be scaled up but not down
 {: api}
 
-To scale a [Shared Compute](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=api#hosting-models-shared-compute-api) host flavor instance between the minimum CPU value and 2 CPU, set the CPU to 0 and scale the RAM allocation using the following commands. The CPU value will scale as a ratio of 1 CPU : 8 GB RAM, up to 2 CPU. To scale above 2 CPU, set the CPU and RAM allocations to your target allocation. For both, make sure to include the relevant `host_flavor` parameter of "multitenant".
-{: api}
+Gen 2 supports **Isolated Compute only** at launch. To scale an Isolated Compute instance, set the relevant `host_flavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
 
-To scale an [Isolated Compute](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=terraform#hosting-models-shared-compute-terraform) host flavor instance, set the relevant `host_flavor` parameter to the Isolated Compute size you're targeting, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select CPU and RAM.
+**Gen 2 Scaling Limits:**
+- Maximum CPU: 30 vCPU at GA
+- Maximum RAM: 240 GB at GA
+- Maximum Disk: 9 TB at GA (scaling to 32 TB in Q3 hardening)
+- Disk can be scaled up but not down
 {: terraform}
 
-To scale a [Shared Compute](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=terraform#hosting-models-iso-compute-terraform) host flavor instance between the minimum CPU value and 2 CPU, set the CPU to 0 and scale the RAM allocation using the following commands. The CPU value will scale as a ratio of 1 CPU : 8 GB RAM, up to 2 CPU. To scale above 2 CPU, set the CPU and RAM allocations to your target allocation. For both, make sure to include the relevant `host_flavor` parameter of "multitenant".
-{: terraform}
-
-You can manually adjust the amount of resources available to your {{site.data.keyword.databases-for-mysql-gen2_full}} deployment to suit your workload and the size of your data.
+You can manually adjust the amount of resources available to your {{site.data.keyword.databases-for-mysql_full}} deployment to suit your workload and the size of your data.
 
 ## Resource breakdown
 {: #resources-breakdown}
 
-{{site.data.keyword.databases-for-mysql-gen2}} deployments have three data members in a cluster, and resources are allocated to members equally. For example, the minimum storage of a MySQL deployment is 20,480 MB, which equates to an initial size of 6,826 MB per member. The minimum RAM for a MySQL deployment is 3072 MB, which equates to an initial allocation of 1024 MB per member.
+{{site.data.keyword.databases-for-mysql}} Gen 2 deployments have a 2-node cluster, and resources are allocated to members equally. For example, if you allocate 20 GB of disk, each member gets 20 GB of disk. The total resources allocated to your deployment is 40 GB of disk (20 GB × 2 members).
 
 Billing is based on the _total_ amount of resources that are allocated to the service.
 {: tip}
@@ -49,9 +57,13 @@ Billing is based on the _total_ amount of resources that are allocated to the se
 ### Disk
 {: #resources-disk}
 
-Your disk allocation must be enough to store all of your data. Your data is replicated to all data members so the total amount of disk that you use is at least three times the size of your data set.
+Your disk allocation must be enough to store all of your data. Gen 2 uses Regional File Storage (RFS) with storage-based replication, so both nodes access the same storage. The total amount of disk you allocate is shared across the 2-node cluster.
 
 Disk allocation also affects the performance of the disk, with larger disks having higher performance. Baseline input/output operations per second (IOPS) performance for disk is 10 IOPS for each GB. Scale disk to increase the IOPS that your deployment can handle.
+
+**Gen 2 Disk Limits:**
+- Maximum: 9 TB at GA (scaling to 32 TB in Q3 hardening)
+- Disk can be scaled up but not down
 
 You cannot scale down storage.
 {: tip}
@@ -59,14 +71,19 @@ You cannot scale down storage.
 ### RAM
 {: #resources-ram}
 
-If you find that your deployment is suffering from performance issues due to a lack of memory, you can scale the amount of RAM allocated to it. Your disk allocation must be sufficient to store all your data, which is replicated to all data members, so the total amount of disk you use is at least three times the size of your data set. The amount of memory allocated to the database's shared buffer pool is not adjusted automatically when you scale your deployment. It's recommended to be set to 25% of the deployment's total memory.
+If you find that your deployment is suffering from performance issues due to a lack of memory, you can scale the amount of RAM allocated to it. Gen 2 supports up to 240 GB RAM per member at GA. The amount of memory allocated to the database's shared buffer pool is not adjusted automatically when you scale your deployment. It's recommended to be set to 25% of the deployment's total memory.
+
+**Gen 2 RAM Limits:**
+- Maximum: 240 GB per member at GA (30 vCPU × 8 GB RAM per vCPU)
+- RAM auto-scaling will be available in Q3 hardening
 
 ### vCPU
 {: #resources-cores}
 
-If you find that your database workloads need more CPU resources, you can scale the amount of CPU allocated to your service. If your database instance is on an Isolated Compute hosting model, select the CPU x RAM configuration that matches your resource needs. If your database instance is on a Shared Compute or Dedicated Core hosting model, select the CPU allocation that you want for your database.
+If you find that your database workloads need more CPU resources, you can scale the amount of CPU allocated to your service. Gen 2 supports Isolated Compute only. Select the CPU x RAM configuration that matches your resource needs from the available host flavors.
 
-Old style dedicated core instances are deprecated, and will be removed in May 2025. Learn more about the new hosting models [here]([url](https://cloud.ibm.com/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models)).
+**Gen 2 CPU Limits:**
+- Maximum: 30 vCPU per member at GA
 
 ## Scaling considerations
 {: #resources-scaling-consider}
@@ -96,27 +113,13 @@ In the **Resources** tab, you find the **Hosting model** and **Resource allocati
 
 In the **Resources** tab of the UI, select *Configure* on the **Resource allocations** tile. This opens up a panel where you can adjust your resources.
 
-If your database is on the Isolated Compute hosting model, you will then see a "Host sizes" table, where you can select the vCPU and RAM configuration per member for your database.
+Gen 2 uses the Isolated Compute hosting model. You will see a "Host sizes" table, where you can select the vCPU and RAM configuration per member for your database. Available configurations range from 4 CPU x 16 GB RAM up to 30 CPU x 240 GB RAM.
 
-If you are on the Shared Compute hosting model, you see the Small configuration, providing 0.5 vCPU and 4 GB RAM per member; the Small Custom option; or Custom configuration. Small Custom indicates that your database was scaled with the CLI, API, or Terraform, which provides more fine-grained resource scaling, along with an option for automatically allocated vCPU pro-rated against RAM value. On the UI, you can scale to Small and Custom, but are not able to scale to the fine-grained values provided by the CLI, API, or Terraform. With Custom, drag the slider or adjust the value in the input box to select your database's per member vCPU and RAM values.
+The "Disk (GB/member)" slider is your disk selection per member. Drag the slider or adjust the number in the input box to change the number of GB disk. Note that Disk is tied to IOPS at 1 GB = 10 IOPS. Maximum disk is 9 TB at GA (scaling to 32 TB in Q3 hardening).
 
-The "Disk (GB/member)" slider is your disk selection per member. Drag the slider or adjust the number in the input box to change the number of GB disk. Note that Disk is tied to IOPS at 1 GB = 10 IOPS.
+Members is the number of members of your database. For MySQL Gen 2, members are set to 2.
 
-Members is the number of members of your database. For MySQL, members are set to 3.
-
-Review your total estimated cost in the calculator on the bottom. Note that if you have grandfathered costs, also known as legacy pricing structure, scaling your database instance removes some or all of your legacy pricing. For more information on grandfathering and when it ends, see the [Hosting models transition timeline](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-model-transition&interface=ui#hosting-model-transition-timeline-may25).
-
-Click *Apply changes* to trigger this scaling operation.
-
-## Switch to and between hosting models in the UI
-{: #resources-switching-ui}
-{: ui}
-
-In the **Resources** tab of the UI, select *Configure* on the **Hosting model** tile. This opens up a panel where you can adjust your hosting model selection.
-
-The first option available is **Select your hosting model**. Here, you can switch to a different hosting model.
-
-Below, you will see the options to also adjust the resources of the new hosting model you've selected. Follow the instructions in the previous section, "Scaling in the UI" to adjust your resources.
+Review your total estimated cost in the calculator on the bottom.
 
 Click *Apply changes* to trigger this scaling operation.
 
@@ -390,7 +393,7 @@ output "ICD MySQL database connection string" {
 ```
 {: codeblock}
 
-Alternatively, you can use pre-built, open-source, and enterprise-ready [Terraform IBM Modules (TIM)](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-about-tim) for [{{site.data.keyword.databases-for-mysql-gen2}}](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external} that support the auto-scaling feature.
+Alternatively, you can use pre-built, open-source, and enterprise-ready [Terraform IBM Modules (TIM)](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-about-tim) for [{{site.data.keyword.databases-for-mysql}}](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external} that support the auto-scaling feature.
 
 ## Switching to and scaling hosting models in Terraform
 {: #resources-switching-terraform}
@@ -398,7 +401,7 @@ Alternatively, you can use pre-built, open-source, and enterprise-ready [Terrafo
 
 Select the [hosting model](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models) you want your database to be scaled to. You can change this later.
 
-To scale your {{site.data.keyword.databases-for-mysql-gen2}} instance to the Shared Compute hosting flavor, set the `"host_flavor"` parameter to `multitenant`. This works if you want to scale to the Shared Compute hosting flavor, or if you want to keep the host flavor and scale your resources. To implement your change, run `terraform apply`.
+To scale your {{site.data.keyword.databases-for-mysql}} instance to the Shared Compute hosting flavor, set the `"host_flavor"` parameter to `multitenant`. This works if you want to scale to the Shared Compute hosting flavor, or if you want to keep the host flavor and scale your resources. To implement your change, run `terraform apply`.
 
 See the following example:
 
@@ -444,7 +447,7 @@ output "ICD MySQL database connection string" {
 ```
 {: codeblock}
 
-Scale your {{site.data.keyword.databases-for-mysql-gen2}} instance to Isolated Compute with the same `"host_flavor"` parameter, set to the desired Isolated size. This command works to scale your database instance to a different Isolated Compute size, as well as to move from another host flavor to the Isolated Compute host flavor. Available hosting sizes and their `host_flavor value` parameters are listed in [Table 1](#host-flavor-parameter-terraform). For example, `{"host_flavor": "b3c.4x16.encrypted"}`. Note that because the host flavor selection includes CPU and RAM sizes (`b3c.4x16.encrypted` is 4 CPU and 16 RAM), this request does not accept both an Isolated size selection and separate CPU and RAM allocation selections.
+Scale your {{site.data.keyword.databases-for-mysql}} instance to Isolated Compute with the same `"host_flavor"` parameter, set to the desired Isolated size. This command works to scale your database instance to a different Isolated Compute size, as well as to move from another host flavor to the Isolated Compute host flavor. Available hosting sizes and their `host_flavor value` parameters are listed in [Table 1](#host-flavor-parameter-terraform). For example, `{"host_flavor": "b3c.4x16.encrypted"}`. Note that because the host flavor selection includes CPU and RAM sizes (`b3c.4x16.encrypted` is 4 CPU and 16 RAM), this request does not accept both an Isolated size selection and separate CPU and RAM allocation selections.
 
 To implement your change, run `terraform apply`.
 

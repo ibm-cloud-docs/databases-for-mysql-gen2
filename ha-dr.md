@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
   years: 2026
-lastupdated: "2026-04-01"
+lastupdated: "2026-05-21"
 
-keywords: HA, DR, high availability, disaster recovery, disaster recovery plan, disaster event, mysql
+keywords: HA, DR, high availability, disaster recovery, disaster recovery plan, disaster event, mysql, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -12,42 +12,64 @@ subcollection: databases-for-mysql-gen2
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Understanding high availability and disaster recovery for {{site.data.keyword.databases-for-mysql-gen2}}
+# Understanding high availability and disaster recovery for {{site.data.keyword.databases-for-mysql}}
 {: #mysql-ha-dr}
+
+[Gen 2]{: tag-purple}
 
 [High availability](#x2284708){: term} (HA) is the ability for a service to remain operational and accessible in the presence of unexpected failures. [Disaster recovery](#x2113280){: term} is the process of recovering the service instance to a working state.
 {: shortdesc}
 
-{{site.data.keyword.databases-for-mysql-gen2}} is a regional service that fulfills the defined [Service Level Objectives (SLO)](/docs/resiliency?topic=resiliency-slo) with the Standard plan. For more information, see the [Service Level Agreement (SLA)](https://www.ibm.com/support/customer/csol/terms/?id=i126-9268&lc=en). For more information about the available {{site.data.keyword.cloud_notm}} regions and data centers for {{site.data.keyword.databases-for-mysql-gen2}}, see [Service and infrastructure availability by location](/docs/overview?topic=overview-services_region).
+{{site.data.keyword.databases-for-mysql}} is a regional service that fulfills the defined [Service Level Objectives (SLO)](/docs/resiliency?topic=resiliency-slo) with the Standard plan. For more information, see the [Service Level Agreement (SLA)](https://www.ibm.com/support/customer/csol/terms/?id=i126-9268&lc=en). For more information about the available {{site.data.keyword.cloud_notm}} regions and data centers for {{site.data.keyword.databases-for-mysql}}, see [Service and infrastructure availability by location](/docs/overview?topic=overview-services_region).
 
 ## High availability architecture
 {: #ha-architecture}
 
 ![Architecture](/images/MySQL_high_availability.svg){: caption="MySQL high availability architecture" caption-side="bottom"}
 
-{{site.data.keyword.databases-for-mysql-gen2}} provides replication, failover, and high-availability features to protect your databases and data from infrastructure maintenance, upgrades, and some failures. Deployments contain a cluster with three data members – a leader and two replicas. Replicas are kept up to date using asynchronous replication. All members contain a copy of your data by using Orchestrator to handle failovers. The leader and replicas are always in different zones of a multi-zone region. If the leader becomes unreachable or encounters a critical issue, the service first attempts to auto-recover the existing leader. If the leader cannot be recovered, a failover is performed and a replica is promoted to leader, a new replica rejoins the cluster as a replica, and your cluster continues to operate normally. If the replica fails, a new replica is created. If a zone failure results in a member failing, the new replica is created in a surviving zone.
+{{site.data.keyword.databases-for-mysql}} Gen 2 provides a cost-efficient, highly available topology using Regional File Storage (RFS) for storage-based replication. Deployments contain a 2-node cluster with one primary (read/write) and one replica. Both nodes share a single Regional File Storage solution that provides data resiliency across all availability zones.
+
+### Storage-Based Replication
+
+Gen 2 leverages Regional File Storage for synchronous storage-based replication, offering significant advantages:
+
+**Data Consistency & Durability:**
+- **Synchronous Replication:** All writes are synchronously replicated at the storage layer, ensuring zero data loss (RPO = 0)
+- **No Replication Lag:** Eliminates MySQL-level replication lag issues, providing consistent reads across all nodes
+- **Guaranteed Consistency:** Storage-level replication ensures both nodes always have identical data states
+
+**Operational Simplicity:**
+- **No Replication Configuration:** Eliminates complex MySQL replication setup (no binlog management, GTID configuration, or replication user management)
+- **Automatic Conflict Resolution:** Storage layer handles all synchronization, removing MySQL replication conflicts
+- **Simplified Failover:** Faster and more reliable failover without replication position tracking or GTID coordination
+
+**Performance & Reliability:**
+- **Lower Overhead:** Storage-based replication has minimal impact on MySQL performance compared to binlog-based replication
+- **Network Efficiency:** Replication occurs at storage layer within the same region, reducing network latency
+- **Crash Recovery:** Both nodes can recover from the same consistent storage state, simplifying disaster recovery
+
+### Automatic Failover
+
+A dedicated failover mechanism monitors cluster health and performs automatic failover when the primary becomes unavailable. When the primary fails, the failover mechanism detects the failure, promotes the replica to primary, and reconfigures the cluster—all with minimal downtime and no manual intervention.
+
+The primary and replica are always in different zones of a multi-zone region. If the primary becomes unreachable or encounters a critical issue, the service first attempts to auto-recover the existing primary. If the primary cannot be recovered, a failover is performed and the replica is promoted to primary, a new replica rejoins the cluster, and your cluster continues to operate normally. If a zone failure results in a member failing, the new replica is created in a surviving zone.
 
 You can extend high availability further by provisioning [read-only replicas](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-read-replicas) for cross-regional failover or read offloading.
 
-Review the MySQL documentation on [replication techniques](https://dev.mysql.com/doc/mysql-replication-excerpt/5.7/en/replication.html){: .external} to understand the constraints and tradeoffs associated with asynchronous replication.
-
-Although version 8.0 utilizes semi-synchronous replication and version 8.4 introduces asynchronous technology, the core high availability and disaster recovery behaviors remain fundamentally unchanged.
-{: note}
-
 Workloads that programmatically access the cluster must follow the client availability retry logic to maintain availability.
 
-{{site.data.keyword.databases-for-mysql-gen2}} sometimes performs controlled switchovers under normal operation. These switchovers are generally no-data-loss events that result in the reset of active connections. There is a period of up to 15 seconds where reconnections can fail. At times, unplanned failovers might occur due to unforeseen events in the operating environment. These can take up to 45 seconds, but generally less than 30 seconds. Service maintenance, for example, triggers a controlled failover.
+{{site.data.keyword.databases-for-mysql}} sometimes performs controlled switchovers under normal operation. These switchovers are generally no-data-loss events that result in the reset of active connections. There is a period of up to 15 seconds where reconnections can fail. At times, unplanned failovers might occur due to unforeseen events in the operating environment. These can take up to 45 seconds, but generally less than 30 seconds. Service maintenance, for example, triggers a controlled failover.
 
 
 ### High availability features
 {: #ha-features}
 
-{{site.data.keyword.databases-for-mysql-gen2}} supports the following high availability features:
+{{site.data.keyword.databases-for-mysql}} Gen 2 supports the following high availability features:
 
 | Feature | Description | Consideration |
 | -------------- | -------------- | -------------- |
-| Failover behavior | Standard on all clusters and resilient against a zone or single member failure. If the leader becomes unhealthy or unreachable, the service attempts to auto-recover it. If the leader cannot be recovered, a failover is performed and a replica is promoted to restore write availability. | To minimize the replica lag between the leader and replicas, follow [best practices](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-best-practices&interface=cli), such as retry logic, connection management, and implement primary keys. |
-| Member count | A three-member deployment. A three-member cluster can recover from a single failure of an instance or zone, with data lag possible during the recovery process. A replica is promoted to leader in the event of a failure, and the cluster continues to operate normally. | |
+| Failover behavior | Standard on all clusters and resilient against a zone or single member failure. If the primary becomes unhealthy or unreachable, the service attempts to auto-recover it. If the primary cannot be recovered, a failover is performed and the replica is promoted to restore write availability. Storage-based replication ensures zero data loss (RPO = 0) during failover. | Implement retry logic and connection management in your applications to handle brief connection interruptions during failover. |
+| Member count | A 2-node deployment with Regional File Storage. The cluster can recover from a single failure of an instance or zone with zero data loss due to synchronous storage-based replication. The replica is promoted to primary in the event of a failure, and the cluster continues to operate normally. | |
 | Read-only replica | Read-only replicas can provide local access in remote regions, improving availability to potential network latency or connectivity issues. | All Write requests must be directed exclusively to the read-write cluster associated with the read-replica. |
 {: caption="High availability features" caption-side="top"}
 
@@ -61,7 +83,7 @@ The general strategy for disaster recovery is to create a new database, such as 
 ### Disaster recovery features
 {: #dr-features}
 
-{{site.data.keyword.databases-for-mysql-gen2}} supports the following disaster recovery features:
+{{site.data.keyword.databases-for-mysql}} supports the following disaster recovery features:
 
 | Feature | Description | Consideration |
 | -------------- | -------------- | -------------- |
@@ -88,7 +110,7 @@ The disaster recovery steps must be practiced regularly. As you build your plan,
 
 Applications that communicate over networks and cloud services are subject to transient connection failures. You want to design your applications to retry connections when errors are caused by a temporary loss in connectivity to your deployment or to {{site.data.keyword.cloud_notm}}.
 
-Because {{site.data.keyword.databases-for-mysql-gen2}} is a managed service, regular updates and database maintenance occur as part of normal operations. If both replicas are lost, writes to the leader hang, due to the semisynchronous replication process not having a follower. For more information, see [semisynchronous replication](https://dev.mysql.com/doc/mysql-replication-excerpt/8.0/en/replication-semisync.html). This scenario occasionally causes short intervals where your database is unavailable. It can also cause the database to trigger a graceful failover, retry, and reconnect. It takes a short time for the database to determine which member is a replica and which is the leader, so you might also see a short connection interruption. Failovers generally take less than 30 seconds. To minimize interruptions, updates are applied to replicas first, and the leader last.
+Because {{site.data.keyword.databases-for-mysql}} is a managed service, regular updates and database maintenance occur as part of normal operations. Gen 2's storage-based replication architecture ensures that both nodes always have access to the same consistent data through Regional File Storage. This scenario occasionally causes short intervals where your database is unavailable during maintenance or failover events. It can also cause the database to trigger a graceful failover, retry, and reconnect. It takes a short time for the database to determine which member is the replica and which is the primary, so you might also see a short connection interruption. Failovers generally take less than 30 seconds. To minimize interruptions, updates are applied to the replica first, and the primary last.
 
 Your applications must be designed to handle temporary interruptions to the database, implement error handling for failed database commands, and implement retry logic to recover from a temporary interruption.
 
@@ -97,7 +119,7 @@ Several minutes of database unavailability or connection interruption are not ex
 ## Connection limits
 {: #connection-limits-ha}
 
-{{site.data.keyword.databases-for-mysql-gen2}} sets the maximum number of connections to your MySQL database to **200**. Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database. After the connection limit is reached, any attempts at starting a new connection result in an error. To prevent overwhelming your deployment with connections, use connection pooling, or scale your deployment and increase its connection limit. For more information, see [Managing MySQL connections](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections).
+{{site.data.keyword.databases-for-mysql}} sets the maximum number of connections to your MySQL database to **200**. Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database. After the connection limit is reached, any attempts at starting a new connection result in an error. To prevent overwhelming your deployment with connections, use connection pooling, or scale your deployment and increase its connection limit. For more information, see [Managing MySQL connections](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections).
 
 ## Your responsibilities for HA and DR
 {: #feature-responsibilities}
@@ -119,7 +141,7 @@ It is not possible to copy backups off the {{site.data.keyword.cloud_notm}}, so 
 The following checklist associated with each feature can help you create and practice your plan.
 
 - Backup restore
-   - Verify that backups are available at the desired frequency to meet RPO requirements. For more information, see [Managing Cloud Databases backups](/docs/cloud-databases?topic=cloud-databases-dashboard-backups). Consider a script using [IBM Cloud® Code Engine - Working with the Periodic timer (cron) event producer](/docs/codeengine?topic=codeengine-subscribe-cron) to create additional on-demand backups to improve RPO if the criticality and size of the database allow. However, given MySQL's PITR capabilities, carefully evaluate the need for additional backups.
+   - Verify that backups are available at the desired frequency to meet RPO requirements. For more information, see [Managing Cloud Databases backups](/docs/cloud-databases?topic=cloud-databases-dashboard-backups). Consider a script using [IBM CloudÂ® Code Engine - Working with the Periodic timer (cron) event producer](/docs/codeengine?topic=codeengine-subscribe-cron) to create additional on-demand backups to improve RPO if the criticality and size of the database allow. However, given MySQL's PITR capabilities, carefully evaluate the need for additional backups.
    - There are some restrictions on database restore regions - verify that your restore goals can be achieved by reading [managing Cloud Databases backups](/docs/cloud-databases?topic=cloud-databases-dashboard-backups).
    - Verify that the retention period of the backups meet your requirements.
    - Schedule test restores regularly to verify that the actual restored times meet the defined RTO. Remember that database size significantly impacts restore time. Consider strategies to minimize restore times, such as breaking down large databases into smaller, more manageable units and purging unused data.
@@ -131,7 +153,7 @@ The following checklist associated with each feature can help you create and pra
    - Verify that a read replica exists in the recovery region.
    - Practice the promotion process - create a temporary read replica in the desired region. The temporary replica can be promoted to read/write and some testing performed with little impact to production.
 
-To find out more about responsibility ownership between the customer and {{site.data.keyword.cloud_notm}} for using {{site.data.keyword.databases-for-mysql-gen2}}, see [Shared responsibilities for {{site.data.keyword.databases-for}}](/docs/cloud-databases?topic=cloud-databases-responsibilities-cloud-databases).
+To find out more about responsibility ownership between the customer and {{site.data.keyword.cloud_notm}} for using {{site.data.keyword.databases-for-mysql}}, see [Shared responsibilities for {{site.data.keyword.databases-for}}](/docs/cloud-databases?topic=cloud-databases-responsibilities-cloud-databases).
 
 ## Stay informed: {{site.data.keyword.IBM_notm}} notifications
 {: #ibm-service-notifications}

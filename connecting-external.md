@@ -1,9 +1,9 @@
 ---
 copyright:
-  years: 2021, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql drivers, python, java, javascript, certificate
+keywords: mysql drivers, python, java, javascript, certificate, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,7 +14,9 @@ subcollection: databases-for-mysql-gen2
 # Connecting an external application
 {: #external-app}
 
-Your applications and drivers use connection strings to make a connection to {{site.data.keyword.databases-for-mysql-gen2_full}}. The service provides connection strings specifically for drivers and applications. Connection strings are displayed in the *Endpoints* panel of your deployment's *Overview*, and can also be retrieved from the [{{site.data.keyword.databases-for}}s CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-connections) and the [{{site.data.keyword.databases-for}} API](https://{DomainName}/apidocs/cloud-databases-api#discover-connection-information-for-a-deployment-f-e81026).
+[Gen 2]{: tag-purple}
+
+Your applications and drivers use connection strings to make a connection to {{site.data.keyword.databases-for-mysql_full}}. The service provides connection strings specifically for drivers and applications. Connection strings are displayed in the *Endpoints* panel of your deployment's *Overview*, and can also be retrieved from the [{{site.data.keyword.databases-for}}s CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-connections) and the [{{site.data.keyword.databases-for}} API](https://{DomainName}/apidocs/cloud-databases-api#discover-connection-information-for-a-deployment-f-e81026).
 
 The connection strings can be used by any of the credentials you created on your deployment. While you can use the admin user for all your connections and applications, it might be better to create users specifically for your applications to connect with. Documentation on generating credentials is on the [Creating Users and Getting Connection Strings](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connection-strings) page.
 
@@ -35,7 +37,7 @@ All the information a driver needs to make a connection to your deployment is in
 | `Composed`|`0...` | A URI combining Scheme, Authentication, Host, and Path. |
 | `Certificate`|`Name` | The allocated name for the service proprietary certificate for database deployment. |
 | `Certificate` | Base64 | A base64 encoded version of the certificate. |
-{: caption="mysql/URI connection information" caption-side="top"} 
+{: caption="mysql/URI connection information" caption-side="top"}
 
 * `0...` indicates one or more of these entries in an array.
 
@@ -60,7 +62,7 @@ import java.util.Properties;
 
 public class App {
  private final String STATUS_COMMAND = "SHOW VARIABLES LIKE '%version%';";
- 
+
  private Connection connect = null;
  private Statement stmt = null;
  private ResultSet rs = null;
@@ -159,13 +161,13 @@ connection = pymysql.connect(
   ssl_ca="/home/user/mysql_ca.crt",
   ssl_verify_cert=True,
   ssl_verify_identity=True)
-  
+
 cursor = connection.cursor()
 cursor.execute("SHOW STATUS;")
 
 for row in cursor:
     print(row[0] + "\t" + row[1])
-    
+
 cursor.close()
 connection.close()
 ```
@@ -174,15 +176,15 @@ connection.close()
 ## Driver TLS and service proprietary certificate support
 {: #connecting-cert-support}
 
-All connections to {{site.data.keyword.databases-for-mysql-gen2}} are TLS 1.2 enabled, so the driver you use to connect needs to be able to support encryption. Your deployment also comes with a service proprietary certificate so the driver can verify the server upon connection.
+All connections to {{site.data.keyword.databases-for-mysql}} are TLS 1.2 enabled, so the driver you use to connect needs to be able to support encryption. Your deployment also comes with a service proprietary certificate so the driver can verify the server upon connection.
 
 For more information, see [{{site.data.keyword.databases-for}} Certificates FAQ](/docs/databases-for-mongodb?topic=databases-for-mongodb-faq-cert){: external}.
 
 ### Using the service proprietary certificate
 {: #connecting-using-cert}
 
-1. Copy the certificate information from the *Endpoints* panel or the Base64 field of the connection information. 
-2. If needed, decode the Base64 string into text. 
+1. Copy the certificate information from the *Endpoints* panel or the Base64 field of the connection information.
+2. If needed, decode the Base64 string into text.
 3. Save the certificate to a file. (You can use the name that is provided or your own file name).
 4. Provide the path to the certificate to the driver or client.
 

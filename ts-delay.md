@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2021, 2023
-lastupdated: "2023-05-17"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: troubleshooting MySQL, delay mysql, mysql configurable variables
+keywords: troubleshooting MySQL, delay mysql, mysql configurable variables, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,12 +14,14 @@ content-type: troubleshoot
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Why is there a delay when restoring my {{site.data.keyword.databases-for-mysql-gen2_full}} deployment?
+# Why is there a delay when restoring my {{site.data.keyword.databases-for-mysql_full}} deployment?
 {: #troubleshoot-delay}
 {: troubleshoot}
 {: support}
 
-You're experiencing a long delay when restoring your {{site.data.keyword.databases-for-mysql-gen2_full}} deployment.
+[Gen 2]{: tag-purple}
+
+You're experiencing a long delay when restoring your {{site.data.keyword.databases-for-mysql_full}} deployment.
 {: tsSymptoms}
 
 Restoring a backup can be delayed if your configurable variables aren't optimized, or if you aren't using the appropriate tools.

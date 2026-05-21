@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2024, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: best practices
+keywords: best practices, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -12,8 +12,10 @@ subcollection: databases-for-mysql-gen2
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Best practices for {{site.data.keyword.databases-for-mysql-gen2}}
+# Best practices for {{site.data.keyword.databases-for-mysql}}
 {: #best-practices}
+
+[Gen 2]{: tag-purple}
 
 | Best practice | Notes |
 | --- | --- |

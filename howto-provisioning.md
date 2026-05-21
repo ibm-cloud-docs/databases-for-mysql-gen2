@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2023, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: provision cloud databases, terraform, provisioning parameters, cli, resource controller api, provision mysql
+keywords: provision cloud databases, terraform, provisioning parameters, cli, resource controller api, provision mysql, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -15,7 +15,9 @@ subcollection: databases-for-mysql-gen2
 # Provisioning
 {: #provisioning}
 
-Provision a {{site.data.keyword.databases-for-mysql-gen2_full}} deployment through the [catalog](https://cloud.ibm.com/databases/databases-for-mysql-gen2/create){: external}, the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference){: external}, the [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api){: external}, through [Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}, or through pre-built, open-source, and enterprise-ready [Terraform IBM Modules (TIM)](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external}.
+[Gen 2]{: tag-purple}
+
+Provision a {{site.data.keyword.databases-for-mysql_full}} deployment through the [catalog](https://cloud.ibm.com/databases/databases-for-mysql-gen2/create){: external}, the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference){: external}, the [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api){: external}, through [Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}, or through pre-built, open-source, and enterprise-ready [Terraform IBM Modules (TIM)](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external}.
 
 ## Provisioning through the {{site.data.keyword.cloud_notm}} console
 {: #catalog}
@@ -35,32 +37,29 @@ Deploy from the console by specifying the following parameters.
 {: #hosting_model}
 {: ui}
 
-- **Isolated:** Secure single-tenant offering for complex, highly-performant enterprise workloads.
-- **Shared:** Flexible multi-tenant offering for dynamic, fine-tuned, and decoupled capacity selections.
-For more information, see [Hosting models](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models).
+Gen 2 supports **Isolated Compute only** at launch. Isolated Compute provides a secure single-tenant offering with dedicated resources and hypervisor-level isolation for complex, highly-performant enterprise workloads.
+
+Shared Compute is not available for Gen 2 at launch.
+{: note}
 
 ### Resource allocation
 {: #resource_allocation}
 {: ui}
 
-Fine tune your resource allocation. The available options differ based on your selected hosting model.
+Fine tune your resource allocation for your Isolated Compute deployment.
 
-- **Isolated:** Use the table to choose the machine size for each member of your deployment, and specify the disk size.
-- **Shared:** By default, the smallest possible resource allocation is selected. This is ideal for small applications or testing. For larger allocations, select the *Custom* tile, which allows flexible resource configuration with 2+ cores.
+- **Isolated Compute:** Use the table to choose the machine size for each member of your deployment (up to 30 vCPU and 240GB RAM at GA), and specify the disk size (up to 9TB at GA, scaling to 32TB in Q3 hardening).
 
-The Shared Compute hosting model supports more fine-grained resource allocations that are not shown in the UI to maintain clarity. For more information, see [Hosting models](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models).
-{: note}
-
-Specify the disk size depending on your requirements. It can be increased after provisioning but cannot be decreased to prevent data loss.
+Specify the disk size depending on your requirements. Disk can be scaled up after provisioning but cannot be decreased to prevent data loss.
 {: note}
 
 ### Service configuration
 {: #service_configuration}
 {: ui}
 
-- **Database version:** [Set only at deployment]{: tag-red} The deployment version of your database. To ensure optimal performance, run the preferred version. The latest minor version is used automatically. For more information, see [Versioning policy](/docs/cloud-databases?topic=cloud-databases-versioning-policy){: external}.
-- **Encryption:** [Set only at deployment]{: tag-red} If you use [Key Protect](/docs/cloud-databases?topic=cloud-databases-key-protect&interface=ui), an instance and key can be selected to encrypt the deployment's disk. If you do not use your own key, the deployment automatically creates and manages its own disk encryption key.
-- **Endpoints:** [Set only at deployment]{: tag-red} - Configure the [Service endpoints](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-service-endpoints) on your deployment. The default setting is *private*.
+- **Database version:** [Set only at deployment]{: tag-red} The deployment version of your database. Gen 2 supports MySQL 8.4 with long-term support until April 2029. The latest minor version is used automatically. For more information, see [Versioning policy](/docs/cloud-databases?topic=cloud-databases-versioning-policy){: external}.
+- **Encryption:** [Set only at deployment]{: tag-red} If you use [Key Protect](/docs/cloud-databases?topic=cloud-databases-key-protect&interface=ui), an instance and key can be selected to encrypt the deployment's disk and backups. If you do not use your own key, the deployment automatically creates and manages its own disk encryption key with AES-256 encryption.
+- **Endpoints:** [Set only at deployment]{: tag-red} - Gen 2 supports **private endpoints only** for enhanced security and network isolation. All connections are made through the {{site.data.keyword.cloud_notm}} private network.
 
 After you select the appropriate settings, click **Create** to start the provisioning process.
 
@@ -81,34 +80,32 @@ Before provisioning, follow the instructions provided in the documentation to in
     ```
     {: pre}
 
-2. Select the [hosting model](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models&interface=cli) you want your database to be provisioned on. You can change this later.
+2. Gen 2 supports **Isolated Compute only** at launch. Select the desired Isolated Compute size for your deployment.
 3. Provision your database with the following command:
 
    ```sh
-   ibmcloud resource service-instance-create <INSTANCE_NAME> <SERVICE_NAME> <SERVICE_PLAN_NAME> <LOCATION> <RESOURCE_GROUP> -p '{"members_host_flavor": "<members_host_flavor value>"}' --service-endpoints="<endpoint>"
+   ibmcloud resource service-instance-create <INSTANCE_NAME> <SERVICE_NAME> <SERVICE_PLAN_NAME> <LOCATION> <RESOURCE_GROUP> -p '{"members_host_flavor": "<members_host_flavor value>"}' --service-endpoints="private"
    ```
    {: pre}
 
-   For example, to provision a {{site.data.keyword.databases-for-mysql-gen2}} Shared Compute hosting model instance, use a command like:
-
-   ```sh
-   ibmcloud resource service-instance-create test-database databases-for-mysql-gen2 standard us-south -p '{"members_host_flavor": "multitenant", "members_memory_allocation_mb": "12288"}' --service-endpoints="private"
-   ```
-   {: pre}
-
-   Provision a {{site.data.keyword.databases-for-mysql-gen2}} Isolated instance with the same `"members_host_flavor"` -p parameter, setting it to the desired Isolated size. Available hosting sizes and their `members_host_flavor value` parameters are listed in [Table 2](#host-flavor-parameter-cli). For example, `{"members_host_flavor": "b3c.4x16.encrypted"}`. Note that since the host flavor selection includes CPU and RAM sizes (`b3c.4x16.encrypted` is 4 CPU and 16 RAM), this request does not accept both, an Isolated size selection and separate CPU and RAM allocation selections.
+   For example, to provision a {{site.data.keyword.databases-for-mysql}} Gen 2 Isolated Compute instance, use a command like:
 
    ```sh
    ibmcloud resource service-instance-create test-database databases-for-mysql-gen2 standard us-south -p '{"members_host_flavor": "b3c.4x16.encrypted"}' --service-endpoints="private"
    ```
    {: pre}
 
+   Available hosting sizes and their `members_host_flavor value` parameters are listed in [Table 2](#host-flavor-parameter-cli). For example, `{"members_host_flavor": "b3c.4x16.encrypted"}` provisions 4 CPU and 16 GB RAM. Note that since the host flavor selection includes CPU and RAM sizes, this request does not accept both an Isolated size selection and separate CPU and RAM allocation selections.
+
+   Gen 2 supports private endpoints only. The `--service-endpoints` parameter must be set to `"private"`.
+   {: important}
+
    The fields in the command are described in the table that follows.
 
    | Field | Description | Flag |
    |-------|------------|------------|
    | `INSTANCE_NAME` [Required]{: tag-red} | The instance name can be any string and is the name that is used on the web and in the CLI to identify the new deployment. |  |
-   | `SERVICE_NAME` [Required]{: tag-red} | Name or ID of the service. For {{site.data.keyword.databases-for-mysql-gen2}}, use `databases-for-mysql-gen2`. |  |
+   | `SERVICE_NAME` [Required]{: tag-red} | Name or ID of the service. For {{site.data.keyword.databases-for-mysql}}, use `databases-for-mysql-gen2`. |  |
    | `SERVICE_PLAN_NAME` [Required]{: tag-red} | Standard plan (`standard`) |  |
    | `LOCATION` [Required]{: tag-red} | The location where you want to deploy. To retrieve a list of regions, use the `ibmcloud regions` command. |  |
    | `RESOURCE_GROUP` | The Resource group name. The default value is `default`. | -g |
@@ -190,20 +187,19 @@ Before provisioning, follow the instructions provided in the documentation to in
 {: #host-flavor-parameter-cli}
 {: cli}
 
-The `members_host_flavor` parameter defines your Compute sizing. To provision a Shared Compute instance, specify `multitenant`. To provision an Isolated Compute instance, input the appropriate value for your desired CPU and RAM configuration.
+The `members_host_flavor` parameter defines your Compute sizing. Gen 2 supports **Isolated Compute only**. Input the appropriate value for your desired CPU and RAM configuration.
 
 | **Members host flavor** | **members_host_flavor value** |
 |:-------------------------:|:---------------------:|
-| Shared Compute            | `multitenant`    |
 | 4 CPU x 16 RAM            | `b3c.4x16.encrypted`    |
 | 8 CPU x 32 RAM            | `b3c.8x32.encrypted`    |
 | 8 CPU x 64 RAM            | `m3c.8x64.encrypted`    |
 | 16 CPU x 64 RAM           | `b3c.16x64.encrypted`   |
 | 32 CPU x 128 RAM          | `b3c.32x128.encrypted`  |
 | 30 CPU x 240 RAM          | `m3c.30x240.encrypted`  |
-{: caption="Members host flavor sizing parameter" caption-side="bottom"}
+{: caption="Members host flavor sizing parameter for Gen 2 Isolated Compute" caption-side="bottom"}
 
-CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. Disk autoscaling is available. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring), which provides metrics for memory, disk space, and disk I/O utilization. To add resources to your instance, manually scale your deployment.
+CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute at GA. RAM auto-scaling will be available in Q3 hardening. Disk autoscaling is available. Keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring), which provides metrics for memory, disk space, and disk I/O utilization. To add resources to your instance, manually scale your deployment.
 {: note}
 
 ### The `--parameters` parameter
@@ -344,17 +340,6 @@ This returns:
         },
         "hosting_size": "xl"
       },
-      {
-        "id": "multitenant",
-        "name": "multitenant",
-        "cpu": {
-          "allocation_count": 0
-        },
-        "memory": {
-          "allocation_mb": 0
-        },
-        "hosting_size": ""
-      }
     ]
   }
 }
@@ -362,7 +347,7 @@ This returns:
 ```
 {: pre}
 
-As shown, the Isolated Compute host flavors available to a {{site.data.keyword.databases-for-mysql-gen2}} instance in the `us-south` region are:
+As shown, the Isolated Compute host flavors available to a {{site.data.keyword.databases-for-mysql}} Gen 2 instance in the `us-south` region are:
 
 - `b3c.4x16.encrypted`
 - `b3c.8x32.encrypted`
@@ -414,7 +399,7 @@ To scale your instance up to 8 CPUs and `32768` megabytes of RAM, submit a scale
    ```
    {: pre}
 
-For example, to make a Shared Compute instance, follow this example:
+For example, to provision a {{site.data.keyword.databases-for-mysql}} Gen 2 Isolated Compute instance, follow this example:
 
    ```sh
    curl -X POST \
@@ -427,36 +412,17 @@ For example, to make a Shared Compute instance, follow this example:
        "resource_group": "5g9f447903254bb58972a2f3f5a4c711",
        "resource_plan_id": "databases-for-mysql-gen2-standard"
        "parameters": {
-        "members_host_flavor": "multitenant",
-        "service_endpoints": "private",
-        "members_memory_allocation_mb": 12288,
-        "members_cpu_allocation_count": 3
-      }
-     }'
-   ```
-   {: .pre}
-
-Provision a {{site.data.keyword.databases-for-mysql-gen2}} Isolated instance with the same `"members_host_flavor"` parameter, setting it to the desired Isolated size. Available hosting sizes and their `members_host_flavor value` parameters are listed in [Table 2](#host-flavor-parameter-api). For example, `{"members_host_flavor": "b3c.4x16.encrypted"}`. Note that since the host flavor selection includes CPU and RAM sizes (`b3c.4x16.encrypted` is 4 CPU and 16 RAM), this request does not accept both, an Isolated size selection and separate CPU and RAM allocation selections.
-
-   ```sh
-   curl -X POST \
-     https://resource-controller.cloud.ibm.com/v2/resource_instances \
-     -H "Authorization: Bearer <>" \
-     -H 'Content-Type: application/json' \
-       -d '{
-       "name": "my-instance",
-       "target": "us-south",
-       "resource_group": "5g9f447903254bb58972a2f3f5a4c711",
-       "resource_plan_id": "databases-for-mysql-gen2-enterprise"
-       "parameters": {
-        "host_flavor": {
-          "member_host_flavor": "b3c.4x16.encrypted",
-          "service_endpoints": "private"
-        }
+        "members_host_flavor": "b3c.4x16.encrypted",
+        "service_endpoints": "private"
       }
      }'
    ```
    {: pre}
+
+Available hosting sizes and their `members_host_flavor value` parameters are listed in [Table 2](#host-flavor-parameter-api). For example, `{"members_host_flavor": "b3c.4x16.encrypted"}` provisions 4 CPU and 16 GB RAM. Note that since the host flavor selection includes CPU and RAM sizes, this request does not accept both an Isolated size selection and separate CPU and RAM allocation selections.
+
+Gen 2 supports private endpoints only. The `service_endpoints` parameter must be set to `"private"`.
+{: important}
 
    The parameters `name`, `target`, `resource_group`, and `resource_plan_id` are all required.
    {: required}
@@ -468,10 +434,10 @@ Provision a {{site.data.keyword.databases-for-mysql-gen2}} Isolated instance wit
    | `name` [Required]{: tag-red} | The instance name can be any string and is the name that is used on the web and in the CLI to identify the new deployment. |  |
    | `target` [Required]{: tag-red} | The region where you want to deploy. To retrieve a list of regions, use the `ibmcloud regions` command. |  |
    | `resource_group` | The Resource group name. The default value is `default`. | -g |
-   | `resource_plan_id` [Required]{: tag-red} | Name or ID of the service. For {{site.data.keyword.databases-for-mysql-gen2}}, use `databases-for-mysql-gen2-standard`. |  |
+   | `resource_plan_id` [Required]{: tag-red} | Name or ID of the service. For {{site.data.keyword.databases-for-mysql}}, use `databases-for-mysql-gen2-standard`. |  |
    | `--parameters` | JSON file or JSON string of parameters to create service instance | -p |
-   | `members_host_flavor` | To provision an Isolated or Shared Compute instance, use a parameter like `{"members_host_flavor": "<members_host_flavor value>"}`. For Shared Compute, specify `multitenant`. For Isolated Compute, select desired CPU and RAM configuration. For more information, see the table below, or [Hosting models](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models).| |
-   | `service-endpoints` [Required]{: tag-red} | Configure the [Service endpoints](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-service-endpoints){: external} of your deployment, either `public`, `private` or `public-and-private`. | |
+   | `members_host_flavor` | To provision an Isolated Compute instance, use a parameter like `{"members_host_flavor": "<members_host_flavor value>"}`. Gen 2 supports Isolated Compute only. Select desired CPU and RAM configuration. For more information, see the table below, or [Hosting models](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models).| |
+   | `service-endpoints` [Required]{: tag-red} | Gen 2 supports private endpoints only. Set to `"private"`. | |
    {: caption="Basic command format fields" caption-side="top"}
 
 ### The `members host flavor` parameter
@@ -499,79 +465,32 @@ CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} 
 {: api}
 
 * `backup_id` - A CRN of a backup resource to restore from. The backup must be created by a database deployment with the same service ID. The backup is loaded after provisioning and the new deployment starts up that uses that data. A backup CRN is in the format `crn:v1:<...>:backup:<uuid>`. If omitted, the database is provisioned empty.
-* `version` - The version of the database to be provisioned. If omitted, the database is created with the most recent major and minor version.
+* `version` - The version of the database to be provisioned. Gen 2 supports MySQL 8.4. If omitted, the database is created with the most recent minor version.
 * `disk_encryption_key_crn` - The CRN of a KMS key (for example, [{{site.data.keyword.keymanagementserviceshort}}](/docs/key-protect?topic=key-protect-about)), which is then used for disk encryption. A KMS key CRN is in the format `crn:v1:<...>:key:<id>`.
 * `backup_encryption_key_crn` - The CRN of a KMS key (for example, [{{site.data.keyword.keymanagementserviceshort}}](/docs/key-protect?topic=key-protect-about)), which is then used for backup encryption. A KMS key CRN is in the format `crn:v1:<...>:key:<id>`.
 
    To use a key for your backups, you must first [enable the service-to-service delegation](/docs/cloud-databases?topic=cloud-databases-key-protect#key-byok).
    {: note}
 
-* `members_memory_allocation_mb` -  Total amount of memory to be shared between the database members within the database. For example, if the value is "12288", and there are three database members, then the deployment gets 12 GB of RAM total, giving 4 GB of RAM per member. If omitted, the default value is used for the database type is used. This parameter only applies to `multitenant'.
-* `members_disk_allocation_mb` - Total amount of disk to be shared between the database members within the database. For example, if the value is "30720", and there are three members, then the deployment gets 30 GB of disk total, giving 10 GB of disk per member. If omitted, the default value for the database type is used. This parameter only applies to `multitenant'.
-* `members_cpu_allocation_count` - Enables and allocates the number of specified cores to your deployment. For example, to use two dedicated cores per member, use `"members_cpu_allocation_count":"2"`. If omitted, the default Shared Compute CPU:RAM ratios will be applied. This parameter only applies to `multitenant'.
+* `members_host_flavor` - Required for Gen 2 Isolated Compute. Specifies the CPU and RAM configuration. Available values: `b3c.4x16.encrypted`, `b3c.8x32.encrypted`, `m3c.8x64.encrypted`, `b3c.16x64.encrypted`, `b3c.32x128.encrypted`, `m3c.30x240.encrypted`.
+* `members_disk_allocation_mb` - Total amount of disk to be allocated to the deployment. Maximum 9TB (9216000 MB) at GA, scaling to 32TB in Q3 hardening. Disk can be scaled up but not down.
 
 ## Provisioning with Terraform
 {: #provisioning-terraform}
 {: terraform}
 
-Use Terraform to manage your infrastructure through the [`ibm_database` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database) supports provisioning {{site.data.keyword.databases-for}} deployments. Alternatively, you can use Terraform IBM Modules to manage your infrastructure through [Terraform IBM Modules for {{site.data.keyword.databases-for-mysql-gen2}}](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external}.
+Use Terraform to manage your infrastructure through the [`ibm_database` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database) supports provisioning {{site.data.keyword.databases-for}} deployments. Alternatively, you can use Terraform IBM Modules to manage your infrastructure through [Terraform IBM Modules for {{site.data.keyword.databases-for-mysql}}](https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest){: external}.
 
-Select the [hosting model](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models&interface=terraform) you want your database to be provisioned on. You can change this later.
-
-### Provisioning shared compute with Terraform
-{: #provisioning-shared-compute-terraform}
-{: terraform}
-
-Provision a {{site.data.keyword.databases-for-elasticsearch}} Shared hosting model instance with the `"host_flavor"` parameter set to `multitenant`. See the following example:
-
-```terraform
-data "ibm_resource_group" "group" {
-  name = "<your_group>"
-}
-resource "ibm_database" "<your_database>" {
-  name              = "<your_database_name>"
-  plan              = "standard"
-  location          = "eu-gb"
-  service           = "databases-for-mysql-gen2"
-  resource_group_id = data.ibm_resource_group.group.id
-  service_endpoints = "private"
-  tags              = ["tag1", "tag2"]
-  adminpassword                = "password12"
-  group {
-    group_id = "member"
-    host_flavor {
-      id = "multitenant"
-    },
-    cpu {
-      allocation_count = 6
-    }
-    memory {
-      allocation_mb = 24576
-    }
-    disk {
-      allocation_mb = 256000
-    }
-  }
-  users {
-    name     = "user123"
-    password = "password12"
-  }
-  allowlist {
-    address     = "172.168.1.1/32"
-    description = "desc"
-  }
-}
-output "ICD MySQL database connection string" {
-  value = "http://${ibm_database.test_acc.ibm_database_connection.icd_conn}"
-}
-```
-{: codeblock}
+Gen 2 supports **Isolated Compute only** at launch. Select the desired Isolated Compute size for your deployment.
 
 ### Provisioning isolated compute with Terraform
-{: #provisioning-isolated-computer-terraform}
+{: #provisioning-isolated-compute-terraform}
 {: terraform}
 
-Provision a {{site.data.keyword.databases-for-mysql-gen2}} Isolated instance with the same `"host_flavor"` parameter, setting it to the desired Isolated size. Available hosting sizes and their `host_flavor value` parameters are listed in [Table 1](#host-flavor-parameter-terraform). For example, `{"host_flavor": "b3c.4x16.encrypted"}`. Note that since the host flavor selection includes CPU and RAM sizes (`b3c.4x16.encrypted` is 4 CPU and 16 RAM), this request does not accept both, an Isolated size selection and separate CPU and RAM allocation selections.
+Provision a {{site.data.keyword.databases-for-mysql}} Gen 2 Isolated Compute instance with the `"host_flavor"` parameter set to the desired Isolated size. Available hosting sizes and their `host_flavor value` parameters are listed in [Table 1](#host-flavor-parameter-terraform). For example, `{"host_flavor": "b3c.4x16.encrypted"}` provisions 4 CPU and 16 GB RAM. Note that since the host flavor selection includes CPU and RAM sizes, this request does not accept both an Isolated size selection and separate CPU and RAM allocation selections.
+
+Gen 2 supports private endpoints only. Set `service_endpoints` to `"private"`.
+{: important}
 
 ```terraform
 data "ibm_resource_group" "group" {
@@ -614,20 +533,17 @@ output "ICD MySQL database connection string" {
 {: #host-flavor-parameter-terraform}
 {: terraform}
 
-The `host_flavor` parameter defines your Compute sizing.
-- **Shared compute** - To provision a Shared Compute instance, specify `multitenant`.
-- **Isolated compute** - To provision an Isolated Compute instance, input the appropriate value for your desired CPU and RAM configuration. Values can be seen in the table below.
+The `host_flavor` parameter defines your Compute sizing. Gen 2 supports **Isolated Compute only**. Input the appropriate value for your desired CPU and RAM configuration.
 
 | **Host flavor** | **host_flavor value** |
 |:-------------------------:|:---------------------:|
-| Shared Compute            | `multitenant`    |
 | 4 CPU x 16 RAM            | `b3c.4x16.encrypted`    |
 | 8 CPU x 32 RAM            | `b3c.8x32.encrypted`    |
 | 8 CPU x 64 RAM            | `m3c.8x64.encrypted`    |
 | 16 CPU x 64 RAM           | `b3c.16x64.encrypted`   |
 | 32 CPU x 128 RAM          | `b3c.32x128.encrypted`  |
 | 30 CPU x 240 RAM          | `m3c.30x240.encrypted`  |
-{: caption="Host flavor sizing parameter" caption-side="bottom"}
+{: caption="Host flavor sizing parameter for Gen 2 Isolated Compute" caption-side="bottom"}
 
-CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. Disk autoscaling is available. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring), which provides metrics for memory, disk space, and disk I/O utilization. To add resources to your instance, manually scale your deployment.
+CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute at GA. RAM auto-scaling will be available in Q3 hardening. Disk autoscaling is available. Keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring), which provides metrics for memory, disk space, and disk I/O utilization. To add resources to your instance, manually scale your deployment.
 {: note}

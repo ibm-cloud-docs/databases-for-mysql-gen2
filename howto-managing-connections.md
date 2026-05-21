@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2021, 2023
-lastupdated: "2023-08-02"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql, databases, connection limits, terminating connections, connection pooling, mysql connections, mysql connection pooling, managing connections
+keywords: mysql, databases, connection limits, terminating connections, connection pooling, mysql connections, mysql connection pooling, managing connections, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -15,7 +15,9 @@ subcollection: databases-for-mysql-gen2
 # Managing MySQL Connections
 {: #managing-mysql-connections}
 
-Connections to your {{site.data.keyword.databases-for-mysql-gen2_full}} deployment use resources, so consider how many connections you need when tuning your deployment's performance. MySQL uses a `max_connections` setting to limit the number of connections (and resources that are used by connections) to prevent runaway connection behavior from overwhelming your deployment's resources.
+[Gen 2]{: tag-purple}
+
+Connections to your {{site.data.keyword.databases-for-mysql_full}} deployment use resources, so consider how many connections you need when tuning your deployment's performance. MySQL uses a `max_connections` setting to limit the number of connections (and resources that are used by connections) to prevent runaway connection behavior from overwhelming your deployment's resources.
 
 You can check the value of `max_connections` with your [admin user](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management#the-admin-user) and [`mysql`](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql). Check the `max_connections` with your `admin` user using a command like:
 
@@ -36,7 +38,7 @@ ibmclouddb=> SHOW max_connections;
 ### MySQL `max_connections` basic formula
 {: #managing-mysql-connections-calculate-max-connections-formula}
 
-The basic formula for calculating `max_connections` is: 
+The basic formula for calculating `max_connections` is:
 
 ```text
 Available RAM = Global Buffers + (Thread Buffers x `max_connections`)
@@ -49,14 +51,14 @@ SHOW VARIABLES LIKE '%buffer%';
 ```
 {: pre}
 
-## MySQL Connection Limits 
+## MySQL Connection Limits
 {: #managing-mysql-connection-limits}
 
-At provision, {{site.data.keyword.databases-for-mysql-gen2}} sets the maximum number of connections to your MySQL database to **200**. Raise this value by [Changing the MySQL Configuration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-changing-configuration).
+At provision, {{site.data.keyword.databases-for-mysql}} sets the maximum number of connections to your MySQL database to **200**. Raise this value by [Changing the MySQL Configuration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-changing-configuration).
 
-Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database. 
+Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database.
 
-Limit the number of simultaneous connections for any nonadmin account. For example, setting `max_user_connections=3` restricts the user account to a maximum of three simultaneous connections. 
+Limit the number of simultaneous connections for any nonadmin account. For example, setting `max_user_connections=3` restricts the user account to a maximum of three simultaneous connections.
 {: .tip}
 
 Exceeding the connection limit for your deployment will negatively affect the health of your database and cause it to be unreachable by your applications. After the connection limit is reached, any attempts at starting a new connection result in an error.
@@ -114,7 +116,7 @@ KILL [CONNECTION | QUERY] processlist_id
 ```
 {: pre}
 
-- `KILL CONNECTION` ends the connection that is associated with the `processlist_id`, after stopping any statement that the connection is running. 
+- `KILL CONNECTION` ends the connection that is associated with the `processlist_id`, after stopping any statement that the connection is running.
 - `KILL QUERY` ends the statement the connection is running, but leaves the connection itself intact.
 
 For more information, see the [MySQL Reference Manual KILL Statement](https://dev.mysql.com/doc/refman/8.0/en/kill.html){: .external}.
@@ -123,7 +125,7 @@ For more information, see the [MySQL Reference Manual KILL Statement](https://de
 ### End MySQL Connections
 {: #managing-mysql-connections-end}
 
-If your deployment reaches the connection limit or you are having trouble connecting to your deployment and suspect that a high number of connections is a problem, disconnect (or end) all of the connections to your deployment. 
+If your deployment reaches the connection limit or you are having trouble connecting to your deployment and suspect that a high number of connections is a problem, disconnect (or end) all of the connections to your deployment.
 
 In the UI, on the _Settings_ tab, there is a button to `End Connections` to your deployment. Use caution, as it disrupts anything that is connected to your deployment.
 

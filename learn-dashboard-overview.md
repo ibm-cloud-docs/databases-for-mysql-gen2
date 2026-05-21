@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2021, 2026
-lastupdated: 2026-04-01
+  years: 2026
+lastupdated: 2026-05-21
 
-keywords: deployment, crn, task, gui, api endpoint, mysql connection strings, mysql
+keywords: deployment, crn, task, gui, api endpoint, mysql connection strings, mysql, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -15,7 +15,9 @@ subcollection: databases-for-mysql-gen2
 # The Dashboard overview
 {: #dashboard-overview}
 
-The _Overview_ page shows you information about your {{site.data.keyword.databases-for-mysql-gen2_full}} deployment. The overview includes essential identifying information.
+[Gen 2]{: tag-purple}
+
+The _Overview_ page shows you information about your {{site.data.keyword.databases-for-mysql_full}} deployment. The overview includes essential identifying information.
 
 ## Overview
 {: #dashboard-overview-overview}
@@ -44,7 +46,7 @@ Reference tables for the different connection types are available on the [Gettin
 
 Connection strings reflect whether your deployment uses public endpoints, private endpoints, or both. You can configure which endpoints are available on your deployment. For more information, see the [Service endpoints integration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-service-endpoints&interface=ui) page.
 
-You can manage your {{site.data.keyword.databases-for-mysql-gen2}} service through the {{site.data.keyword.databases-for}} API. This panel provides the essential information for using the API. For more information about the {{site.data.keyword.databases-for}} API, see the [API reference](https://{DomainName}/apidocs/cloud-databases-api) page.
+You can manage your {{site.data.keyword.databases-for-mysql}} service through the {{site.data.keyword.databases-for}} API. This panel provides the essential information for using the API. For more information about the {{site.data.keyword.databases-for}} API, see the [API reference](https://{DomainName}/apidocs/cloud-databases-api) page.
 
 ## Resources
 {: #dashboard-overview-resources}
@@ -62,16 +64,38 @@ The _Backups_ tab is the UI for managing your deployment backups. All available 
 ## Observability
 {: #dashboard-overview-observability}
 
-The _Observability_ tab provides access to the IBM Cloud Monitoring, logging, and event tracking integrations available for your deployment.
-- [{{site.data.keyword.atracker_full}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-at_events)
-- [{{site.data.keyword.logs_full}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-logging)
-- [{{site.data.keyword.monitoringfull}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring)
+The _Observability_ tab provides access to the IBM Cloud monitoring, logging, and event tracking integrations available for your Gen 2 deployment.
+
+### Monitoring with Sysdig
+
+{{site.data.keyword.databases-for-mysql}} Gen 2 integrates with [{{site.data.keyword.monitoringfull}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring) (Sysdig) to provide comprehensive MySQL metrics including:
+- CPU, memory, and disk utilization
+- Connection counts and query performance
+- Replication status and lag
+- InnoDB buffer pool statistics
+- Disk I/O metrics
+
+### Logging with Cloud Logs
+
+Gen 2 integrates with [{{site.data.keyword.logs_full}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-logging) for database logs and audit trails:
+- MySQL error logs
+- Slow query logs
+- General query logs
+- Audit logs for compliance
+
+### Activity Tracking
+
+[{{site.data.keyword.atracker_full}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-at_events) integration provides administrative action auditing:
+- Deployment provisioning and configuration changes
+- Scaling operations
+- Backup and restore activities
+- User management actions
 
 ## Settings
 {: #dashboard-overview-settings}
 
 The _Settings_ tab contains the UI for many of the tunable settings for your deployment. You can
-- view encryption details. Encryption at rest is enabled for all {{site.data.keyword.databases-for-mysql-gen2}} deployments. If you brought your own encryption key from [Key Protect](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-key-protect&interface=ui), the panel provides a link to your Key Protect instance, and the _Encryption Key_ field has the name of the key.
+- view encryption details. Encryption at rest is enabled for all {{site.data.keyword.databases-for-mysql}} deployments. If you brought your own encryption key from [Key Protect](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-key-protect&interface=ui), the panel provides a link to your Key Protect instance, and the _Encryption Key_ field has the name of the key.
 - [Change the admin password](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management&interface=ui#user-management-set-admin-password-ui)
 - [Implement or modify an IP allowlist](/docs/cloud-databases?topic=cloud-databases-allowlisting)
 
@@ -88,4 +112,4 @@ Shows connected resources. You can use the `Create connection` button to bind th
 ## View docs
 {: #dashboard-overview-view-docs}
 
-The _View docs_ link from the `Actions` drop list opens the main documentation page for {{site.data.keyword.databases-for-mysql-gen2}} in a new tab.
+The _View docs_ link from the `Actions` drop list opens the main documentation page for {{site.data.keyword.databases-for-mysql}} in a new tab.

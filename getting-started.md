@@ -1,10 +1,10 @@
 ---
 
 copyright:
-  years: 2021, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql workbench, mysql gui, mysql
+keywords: mysql workbench, mysql gui, mysql, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -16,12 +16,13 @@ completion-time: 30m
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Getting started with {{site.data.keyword.databases-for-mysql-gen2}}
+# Getting started with {{site.data.keyword.databases-for-mysql}}
 {: #getting-started}
 {: toc-content-type="tutorial"}
+[Gen 2]{: tag-purple}
 {: toc-completion-time="30m"}
 
-This tutorial will guide you through deploying and managing {{site.data.keyword.databases-for-mysql-gen2_full}} on IBM Cloud. With MySQL Workbench, an open-source tool, you can easily manage your data and databases.
+This tutorial will guide you through deploying and managing {{site.data.keyword.databases-for-mysql_full}} on IBM Cloud. With MySQL Workbench, an open-source tool, you can easily manage your data and databases.
 
 MySQL Workbench provides many tools to help you manage your database effortlessly so you can focus on building and scaling your applications.
 {: tip}
@@ -30,7 +31,7 @@ MySQL Workbench provides many tools to help you manage your database effortlessl
 {: #mysql-prereqs}
 
 - Create an [IBM Cloud account](https://cloud.ibm.com/registration).
-- Provision {{site.data.keyword.databases-for-mysql-gen2}} from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/databases-for-mysql-gen2).
+- Provision {{site.data.keyword.databases-for-mysql}} from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/databases-for-mysql-gen2).
 - Configure the [admin password](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management&interface=ui#user-management-set-admin-password-ui) for secure access.
 - Download and install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/){: .external}.
 - Review the [Getting to production guide](/docs/cloud-databases?topic=cloud-databases-getting-to-production&interface=ui) for optimal configuration.
@@ -39,7 +40,7 @@ MySQL Workbench provides many tools to help you manage your database effortlessl
 {: #connect-to-database}
 {: step}
 
-Set up your connection to {{site.data.keyword.databases-for-mysql-gen2_full}} by performing the following steps:
+Set up your connection to {{site.data.keyword.databases-for-mysql_full}} by performing the following steps:
 
 1. Open MySQL Workbench.
 2. Add a new connection with your database details.
@@ -101,20 +102,23 @@ For more information, see [Connections in MySQL Workbench](https://dev.mysql.com
 ## Product overview
 {: #mysql-product-overview}
 
-{{site.data.keyword.databases-for-mysql-gen2_full}} is a serverless, fully managed cloud database service. It offers the following main benefits:
+{{site.data.keyword.databases-for-mysql_full}} Gen 2 is a fully managed cloud database service built on MySQL 8.4 with long-term support until April 2029. It offers the following main benefits:
 
-- Automated maintenance: No manual software, infrastructure, network or OS administration is required.
-- High availabilty: Deployed across multiple data centers with failover capabilities.
-- Scalability: Independently scale disk, RAM, and vCPU with auto-scaling and hourly billing.
-- Asynchronous replication: It ensures that data is available across multiple locations for high availability, and overall system responsiveness. 
-- Security: Choose between multi-tenant or isolated environments, depending on your security needs.
+- **MySQL 8.4 Support:** Full protocol compatibility with MySQL 8.4, providing the latest features and performance improvements with extended support.
+- **Automated maintenance:** No manual software, infrastructure, network or OS administration is required.
+- **High availability:** 2-node cluster with Regional File Storage (RFS) for automatic failover with zero data loss (RPO = 0).
+- **Scalability:** Independently scale disk, RAM, and vCPU with hourly billing. Isolated Compute only at launch.
+- **Storage-based replication:** Synchronous replication at the storage layer ensures data consistency and eliminates replication lag.
+- **Security:** Isolated Compute environment with private endpoints only for enhanced security and network isolation.
 
 ## Key features
 {: #mysql-key-features}
 
-- Seamless scaling: Easily scale instances horizontally with read replicas, both regionally and cross-regionally.
-- Disaster recovery: Built-in options for cross-regional disaster recovery.
-- Dedicated cores: Configure with vCPUs for hypervisor-level isolation.
+- **Regional File Storage (RFS):** Single regional storage solution providing data resiliency across all availability zones with synchronous replication.
+- **Horizontal scaling:** Easily scale instances with read replicas for read-heavy workloads, both regionally and cross-regionally.
+- **Disaster recovery:** Built-in snapshot-based backups with 30-day retention and cross-regional disaster recovery options.
+- **Isolated Compute:** Dedicated resources with hypervisor-level isolation for enhanced security and performance.
+- **Native IBM Cloud integration:** Seamless integration with IAM, Key Protect, Activity Tracker, and Cloud Logs.
 
 For more information on isolation settings, see the [Security and Compliance section](/docs/cloud-databases?topic=cloud-databases-manage-security-compliance).
 {: note}
@@ -122,8 +126,8 @@ For more information on isolation settings, see the [Security and Compliance sec
 ## Next steps
 {: #mysql-next-steps}
 
-- If you are using MySQL for the first time, see the [MySQL 8.0 reference manual](https://dev.mysql.com/doc/refman/8.0/en/){: .external}.  
+- If you are using MySQL for the first time, see the [MySQL 8.4 reference manual](https://dev.mysql.com/doc/refman/8.4/en/){: .external}.
 - You can connect, manage your databases, and manage data with MySQL's command-line interface (CLI) tool [`mysql`](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql).
 - To manage your deployment, connect to your deployment with the [IBM Cloud CLI](/docs/cli?topic=cli-install-ibmcloud-cli), the [Cloud Databases CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference), or the [Cloud Databases API](https://cloud.ibm.com/apidocs/cloud-databases-api).
-- If you plan to use {{site.data.keyword.databases-for-mysql-gen2}} for your applications, check out [Connecting an external application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-external-app) and [Connecting an IBM Cloud application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ibmcloud-app).
+- If you plan to use {{site.data.keyword.databases-for-mysql}} for your applications, check out [Connecting an external application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-external-app) and [Connecting an IBM Cloud application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ibmcloud-app).
 - To ensure the stability of your applications and your database, check out [High availability](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ha-dr) and [Performance](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-performance).

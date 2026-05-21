@@ -1,10 +1,10 @@
----
+﻿---
 
 copyright:
-  years: 2024
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: data export, portability, mysqldump, mydumper
+keywords: data export, portability, mysqldump, mydumper, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,8 +14,10 @@ subcollection: databases-for-mysql-gen2
 
 
 
-# Understanding data portability for {{site.data.keyword.databases-for-mysql-gen2}}
+# Understanding data portability for {{site.data.keyword.databases-for-mysql}}
 {: #data-portability}
+
+[Gen 2]{: tag-purple}
 
 [Data Portability](#x2113280){: term} involves a set of tools, and procedures that enable customers to export the digital artifacts that would be needed to implement similar workload and data processing on different service providers or on-prem software. It includes procedures for copying and storing the service customer's content, including the related configuration used by the service to store and process the data, on customer's own location.
 {: shortdesc}
@@ -31,24 +33,24 @@ You are responsible for the use of the exported data and configuration for the p
 - Planning and execution for the porting of the required application code on the alternate infrastructure, including the adaptation of customer's application code, and deployment automation.
 - Conversion of the exported data and configuration to format required by the alternate infrastructure and adapted applications.
 
-For more information about your responsibilities when using {{site.data.keyword.databases-for-mysql-gen2_full}}, see [Shared responsibilities for {{site.data.keyword.databases-for-mysql-gen2}}](/docs/cloud-databases?topic=cloud-databases-responsibilities-cloud-databases).
+For more information about your responsibilities when using {{site.data.keyword.databases-for-mysql_full}}, see [Shared responsibilities for {{site.data.keyword.databases-for-mysql}}](/docs/cloud-databases?topic=cloud-databases-responsibilities-cloud-databases).
 
 ## Data export procedures
 {: #data-portability-procedures}
 
-{{site.data.keyword.databases-for-mysql-gen2}} provides mechanisms to export your content that has been uploaded, stored, and processed using the service.
+{{site.data.keyword.databases-for-mysql}} provides mechanisms to export your content that has been uploaded, stored, and processed using the service.
 
-### Exporting data from {{site.data.keyword.databases-for-mysql-gen2}}
+### Exporting data from {{site.data.keyword.databases-for-mysql}}
 {: #data-portability-exporting-data}
 
-Two options exist to migrate data from {{site.data.keyword.databases-for-mysql-gen2_full}}. We recommend  `mysqldump` and `mydumper`. The best tool for you depends on certain conditions, including network connection, the size of your data set, and intermediate schema needs. 
+Two options exist to migrate data from {{site.data.keyword.databases-for-mysql_full}}. We recommend  `mysqldump` and `mydumper`. The best tool for you depends on certain conditions, including network connection, the size of your data set, and intermediate schema needs.
 
 #### Before you begin
 {: #data-portability-exporting-before-begin}
 
-Before you start your data migration, install MySQL locally, so you have the `mysql` and `mysqldump` tools. 
+Before you start your data migration, install MySQL locally, so you have the `mysql` and `mysqldump` tools.
 
-[MySQL Workbench](https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html){: .external} also provides a graphical tool for working with MySQL servers and databases. 
+[MySQL Workbench](https://dev.mysql.com/doc/workbench/en/wb-admin-export-import-management.html){: .external} also provides a graphical tool for working with MySQL servers and databases.
 
 #### `mysqldump`
 {: #data-portability-exporting-mysqldump}
@@ -57,13 +59,13 @@ This native MySQL client utility installs by default and can perform logical bac
 
 Use `mysqldump` under the following conditions:
 
-- The data set is smaller than 10 GB. 
+- The data set is smaller than 10 GB.
 - Migration time is not critical, and the cost of retrying the migration is low.
-- You don’t need to do any intermediate schema or data transformations.
+- You donâ€™t need to do any intermediate schema or data transformations.
 
 Don't use `mysqldump` if any of the following conditions are met:
 
-- Your data set is larger than 10 GB. 
+- Your data set is larger than 10 GB.
 - The network connection between the source and target databases is unstable or slow.
 
 Follow these steps::
@@ -72,11 +74,11 @@ Run `mysqldump` on your source database to create an SQL file, which can be used
 
 - Hostname (`-h` flag)
 - Port number (`-P` flag)
-- Username (`-u` flag) 
+- Username (`-u` flag)
 - [--ssl-mode=VERIFY_IDENTITY](https://dev.mysql.com/doc/refman/8.0/en/connection-options.html#option_general_ssl-mode){: .external} (clients require an encrypted connection and perform verification against the server CA certificate and against the server hostname in its certificate).
 - [--ssl-ca](https://dev.mysql.com/doc/refman/8.0/en/connection-options.html#option_general_ssl-ca){: .external} (the path name of the Certificate Authority (CA) file, which can be found within the Endpoints CLI tab of the *Overview* page in the UI).
 - database name
-- result file (`-r` flag) 
+- result file (`-r` flag)
 
 Your CLI command looks like this:
 
@@ -88,7 +90,7 @@ mysqldump -h <host_name> -P <port_number> -u <user_name> --ssl-mode=VERIFY_IDENT
 To generate a log file of the `mysqldump` job that tracks errors while it's running, use a command like this:
 
 ```sh
-mysqldump -h <host_name> -P <port_number> -u <user_name> --log-error=error.log --ssl-mode=VERIFY_IDENTITY --ssl-ca=mysql.crt --set-gtid-purged=OFF -p ibmclouddb -r dump.sql 
+mysqldump -h <host_name> -P <port_number> -u <user_name> --log-error=error.log --ssl-mode=VERIFY_IDENTITY --ssl-ca=mysql.crt --set-gtid-purged=OFF -p ibmclouddb -r dump.sql
 ```
 {: pre}
 
@@ -104,17 +106,17 @@ The `mysql` command has many options. For more information, see [the mysqldump d
 #### mydumper
 {: #data-portability-exporting--mydumper}
 
-`mydumper` and its paired logical backup tool `myloader` use multithreading capabilities to perform data migration similarly to `mysqldump`. However, `mydumper` provides many improvements, such as parallel backups, consistent reads, and easier to manage output. Parallelism allows for better performance during both the import and export process, while output can be easier to manage because individual tables get dumped into separate files. 
+`mydumper` and its paired logical backup tool `myloader` use multithreading capabilities to perform data migration similarly to `mysqldump`. However, `mydumper` provides many improvements, such as parallel backups, consistent reads, and easier to manage output. Parallelism allows for better performance during both the import and export process, while output can be easier to manage because individual tables get dumped into separate files.
 
 Use `mydumper` under the following conditions:
 
-- The data set is larger than 10 GB. 
+- The data set is larger than 10 GB.
 - The network connection between source and target databases is fast and stable.
 - You need to do intermediate schema or data transformations.
 
 Don't use `mydumper` if any of the following conditions are met:
 
-- Your data set is smaller than 10 GB. 
+- Your data set is smaller than 10 GB.
 - The network connection between the source and target databases is unstable or very slow.
 
 Before you begin exporting your data with `mydumper`, see the [mydumper project](https://github.com/maxbube/mydumper){: .external} for details and step-by-step instructions on installation and necessary developer environment.

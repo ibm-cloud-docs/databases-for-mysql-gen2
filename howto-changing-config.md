@@ -1,9 +1,9 @@
----
+﻿---
 copyright:
-  years: 2021, 2026
-lastupdated: "2026-04-01"
+  years: 2026
+lastupdated: "2026-05-21"
 
-keywords: mysql, databases, config, mysql configuration, mysql time zone, configuration schema
+keywords: mysql, databases, config, mysql configuration, mysql time zone, configuration schema, gen2
 
 subcollection: databases-for-mysql-gen2
 
@@ -14,7 +14,9 @@ subcollection: databases-for-mysql-gen2
 # Changing your deployment configuration
 {: #changing-configuration}
 
-{{site.data.keyword.databases-for-mysql-gen2_full}} allows you to change some of the MySQL configuration settings so you can tune your MySQL databases to your use case. To make permanent changes to the database configuration, use the {{site.data.keyword.databases-for}} [CLI-plugin](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-configuration) or [API](https://{DomainName}/apidocs/cloud-databases-api#change-your-database-configuration) to write the changes to the configuration file for your deployment.
+[Gen 2]{: tag-purple}
+
+{{site.data.keyword.databases-for-mysql_full}} allows you to change some of the MySQL configuration settings so you can tune your MySQL databases to your use case. To make permanent changes to the database configuration, use the {{site.data.keyword.databases-for}} [CLI-plugin](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-configuration) or [API](https://{DomainName}/apidocs/cloud-databases-api#change-your-database-configuration) to write the changes to the configuration file for your deployment.
 
 The configuration is defined in a schema. To make a change, send a JSON object with the settings and their new values to the API or the CLI. For example, in the CLI or API, set the `max_connections` to 150 using a command like:
 
@@ -77,15 +79,15 @@ To change the configuration, send the settings that you would like to change as 
 
 For more information, see [API Reference](https://cloud.ibm.com/apidocs/cloud-databases-api#change-your-database-configuration){: external}.
 
-## {{site.data.keyword.databases-for-mysql-gen2}} time zone settings
+## {{site.data.keyword.databases-for-mysql}} time zone settings
 {: #mem-settings}
 
-The time zone for {{site.data.keyword.databases-for-mysql-gen2}} deployments is always Coordinated Universal Time. Configure your time zone with the {{site.data.keyword.databases-for}} API or the CLI change your time zone to a named time zone (recommended) or an offset of a time zone.
+The time zone for {{site.data.keyword.databases-for-mysql}} deployments is always Coordinated Universal Time. Configure your time zone with the {{site.data.keyword.databases-for}} API or the CLI change your time zone to a named time zone (recommended) or an offset of a time zone.
 
 You are required to configure the time zone again on both restored instances and read-replicas. Although the time zone tables are restored (in the case of a restore) and replicated (in the case of a read-replica), the `@@global.time_zone` value is not. To set this value, use the same API calls as before, but with the new CRNs.
 {: note}
 
-### Configuring your {{site.data.keyword.databases-for-mysql-gen2}} time zone settings
+### Configuring your {{site.data.keyword.databases-for-mysql}} time zone settings
 {: #mem-settings-config}
 
 At provisioning, a {{site.data.keyword.databases-for}} deployment is configured to Coordinated Universal Time. Reconfiguring your time zone is a persistent change, which must be undertaken for each of your {{site.data.keyword.databases-for}} deployments.
@@ -125,10 +127,70 @@ ibmcloud cdb deployment-configuration <crn> '{"time_zone": "US/Pacific"}'
 ```
 {: pre}
 
-## Available {{site.data.keyword.databases-for-mysql-gen2}} configuration settings
+## Available {{site.data.keyword.databases-for-mysql}} configuration settings
 {: #available-config-settings}
 
-[`innodb_buffer_pool_size_percentage`](https://dev.mysql.com/doc/refman/8.0/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size){: .external}
+Gen 2 supports all existing configurable parameters from Gen 1, plus additional parameters for MySQL 8.4 optimization.
+
+### GA Parameters
+
+The following parameters are available at GA:
+
+[`lower_case_table_names`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_lower_case_table_names){: .external}
+
+- Description: Controls case sensitivity for table names. Critical for Windows-to-Linux migrations. Must be set at deployment time.
+- Default: `0` (case-sensitive)
+- Values: `0` (case-sensitive), `1` (case-insensitive), `2` (case-sensitive storage, case-insensitive comparison)
+- Restarts database? - `true`
+
+[`innodb_redo_log_capacity`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_redo_log_capacity){: .external}
+
+- Description: Defines the redo log capacity in bytes. Replaces deprecated `innodb_log_file_size` and `innodb_log_files_in_group` parameters in MySQL 8.4.
+- Default: `104857600` (100 MB)
+- Minimum: `8388608` (8 MB)
+- Maximum: `137438953472` (128 GB)
+- Restarts database? - `false`
+
+[`innodb_buffer_pool_size`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size){: .external}
+
+- Description: The size of the buffer pool for caching data and indexes. Critical for memory optimization.
+- Restarts database? - `true`
+
+[`slow_query_log`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_slow_query_log){: .external}
+
+- Description: Enable or disable the slow query log for performance diagnostics.
+- Default: `OFF`
+- Values: `ON`, `OFF`
+- Restarts database? - `false`
+
+### Q3 Additional Parameters
+
+The following parameters will be available in Q3 hardening:
+
+[`transaction_isolation`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_transaction_isolation){: .external}
+
+- Description: Transaction isolation level configuration
+- Values: `READ-UNCOMMITTED`, `READ-COMMITTED`, `REPEATABLE-READ`, `SERIALIZABLE`
+- Restarts database? - `false`
+
+[`join_buffer_size`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_join_buffer_size){: .external}
+
+- Description: Join operation performance tuning
+- Restarts database? - `false`
+
+[`innodb_thread_concurrency`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_thread_concurrency){: .external}
+
+- Description: Concurrency control for high-load systems
+- Restarts database? - `false`
+
+[`sort_buffer_size`](https://dev.mysql.com/doc/refman/8.4/en/server-system-variables.html#sysvar_sort_buffer_size){: .external}
+
+- Description: Sort operation optimization
+- Restarts database? - `false`
+
+### Legacy Parameters (Maintained for Compatibility)
+
+[`innodb_buffer_pool_size_percentage`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_size){: .external}
 
 - Description: The percentage of memory to use for `innodb_buffer_pool_size`. The default value of 50% is a conservative value and works for databases of any size. If your database requires more RAM, this value can be increased. Setting this value too high can exceed your database's memory limits, which can cause it to crash.
 - Default: `50`
@@ -180,7 +242,7 @@ ibmcloud cdb deployment-configuration <crn> '{"time_zone": "US/Pacific"}'
 - Description - Specifies the total number of prepared statements on the server.
 - Default - `16382`
 - Minimum - `0`
-- Maximum - (version ≤ 8.0.17) `1048576`, (version ≥ 8.0.18) `4194304`
+- Maximum - (version â‰¤ 8.0.17) `1048576`, (version â‰¥ 8.0.18) `4194304`
 - Restarts database? - `false`
 
 [`max_connections`](https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html#sysvar_max_connections){: .external}
