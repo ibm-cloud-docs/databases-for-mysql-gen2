@@ -27,7 +27,7 @@ Use these release notes to learn about the latest updates to {{site.data.keyword
 {: release-note}
 
 {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now generally available (GA)
-:   {{site.data.keyword.databases-for-mysql_full}} is now generally available. This new generation offers enhanced performance, improved scalability, and better resource isolation.
+:   {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now available, offering enhanced performance, improved scalability, and better resource isolation.
 
     - Isolated Compute support <br>
       {{site.data.keyword.databases-for-mysql}} now supports Isolated Compute hosting model, providing dedicated CPU and RAM resources for your database instances. For more information, see [Hosting models](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-hosting-models).
