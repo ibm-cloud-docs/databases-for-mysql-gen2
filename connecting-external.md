@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-03"
 
 keywords: mysql drivers, python, java, javascript, certificate, gen2
 
@@ -18,7 +18,7 @@ subcollection: databases-for-mysql-gen2
 
 Your applications and drivers use connection strings to make a connection to {{site.data.keyword.databases-for-mysql_full}}. The service provides connection strings specifically for drivers and applications. Connection strings are displayed in the *Endpoints* panel of your deployment's *Overview*, and can also be retrieved from the [{{site.data.keyword.databases-for}}s CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-connections) and the [{{site.data.keyword.databases-for}} API](https://{DomainName}/apidocs/cloud-databases-api#discover-connection-information-for-a-deployment-f-e81026).
 
-The connection strings can be used by any of the credentials you created on your deployment. While you can use the admin user for all your connections and applications, it might be better to create users specifically for your applications to connect with. Documentation on generating credentials is on the [Creating Users and Getting Connection Strings](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connection-strings) page.
+{{site.data.keyword.databases-for-mysql}} deployments no longer include a default admin user. Instead, customers create a user with 'Manager', 'Writer', or 'Reader' role by using the {{site.data.keyword.cloud}} service credential interface — through the UI or CLI. This process generates credentials for connecting to the deployment. While these credentials can be used across multiple connections and applications, it is strongly recommended to create dedicated users for each application, tailored to their specific access requirements. For more information, see [Getting connection strings](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connection-strings).
 
 ## Connecting with a language's driver
 {: #connecting-lang-driver}
