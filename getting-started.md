@@ -2,9 +2,9 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-03"
 
-keywords: mysql workbench, mysql gui, mysql, gen2
+keywords: mysql workbench, mysql gui, mysql, gen2, cloud databases, mysql getting started, Gen 2,
 
 subcollection: databases-for-mysql-gen2
 
@@ -19,115 +19,320 @@ completion-time: 30m
 # Getting started with {{site.data.keyword.databases-for-mysql}}
 {: #getting-started}
 {: toc-content-type="tutorial"}
-[Gen 2]{: tag-purple}
+{: toc-services=""}
 {: toc-completion-time="30m"}
 
-This tutorial will guide you through deploying and managing {{site.data.keyword.databases-for-mysql_full}} on IBM Cloud. With MySQL Workbench, an open-source tool, you can easily manage your data and databases.
+[Gen 2]{: tag-purple}
 
-MySQL Workbench provides many tools to help you manage your database effortlessly so you can focus on building and scaling your applications.
-{: tip}
+This tutorial guides you through the steps to quickly start using {{site.data.keyword.databases-for-mysql}} on the Gen 2 platform by provisioning an instance, setting up a secure connection through a VSI and VPE, and enabling logging and monitoring.
+{: shortdesc}
+
+Follow these steps to complete the tutorial:
+{: ui}
+
+* [Before you begin](#prereqs)
+* [Step 1: Provision through the console](#provision_instance_ui)
+* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 3: Set up context-based restrictions](#mysql_cbr)
+* [Step 4: Create a connection](#private_connect_setup)
+* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+* [Next Steps](#next_steps)
+{: ui}
+
+Follow these steps to complete the tutorial:
+{: cli}
+
+* [Before you begin](#prereqs)
+* [Step 1: Choose your plan](#choose_plan)
+* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 3: Set up context-based restrictions](#mysql_cbr)
+* [Step 4: Create a connection](#private_connect_setup)
+* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+* [Next Steps](#next_steps)
+{: cli}
+
+Follow these steps to complete the tutorial:
+{: api}
+
+* [Before you begin](#prereqs)
+* [Step 1: Choose your plan](#choose_plan)
+* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 3: Set up context-based restrictions](#mysql_cbr)
+* [Step 4: Create a connection](#private_connect_setup)
+* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+* [Next Steps](#next_steps)
+{: api}
+
+Follow these steps to complete the tutorial:
+{: terraform}
+
+* [Before you begin](#prereqs)
+* [Step 1: Choose your plan](#choose_plan)
+* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 3: Set up context-based restrictions](#mysql_cbr)
+* [Step 4: Create a connection](#private_connect_setup)
+* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+* [Next Steps](#next_steps)
+{: terraform}
+
 
 ## Before you begin
-{: #mysql-prereqs}
+{: #prereqs}
 
-- Create an [IBM Cloud account](https://cloud.ibm.com/registration).
-- Provision {{site.data.keyword.databases-for-mysql}} from the [IBM Cloud catalog](https://cloud.ibm.com/catalog/services/databases-for-mysql-gen2).
-- Configure the [admin password](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-user-management&interface=ui#user-management-set-admin-password-ui) for secure access.
-- Download and install [MySQL Workbench](https://dev.mysql.com/downloads/workbench/){: .external}.
-- Review the [Getting to production guide](/docs/cloud-databases?topic=cloud-databases-getting-to-production&interface=ui) for optimal configuration.
+- You need to have an [{{site.data.keyword.cloud_notm}} account](https://cloud.ibm.com/registration){: external}.
 
-## Connect to your database
-{: #connect-to-database}
-{: step}
 
-Set up your connection to {{site.data.keyword.databases-for-mysql_full}} by performing the following steps:
+## Step 1: Provision through the console
+{: #provision_instance_ui}
+{: ui}
 
-1. Open MySQL Workbench.
-2. Add a new connection with your database details.
-3. Save the connection settings and connect to your database.
+1. Log in to the {{site.data.keyword.cloud_notm}} console.
+2. Click the [{{site.data.keyword.databases-for-mysql}} service](https://cloud.ibm.com/databases/databases-for-mysql/create){: external} in the **catalog**.
+3. In **Service details**, configure the following:
+   - **Location** - Select a location that supports Gen 2.
+   - **Service name** - The name can be any string and is the name that is used on the web and in the CLI to identify the new deployment.
+   - **Resource group** - If you are organizing your services into [resource groups](/docs/account?topic=account-account_setup){: external}, specify the resource group in this field. Otherwise, you can leave it at default. For more information, see [Managing resource groups](/docs/account?topic=account-rgs&interface=ui){: external}.
+4. **Resource allocation** - Select an isolated compute instance with a certain amount of RAM and CPU cores. Changing resource allocation requires selecting a different host size. Once provisioned, disk cannot be scaled down.
+5. In **Service configuration**, configure the following:
+   - **Database version** [Set only at deployment]{: tag-red} - The deployment version of your database. To ensure optimal performance, run the preferred version. The latest minor version is used automatically and currently the only option for Gen 2 databases.
+   - **Encryption** - If you use [Key Protect](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-key-protect&interface=ui), an instance and key can be selected to encrypt the deployment's disk. If you do not use your own key, the deployment automatically creates and manages its own disk encryption key.
+6. Click **Create**. The {{site.data.keyword.databases-for}} **Resource list** page opens.
+7. When your instance has been provisioned, click the instance name to view more information.
 
-For detailed instructions, see the [MySQL Workbench documentation](https://dev.mysql.com/doc/workbench/en/wb-mysql-connections.html){: .external}.
-
-## Provision a MySQL deployment
-{: #mysql-deployment}
-{: step}
-
-To create your MySQL deployment:
-
-1. Log in to the IBM Cloud Console.
-2. Go to [Databases for MySQL Service](https://cloud.ibm.com/catalog/services/databases-for-mysql-gen2) in the catalog.
-3. Configure the following:
-   - **Service name**: Choose a memorable name for your deployment.
-   - **Resource group**: Select the appropriate resource group.
-   - **Location:** The deployment's public cloud region.
-   - **Resource allocation**: Define initial RAM, disk, and CPU resources.
-4. Click **Create** to finalize the deployment.
-
-Once created, your deployment automatically scales and manages availability across zones for resilience.
-{: tip}
-
-## Connect to your database with the CLI
-{: #mysql-connect-db-cli}
+## Step 1: Provision through the CLI
+{: #provision_instance_cli}
 {: cli}
-{: step}
 
-To connect to your database from the CLI, see the [Cloud Databases CLI reference](https://cloud.ibm.com/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference) and [Connecting with mysql](https://dev.mysql.com/doc/workbench/en/wb-mysql-connections.html){: external}.
+You can provision a {{site.data.keyword.databases-for-mysql}} instance by using the CLI. If you don't already have it, you need to install the [{{site.data.keyword.cloud_notm}} CLI](https://www.ibm.com/cloud/cli){: external}.
 
-The `ibmcloud cdb deployment-connections` command handles everything involved in creating a command-line client connection. For example, to connect to a deployment named `example-mysql`, use the following command:
+1. Log in to {{site.data.keyword.cloud_notm}} with the following command:
+
+   ```sh
+   ibmcloud login
+   ```
+   {: pre}
+
+   If you use a federated user ID, it's important that you switch to a one-time passcode (`ibmcloud login --sso`), or use an API key (`ibmcloud --apikey key` or `@key_file`) to authenticate. For more information about how to log in by using the CLI, see [General CLI (ibmcloud) commands](/docs/cli?topic=cli-ibmcloud_cli#ibmcloud_login) under `ibmcloud login`.
+
+2. Create a {{site.data.keyword.databases-for-mysql}} instance.
+
+   To create an instance from the CLI, run the following command:
+
+   ```sh
+   ibmcloud resource service-instance-create <INSTANCE_NAME> databases-for-mysql standard-gen2 <LOCATION> -g <RESOURCE_GROUP>
+   ```
+   {: pre}
+
+   The fields in the command are described in the following table.
+
+   | Field | Description | Flag |
+   |-------|------------|------------|
+   | `INSTANCE_NAME` [Required]{: tag-red} | The instance name can be any string and is the name that is used on the web and in the CLI to identify the new deployment. | |
+   | `SERVICE_NAME` [Required]{: tag-red} | Name or ID of the service. For {{site.data.keyword.databases-for-mysql}}, use `databases-for-mysql`. | |
+   | `SERVICE_PLAN_NAME` [Required]{: tag-red} | Standard plan (`standard`) | |
+   | `LOCATION` [Required]{: tag-red} | The location where you want to deploy. To retrieve a list of regions, use the `ibmcloud regions` command. | |
+   | `RESOURCE_GROUP` | The Resource group name. The default value is `default`. | -g |
+   | `--parameters` | JSON file or JSON string of parameters to create service instance | -p |
+   {: caption="Basic command format fields" caption-side="top"}
+
+## Step 1: Provision through the resource controller API
+{: #provision_instance_api}
+{: api}
+
+### Using APIs
+{: #using_apis}
+{: api}
+
+Use the [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api/cloud-databases-api-v5#introduction){: external} to work with your {{site.data.keyword.databases-for-mysql}} instance. The resource controller API is used to [provision an instance](#provision_instance_api).
+
+You will need an API key to perform actions via the API. Follow [these steps](/docs/account?topic=account-userapikey&interface=ui#create_user_key){: external} to create an IBM Cloud API key that enables you to use the API to provision infrastructure into your account. You can create up to 20 API keys.
+
+For security reasons, the API key is only available to be copied or downloaded at the time of creation. If the API key is lost, you must create a new API key.
+{: note}
+
+Follow [these steps](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-provisioning&interface=api) to provision a {{site.data.keyword.databases-for-mysql}} instance using the Resource Controller API. Obtain an IAM token from your API token.
+
+1. You need to know the ID of the resource group that you would like to deploy to. This information is available through the [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cli-ibmcloud_commands_resource#ibmcloud_resource_groups){: external}.
+
+   Use a command like:
+
+   ```sh
+   ibmcloud resource groups
+   ```
+   {: pre}
+
+2. After you have all the information, [provision a new resource instance](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-api) with the {{site.data.keyword.cloud_notm}} Resource Controller.
+
+   ```sh
+   curl -X POST \
+     https://resource-controller.cloud.ibm.com/v2/resource_instances \
+     -H 'Authorization: Bearer <>' \
+     -H 'Content-Type: application/json' \
+       -d '{
+        "name":"my-instance",
+        "target":"ca-mon",
+        "resource_group":"5c49eabc-f5e8-5881-a37e-2d100a33b3df",
+        "resource_plan_id":"databases-for-mysql-gen2-standard",
+        "dataservices":{
+           "mysql":{
+              "storage_gb":10,
+              "host_flavor":"b3c.8x32.encrypted"
+           },
+           "encryption":{
+              "disk":"crn:v1..."
+           },
+           "version":"8.4"
+        }
+     }'
+   ```
+   {: pre}
+
+   The parameters `name`, `target`, `resource_group`, and `resource_plan_id` are all required.
+   {: required}
+
+### List of additional parameters:
+{: #provisioning-parameters-api}
+{: api}
+
+* `backup_id` - A CRN of a backup resource to restore from. The backup must be created by a database deployment with the same service ID. The backup is loaded after provisioning and the new deployment starts up that uses that data. A backup CRN is in the format `crn:v1:<...>:backup:<uuid>`. If omitted, the database is provisioned empty.
+* `version` - The version of the database to be provisioned. If omitted, the database is created with the most recent major and minor version.
+* `disk_encryption_key_crn` - The CRN of a KMS key ([{{site.data.keyword.keymanagementserviceshort}}](/docs/key-protect?topic=key-protect-about)), which is then used for disk encryption. A KMS key CRN is in the format `crn:v1:<...>:key:<id>`.
+* `backup_encryption_key_crn` - The CRN of a KMS key ([{{site.data.keyword.keymanagementserviceshort}}](/docs/key-protect?topic=key-protect-about)), which is then used for backup encryption. A KMS key CRN is in the format `crn:v1:<...>:key:<id>`.
+
+   To use a key for your backups, you must first [enable the service-to-service delegation](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-key-protect&interface=api#key-byok).
+   {: note}
+
+* `storage_gb` - Total amount of disk in Gigabytes. If omitted, the default value for the database type is used.
+
+## Step 1: Provision through Terraform
+{: #provision_instance_tf}
+{: terraform}
+
+Use Terraform to manage your infrastructure through the [\`ibm_database\` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}.
+
+## Step 2: Create the \`Manager\` user and generate credentials
+{: #admin_pw}
+
+### The `Manager` user
+{: #admin_like_manager_user}
+
+As part of provisioning a new instance in {{site.data.keyword.cloud}}, you can use the service credential console page to create a user with different roles (Manager and Writer).
+
+{{site.data.keyword.databases-for-mysql}} instances no longer include a default `admin` user. Instead, you create a user with the `Manager` or `Writer` role by using the {{site.data.keyword.cloud}} service credential interface - through the UI or CLI. These users come with necessary credentials to connect to and manage the instance.
+
+The Manager user functions as an admin-like user and is automatically granted necessary privileges to manage the database.
+
+### Change the user password in the UI
+{: #user-management-set-manager-password-ui}
+{: ui}
+
+Changing the user password is not supported via the {{site.data.keyword.cloud_notm}} console on Gen 2.
+
+### Create the manager user in the CLI
+{: #manager_user_set_cli}
+{: cli}
+
+Use one of the following commands from the {{site.data.keyword.cloud_notm}} CLI {{site.data.keyword.databases-for}} plug-in to create the `Manager` user.
 
 ```sh
-ibmcloud cdb deployment-connections example-mysql --start
+ibmcloud resource service-key-create <service_key_name> Manager --instance-name <instance_name>
 ```
 {: pre}
 
-The command prompts for the admin password and then runs the `mysql` command-line client to connect to the database. For more information, see [Connecting with mysql](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql).
+```sh
+ibmcloud resource service-key-create <service_key_name> Manager --instance-id <guid>
+```
+{: pre}
 
-## Connect with MySQL Workbench
-{: #mysql-connect-db-workbench}
-{: step}
+### Delete the user in the CLI
+{: #manager_user_del_cli}
+{: cli}
 
-Use MySQL Workbench to manage and interact with your MySQL database visually.
+Use the following command from the {{site.data.keyword.cloud_notm}} CLI {{site.data.keyword.databases-for}} plug-in to delete the created user.
 
-1. Open MySQL Workbench.
-2. Create a new connection:
-   - Go to **Database > Manage connections** and add a new connection.
-   - Fill in your connection details (hostname, username, and password).
-3. Test the connection:
-   - Click **Test connection** to ensure everything is set up correctly.
-4. Save and connect:
-   - Save your connection settings and proceed to connect to your database.
+```sh
+ibmcloud resource service-key-delete <service_key_name>
+```
+{: pre}
 
-For more information, see [Connections in MySQL Workbench](https://dev.mysql.com/doc/workbench/en/wb-mysql-connections.html){: .external}.
+### Change the manager password in the CLI
+{: #manager_pw_set_cli}
+{: cli}
 
-## Product overview
-{: #mysql-product-overview}
+Changing a user password is not supported via the CLI on Gen 2.
 
-{{site.data.keyword.databases-for-mysql_full}} Gen 2 is a fully managed cloud database service built on MySQL 8.4 with long-term support until April 2029. It offers the following main benefits:
+## Step 3: Set up context-based restrictions
+{: #mysql_cbr}
 
-- **MySQL 8.4 Support:** Full protocol compatibility with MySQL 8.4, providing the latest features and performance improvements with extended support.
-- **Automated maintenance:** No manual software, infrastructure, network or OS administration is required.
-- **High availability:** 2-node cluster with Regional File Storage (RFS) for automatic failover with zero data loss (RPO = 0).
-- **Scalability:** Independently scale disk, RAM, and vCPU with hourly billing. Isolated Compute only at launch.
-- **Storage-based replication:** Synchronous replication at the storage layer ensures data consistency and eliminates replication lag.
-- **Security:** Isolated Compute environment with private endpoints only for enhanced security and network isolation.
+Context-based restrictions give account owners and administrators the ability to define and enforce access restrictions for {{site.data.keyword.cloud_notm}} resources based on the context of access requests. Access to {{site.data.keyword.databases-for}} resources can be controlled with context-based restrictions and Identity and Access Management (IAM) policies.
 
-## Key features
-{: #mysql-key-features}
 
-- **Regional File Storage (RFS):** Single regional storage solution providing data resiliency across all availability zones with synchronous replication.
-- **Horizontal scaling:** Easily scale instances with read replicas for read-heavy workloads, both regionally and cross-regionally.
-- **Disaster recovery:** Built-in snapshot-based backups with 30-day retention and cross-regional disaster recovery options.
-- **Isolated Compute:** Dedicated resources with hypervisor-level isolation for enhanced security and performance.
-- **Native IBM Cloud integration:** Seamless integration with IAM, Key Protect, Activity Tracker, and Cloud Logs.
 
-For more information on isolation settings, see the [Security and Compliance section](/docs/cloud-databases?topic=cloud-databases-manage-security-compliance).
+## Step 4: Create a connection
+{: #private_connect_setup}
+
+
+The **Connect** tab in Gen 2 provides guided instructions for creating a secure connection to your {{site.data.keyword.databases-for-mysql}} deployment.
+
+Because Gen 2 supports **private endpoints only**, all connections are established through the {{site.data.keyword.cloud}} private network. The _Create a connection_ view walks you through the required setup to connect securely from your infrastructure, such as a Virtual Server Instance (VSI), by using Virtual Private Endpoint (VPE) gateway.
+
+This guided experience is designed to help you configure a production-ready, secure connection without exposing your database to the public internet.
+
+Also, the sections below provide a clear overview of how a connection is established within the VPC environment.
+
+* [Create a VPC](https://cloud.ibm.com/infrastructure/network/vpcs/) (Virtual Private Cloud): A VPC is your own isolated network within {{site.data.keyword.cloud}} where you can securely run resources.
+* [Generate an SSH key](https://cloud.ibm.com/infrastructure/compute/sshKeys/): SSH keys allow you to securely connect to your virtual servers.
+* [Provision a Virtual Server Instance (VSI)](https://cloud.ibm.com/infrastructure/compute/vs/): A VSI is your cloud-based server where applications and workloads will run.
+* [Reserve a floating IP for your VSI](https://cloud.ibm.com/infrastructure/network/floatingIPs/): A floating IP is a public IP address that lets you access your VSI from the internet.
+* [Create a Virtual Private Endpoint (VPE)](https://cloud.ibm.com/infrastructure/network/endpointGateways/): A VPE provides secure, private connectivity to {{site.data.keyword.cloud_notm}} services.
+
+## Step 5: Connect {{site.data.keyword.monitoringlong_notm}} through the console
+{: #connect_monitoring_ui}
+
+You can use {{site.data.keyword.monitoringlong}} to get operational visibility into the performance and health of your applications, services, and platforms. {{site.data.keyword.monitoringlong_notm}} provides administrators, DevOps teams, and developers full stack telemetry with advanced features to monitor and troubleshoot, define alerts, and design custom dashboards.
+
+For more information about how to use Monitoring with {{site.data.keyword.databases-for-mysql}}, see [Monitoring integration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring&interface=ui).
+
+You cannot connect {{site.data.keyword.monitoringlong_notm}} by using the CLI. Use the console to complete this task.
+{: note}
+
+## Step 6: Connect IBM Cloud Logs Activity Tracker
+{: #mysql_logs}
+
+{{site.data.keyword.atracker_full}} allows you to view, and audit service activity to comply with corporate policies and industry regulations. {{site.data.keyword.atracker_short}} records user-initiated activities that change the state of a service in IBM Cloud. Use {{site.data.keyword.atracker_short}} to track how users and applications interact with the {{site.data.keyword.databases-for-mysql}} service.
+
+To get up and running with Activity Tracker Event Routing, see [Getting started with Activity Tracker Event Routing](/docs/atracker?topic=atracker-getting-started){: external}.
+
+{{site.data.keyword.atracker_short}} can have only one instance per location. To view events, you must access the web UI of the {{site.data.keyword.atracker_short}} service in the same location where your service instance is available. For more information, see [Launching the web UI](/docs/cloud-logs?topic=cloud-logs-getting-started){: external}.
+
+Events are formatted according to the Cloud Auditing Data Federation (CADF) standard. For more information, see [CADF standard](/docs/atracker?topic=atracker-event){: external}.
+
+You cannot connect {{site.data.keyword.atracker_short}} by using the CLI. Use the console to complete this task.
 {: note}
 
 ## Next steps
-{: #mysql-next-steps}
+{: #next_steps}
 
-- If you are using MySQL for the first time, see the [MySQL 8.4 reference manual](https://dev.mysql.com/doc/refman/8.4/en/){: .external}.
-- You can connect, manage your databases, and manage data with MySQL's command-line interface (CLI) tool [`mysql`](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql).
-- To manage your deployment, connect to your deployment with the [IBM Cloud CLI](/docs/cli?topic=cli-install-ibmcloud-cli), the [Cloud Databases CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference), or the [Cloud Databases API](https://cloud.ibm.com/apidocs/cloud-databases-api).
-- If you plan to use {{site.data.keyword.databases-for-mysql}} for your applications, check out [Connecting an external application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-external-app) and [Connecting an IBM Cloud application](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ibmcloud-app).
-- To ensure the stability of your applications and your database, check out [High availability](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ha-dr) and [Performance](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-performance).
+- If you are using MySQL for the first time, see the official [MySQL documentation](https://dev.mysql.com/doc/refman/8.4/en/){: external}.
+
+- For guidance on best practices, see [Best practices for MySQL on the IBM Cloud](https://www.ibm.com/blog/best-practices-for-mysql-on-the-ibm-cloud/){: external}.
+
+- Connect your deployment to [{{site.data.keyword.logs_full}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-logging) and [{{site.data.keyword.monitoringfull}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring) for observability and alerting.
+
+- Looking for more tools on managing your databases? Connect to your instance with the following tools:
+
+  - [{{site.data.keyword.cloud_notm}} CLI](/docs/cli?topic=cli-install-ibmcloud-cli){: external}
+
+  - [{{site.data.keyword.databases-for}} CLI plug-in](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-cdb-reference){: external}
+
+  - [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api){: external}
+
+- To ensure the stability of your applications and databases, see the following topics:
+
+  - [High-availability](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-ha-dr)
+
+  - [Performance](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-performance)
