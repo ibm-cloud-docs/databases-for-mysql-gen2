@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-03"
 
 keywords: mysql, databases, kubernetes, connecting application, mysql connection strings, gen2
 
@@ -32,25 +32,22 @@ Before connecting your Kubernetes Service application to a deployment, make sure
 ### Binding your deployment
 {: #bind-deployment}
 
-**Public Endpoints** -  If you are using the default public service endpoint to connect to your deployment, you can run the `cluster service bind` command with your cluster name, the resource group, and your deployment name.
-```sh
-ibmcloud ks cluster service bind <your_cluster_name> <resource_group> <your_database_deployment>
-```
-{: pre}
-
 **Private Endpoints** - If you want to use a private endpoint, and one is enabled on your deployment, then first you need to create a service key for your database so Kubernetes can use it when binding to the database.
+
 ```sh
 ibmcloud resource service-key-create <your-private-key> --instance-name <your_database_deployment> --service-endpoint private
 ```
 {: pre}
 
 The private service endpoint is selected with `--service-endpoint private`. After that, you bind the database to the Kubernetes cluster through the private endpoint with the `cluster service bind` command.
+
 ```sh
 ibmcloud ks cluster service bind <your_cluster_name> <resource_group> <your_database_deployment> --key <your-private-key>
 ```
 {: pre}
 
 **Verify** - Verify that the Kubernetes secret was created in your cluster namespace. Running the following command, you get the API key for accessing the instance of your deployment that's provisioned in your account.
+
 ```sh
 kubectl get secrets --namespace=default
 ```
