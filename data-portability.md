@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-09"
 
 keywords: data export, portability, mysqldump, mydumper, gen2
 
@@ -25,7 +25,7 @@ subcollection: databases-for-mysql-gen2
 ## Responsibilities
 {: #data-portability-responsibilities}
 
-IBM Cloud services provide interfaces and instructions to guide the customer to copy and store the service customer content, including the related configuration, on their own selected location.
+{{site.data.keyword.cloud_notm}} services provide interfaces and instructions to guide the customer to copy and store the service customer content, including the related configuration, on their own selected location.
 
 You are responsible for the use of the exported data and configuration for the purpose of data portability to other infrastructures. This can involve the following:
 
@@ -33,14 +33,15 @@ You are responsible for the use of the exported data and configuration for the p
 - Planning and execution for the porting of the required application code on the alternate infrastructure, including the adaptation of customer's application code, and deployment automation.
 - Conversion of the exported data and configuration to format required by the alternate infrastructure and adapted applications.
 
-For more information about your responsibilities when using {{site.data.keyword.databases-for-mysql_full}}, see [Shared responsibilities for {{site.data.keyword.databases-for-mysql}}](/docs/cloud-databases?topic=cloud-databases-responsibilities-cloud-databases).
+To find out more about responsibility ownership for using {{site.data.keyword.cloud_notm}} products, see [Shared responsibilities for {{site.data.keyword.cloud_notm}} products](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-responsibilities-cloud-databases).
+
 
 ## Data export procedures
 {: #data-portability-procedures}
 
 {{site.data.keyword.databases-for-mysql}} provides mechanisms to export your content that has been uploaded, stored, and processed using the service.
 
-### Exporting data from {{site.data.keyword.databases-for-mysql}}
+## Migrating data from {{site.data.keyword.databases-for-mysql}}
 {: #data-portability-exporting-data}
 
 Two options exist to migrate data from {{site.data.keyword.databases-for-mysql_full}}. We recommend  `mysqldump` and `mydumper`. The best tool for you depends on certain conditions, including network connection, the size of your data set, and intermediate schema needs.
