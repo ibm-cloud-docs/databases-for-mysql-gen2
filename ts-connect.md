@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-09"
 
 keywords: troubleshooting MySQL, connect mysql, gen2
 
@@ -14,7 +14,7 @@ content-type: troubleshoot
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Why canâ€™t I connect to my MySQL deployment?
+# Why can't I connect to my MySQL deployment?
 {: #troubleshoot-connect}
 {: troubleshoot}
 {: support}
