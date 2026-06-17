@@ -7,32 +7,32 @@
   "section_topics": {
     "links": [
       {
-        "title": "Getting started with Databases for MySQL Gen 2",
+        "title": "Getting started",
         "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-getting-started"
       },
       {
-        "title": "Changing your deployment configuration",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-changing-configuration&interface=cli"
+        "title": "Overview of Gen 1 and Gen 2",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-overview-gen1-gen2"
       },
       {
-        "title": "Connecting with mysql",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-connecting-mysql"
+        "title": "Gen 2 isolated compute",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-isolated-compute"
       },
       {
-        "title": "Managing MySQL connections",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections"
+        "title": "Provisioning",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-provisioning"
       },
       {
-        "title": "Managing Cloud Databases backups",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-dashboard-backups&interface=ui"
+        "title": "Comparison of Gen 1 and Gen 2 backups",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-comparison-backups"
       },
       {
-        "title": "Resource configuration FAQ",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-faq-resource-config&interface=ui"
+        "title": "Gen 2 FAQ",
+        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-faq&interface=cli"
       },
       {
-        "title": "Configuring",
-        "href": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-provisioning&interface=ui"
+        "title": "Gen 1 docs",
+        "href": "/docs/databases-for-mysql"
       }
     ]
   },
@@ -51,20 +51,15 @@
     }
   ],
   "section_devtools": {
-    "api": "/apidocs/cloud-databases-api/cloud-databases-api-v5#introduction",
-    "cli": "/docs/databases-cli-plugin",
+    "cli": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-cdb-reference",
     "terraform": "https://registry.terraform.io/modules/terraform-ibm-modules/icd-mysql/ibm/latest"
   },
   "section_updates": {
     "view_more": "/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-mysql-relnotes&interface=ui",
     "tiles": [
       {
-        "date": "31 March 2026",
+        "date": "June 2026",
         "title": "Databases for MySQL Gen 2 now available"
-      },
-      {
-        "date": "31 March 2026",
-        "title": "Enhanced performance and isolated compute"
       }
     ]
   }
