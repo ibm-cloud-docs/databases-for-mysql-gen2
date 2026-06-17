@@ -97,11 +97,14 @@ toc:
           topics:
           - ts-connect.md
           - ts-delay.md
+          - topic: ts-no-space-left.md
+            navtitle: How do I scale disk to get my deployment back online?
           - include: ../cloud-databases-gen2/ts-terraform.md
       - topicgroup:
           label: FAQs
           topics:
           - include: ../cloud-databases-gen2/faq.md
+            navtitle: Gen 2 FAQ
           - backups-faq.md
           - include: ../cloud-databases-gen2/resource-config-faq.md
           - include: ../cloud-databases-gen2/availability-zones-faq.md
