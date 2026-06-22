@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-17"
+lastupdated: "2026-06-22"
 
 keywords: troubleshooting for MySQL, mysql max_connections, mysql max connections, mysql connection pooling, mysql connection pooling, disk space, scaling considerations
 
@@ -21,7 +21,7 @@ content-type: troubleshoot
 
 [Gen 2]{: tag-purple}
 
-If you encounter a `No space left on device` error for your {{site.data.keyword.databases-for-postgresql_full}} deployment, review these solutions.
+If you encounter a `No space left on device` error for your {{site.data.keyword.databases-for-mysql-full}} deployment, review these solutions.
 {: shortdesc}
 
 Your deployment becomes unreachable and produces a `[Errno 28] No space left on device` error message.
@@ -30,7 +30,7 @@ Your deployment becomes unreachable and produces a `[Errno 28] No space left on 
 Review the following information to troubleshoot and resolve your `No space left on device` issues:
 {: tsResolve}
 
-* [Scale up the disk](/docs/databases-for-postgresql?topic=databases-for-postgresql-resources-scaling&interface=ui) to get your instance back online.
-   Scaling is a potentially long-running operation. For more information, see [Scaling Considerations](/docs/databases-for-postgresql?topic=databases-for-postgresql-resources-scaling&interface=ui#resources-scaling-consider).
+* [Scale up the disk](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-resources-scaling&interface=ui) to get your instance back online.
+   Scaling is a potentially long-running operation. For more information, see [Scaling considerations](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-resources-scaling&interface=ui#resources-scaling-consider).
 
 * To prevent an issue with disk space, set up [monitoring](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-monitoring).
