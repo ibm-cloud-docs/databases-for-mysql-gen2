@@ -149,6 +149,6 @@ Updates affecting customer workloads are communicated through {{site.data.keywor
 ## Additional guidance
 {: #ha_dr-guidance}
 
-- [Understanding high availability for Cloud Databases](/docs/cloud-databases?topic=cloud-databases-ha-dr)
-- [Understanding business continuity and disaster recovery for Cloud Databases](/docs/cloud-databases?topic=cloud-databases-bc-dr)
+- [Understanding high availability for Cloud Databases](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-ha-dr)
+- [Understanding business continuity and disaster recovery for Cloud Databases](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-bc-dr)
 - [Managing connections - Databases for MySQL](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections)
