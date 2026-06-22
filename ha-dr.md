@@ -12,7 +12,7 @@ subcollection: databases-for-mysql-gen2
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Understanding high availability and disaster recovery for {{site.data.keyword.databases-for-mysql}}
+# Understanding high availability and disaster recovery
 {: #mysql-ha-dr}
 
 [Gen 2]{: tag-purple}
