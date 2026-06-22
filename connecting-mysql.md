@@ -1,7 +1,7 @@
 ﻿---
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-22"
 
 keywords: mysql, databases, mysql connection strings, connecting mysql, gen2
 
@@ -35,7 +35,7 @@ Connection strings are displayed in the _Endpoints_ panel of your deployment's _
 
 The information that you need to make a connection with `mysql` is in the "cli" section of your connection strings. The table contains a breakdown for reference.
 
-| Field Name | Index | Description |
+| Field name | Index | Description |
 | ---------- | ----- | ----------- |
 | `Bin` | | The recommended binary to create a connection; in this case, it is `mysql`. |
 | `Composed` | | A formatted command to establish a connection to your deployment. The command combines the `Bin` executable file, `Environment` variable settings, and uses `Arguments` as command-line parameters. |
@@ -48,42 +48,40 @@ The information that you need to make a connection with `mysql` is in the "cli" 
 
 * `0...` indicates that there might be one or more of these entries in an array.
 
-## Connecting
-{: #mysql-connecting}
+## Creating a command-line client connection
+{: #create-cli-connection}
 
-The `ibmcloud cdb deployment-connections` command handles everything that is involved in creating a command-line client connection. For example, to connect to a deployment named "example-mysql", use the following command.
+Before creating a command-line client connection, ensure that you have the username and password for your instance. You need the username and password that were returned when you created a Manager or Writer user by using service credentials.
 
-```sh
-ibmcloud cdb deployment-connections example-mysql --start
+Run the following command:
+
+```
+export MYSQLUSER=<username>
+export MYSQLPASSWORD=<password>
 ```
 {: pre}
 
-Or
-```sh
-ibmcloud cdb cxn example-mysql -s
+Then, execute the following command:
+
+```
+ibmcloud resource service-instance <instance name or instance id> -o json
 ```
 {: pre}
 
-The command prompts for the admin password and then runs the `mysql` command-line client to connect to the database.
+Look for the mysql connection string in the output. Alternatively, if you have `jq` installed, run the following command:
 
-If you have not installed the cloud databases plug-in, connect to your MySQL databases by using `mysql` by giving it the "composed" connection string. It provides environment variables `MYSQL_PWD` and `--ssl-ca=<cert_name>`. Set `MYSQL_PWD` to the admin's password and `--ssl-ca=<cert_name>` to the path or file name for the service proprietary certificate.
-
-```sh
-MYSQL_PWD=$PASSWORD mysql --host=e4ad919f-59b6-4300-97c9-e099a5b6cf31.c5kmhkid0ujpmrucb800.databases.appdomain.cloud --port=32195 --user=$USERNAME --ssl-mode=VERIFY_IDENTITY --ssl-ca=52b78cf7-b17e-42aa-9e07-1fe4f741b286 ibmclouddb
 ```
+ibmcloud resource service-instance <instance name or instance id> -o json | jq '.[0].extensions.dataservices.connection.cli.composed[0]'
 
-## Using the service proprietary certificate
-{: #mysql-using-ssc}
-
-1. Copy the certificate information from the _Endpoints_ panel or the Base64 field of the connection information.
-2. If needed, decode the Base64 string into text.
-3. Save the certificate to a file. (You can use the Name that is provided or your own file name).
-4. Provide the path to the certificate to the `--ssl-ca=<cert_name>` environment variable.
-
-You can display the decoded certificate for your deployment with the CLI plug-in with the command:
-```sh
-ibmcloud cdb deployment-cacert "your-service-name"
 ```
 {: pre}
 
-It decodes the base64 into text. Copy and save the command's output to a file and provide the file's path to the `--ssl-ca=<cert_name>` environment variable.
+The connection string has the following format:
+
+```sh
+"mysql --tls-sni-servername=<instance>.<subdomain>.appdomain.cloud -h <instance>.<subdomain>.appdomain.cloud -P 3306 -u $MYSQLUSER -p$MYSQLPASSWORD --ssl-mode=REQUIRED"
+```
+{: pre}
+
+You can only connect from within a VPE that is configured for your MySQL instance.
+{: note}

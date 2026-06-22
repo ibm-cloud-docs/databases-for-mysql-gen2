@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-03"
+lastupdated: "2026-06-22"
 
 keywords: provision cloud databases, terraform, provisioning parameters, cli, resource controller api, provision mysql, gen2
 
@@ -25,7 +25,14 @@ Provision a {{site.data.keyword.databases-for-mysql_full}} deployment through th
 {: #catalog}
 {: ui}
 
-Deploy from the console by specifying the following parameters.
+Deploy from the console by specifying the following parameters:
+
+### Location and platform
+{: #location_and_platform}
+{: ui}
+
+- **Location** - Choose the region where you want to deploy your database. Each region in the list shows which platform it supports, [Gen 1 or Gen 2](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-overview-gen1-gen2) to help guide your selection.
+- **Platform** - Select the platform you want to deploy your database on. Available options depend on the region you choose. For more information on the differences between Gen 1 and Gen 2 , see [Overview of Gen 1 and Gen 2](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-overview-gen1-gen2).
 
 ### Service details
 {: #service_details}
@@ -54,7 +61,18 @@ Gen 2 supports **Isolated Compute only**. Isolated Compute provides a secure sin
 
 Choose the initial host size and disk configuration for your deployment. Host size and disk allocation apply per instance member.
 
-- **Host size:** Select from available configurations of vCPU and RAM to match your workload needs.
+- **Host size:** Use the table to choose the available configurations of vCPU and RAM to match your workload needs.
+
+   | **Host sizes/members**     |
+   |:--------------------------:|
+   | 4 vCPU x 16 RAM            |
+   | 8 vCPU x 32 RAM            |
+   | 8 vCPU x 64 RAM            |
+   | 16 vCPU x 64 RAM           |
+   | 32 vCPU x 128 RAM          |
+   | 30 vCPU x 240 RAM          |
+   {: caption="Isolated Compute sizing parameter" caption-side="bottom"}
+
 - **Disk:** Configure the initial disk size for your deployment. Use the slider to set disk capacity.
 
 Disk size can be increased after provisioning but cannot be decreased to prevent data loss.
@@ -98,7 +116,7 @@ Before provisioning, follow the instructions provided in the documentation to in
    For example, to provision a {{site.data.keyword.databases-for-mysql}} Gen 2 Isolated Compute instance, use a command like:
 
    ```sh
-   ibmcloud resource service-instance-create test-database databases-for-mysql standard-gen2 us-south -p '{"host_flavor": "b3c.4x16.encrypted"}' --service-endpoints="private"
+   ibmcloud resource service-instance-create test-instance databases-for-mysql standard-gen2 in-che -g Default -p '{"dataservices": {"mysql": {"storage_gb": 10, "members": 2, "host_flavor": "bxf.4x16"}}}'
    ```
    {: pre}
 
@@ -127,18 +145,18 @@ Before provisioning, follow the instructions provided in the documentation to in
    OK
    Service instance INSTANCE_NAME was created.
 
-   Name:                INSTANCE_NAME
-   ID:                  crn:v1:bluemix:public:databases-for-mysql-gen2:us-south:a/   40ddc34a846383BGB5b60e:dd13152c-fe15-4bb6-af94-fde0af5303f4::
-   GUID:                dd13152c-fe15-4bb6-af94-fde0af56897
-   Location:            LOCATION
-   State:               provisioning
-   Type:                service_instance
-   Sub Type:            Public
-   Service Endpoints:   private
-   Allow Cleanup:       false
-   Locked:              false
-   Created at:          2023-06-26T19:42:07Z
-   Updated at:          2023-06-26T19:42:07Z
+   Name:                   INSTANCE_NAME
+   ID:                     crn:v1:bluemix:public:databases-for-mysql:in-che:a/cf8d4161fa0243b9a2a5494cd7ff66b7:d79c8a28-cfe0-4e25-8952-16aaa11cc5f0::
+   GUID:                   d79c8a28-cfe0-4e25-8952-16aaa11cc5f0
+   Location:               in-che
+   State:                  provisioning
+   Type:                   service_instance
+   Sub Type:               Public
+   Allow Cleanup:          false
+   Locked:                 false
+   One-time credentials:   true
+   Created at:             2026-06-15T10:36:00Z
+   Updated at:             2026-06-15T10:36:01Z
    Last Operation:
                         Status    create in progress
                         Message   Started create instance operation
@@ -158,24 +176,24 @@ Before provisioning, follow the instructions provided in the documentation to in
       Retrieving service instance INSTANCE_NAME in resource group default under account USER's Account as USER...
       OK
 
-      Name:                  INSTANCE_NAME
-      ID:                    crn:v1:bluemix:public:databases-for-mysql-gen2:us-south:a/40ddc34a953a8c02f109835656860e:dd13152c-fe15-4bb6-af94-fde0af5303f4::
-      GUID:                  dd13152c-fe15-4bb6-af94-fde5654765
-      Location:              <LOCATION>
-      Service Name:          databases-for-mysql
-      Service Plan Name:     standard-gen2
-      Resource Group Name:   default
-      State:                 active
-      Type:                  service_instance
-      Sub Type:              Public
-      Locked:                false
-      Service Endpoints:     private
-      Created at:            2023-06-26T19:42:07Z
-      Created by:            USER
-      Updated at:            2023-06-26T19:53:25Z
+      Name:                   INSTANCE_NAME
+      ID:                     crn:v1:bluemix:public:databases-for-mysql:in-che:a/cf8d4161fa0243b9a2a5494cd7ff66b7:d79c8a28-cfe0-4e25-8952-16aaa11cc5f0::
+      GUID:                   d79c8a28-cfe0-4e25-8952-16aaa11cc5f0
+      Location:               in-che
+      Service Name:           databases-for-mysql
+      Service Plan Name:      standard-gen2
+      Resource Group Name:    Default
+      State:                  active
+      Type:                   service_instance
+      Sub Type:               Public
+      Locked:                 false
+      One-time credentials:   true
+      Created at:             2026-06-14T08:48:02Z
+      Created by:             USER
+      Updated at:             2026-06-14T09:09:20Z
       Last Operation:
-                             Status    create succeeded
-                             Message   Provisioning mysql with version 12 (100%)
+                              Status    create succeeded
+                              Message   Provision completed successfully
       ```
       {: codeblock}
 
@@ -192,15 +210,29 @@ Before provisioning, follow the instructions provided in the documentation to in
 
 The `host_flavor` parameter defines your Compute sizing. Gen 2 supports **Isolated Compute only**. Input the appropriate value for your desired CPU and RAM configuration.
 
+#### Fixed host flavors
+{: #fixed-host-flavors-cli}
+
   | Host size | vCPU x RAM           | host_flavor value         |
   |-----------|----------------------|---------------------------|
   | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted        |
   | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted        |
-  | 8x80      | 8 vCPU x 80 GB RAM   | mx3d.8x80.encrypted        |
   | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted       |
   | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted      |
   | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted      |
-{: caption="Members host flavor sizing parameter" caption-side="bottom"}
+{: caption="Fixed host flavor sizing parameter" caption-side="bottom"}
+
+#### Flex host flavors
+{: #flex-host-flavors-cli}
+
+  | Host size | vCPU x RAM           | host_flavor value         |
+  |-----------|----------------------|---------------------------|
+  | 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted        |
+  | 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
+  | 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
+  | 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
+  | 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
+{: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute at GA. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-monitoring){: external}, which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
 {: note}
@@ -318,15 +350,29 @@ Since the members host flavor selection includes CPU and RAM sizes (`bx3d.4x20.e
 
 The `host_flavor` parameter defines your Compute sizing. To provision an Isolated Compute instance, input the appropriate value for your desired CPU and RAM configuration.
 
+#### Fixed host flavors
+{: #fixed-host-flavors-api}
+
 | Member Host flavor | vCPU x RAM           | host_flavor value         |
 |-----------|----------------------|---------------------------|
 | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted        |
 | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted        |
-| 8x80      | 8 vCPU x 80 GB RAM   | mx3d.8x80.encrypted        |
 | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted       |
 | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted      |
 | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted      |
-{: caption="Members host flavor sizing parameter" caption-side="bottom"}
+{: caption="Fixed host flavor sizing parameter" caption-side="bottom"}
+
+#### Flex host flavors
+{: #flex-host-flavors-api}
+
+| Member Host flavor | vCPU x RAM           | host_flavor value         |
+|-----------|----------------------|---------------------------|
+| 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted        |
+| 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
+| 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
+| 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
+| 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
+{: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-monitoring), which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
 {: note}
@@ -405,18 +451,31 @@ output "ICD MySQL database connection string" {
 {: #host-flavor-parameter-terraform}
 {: terraform}
 
-The `host_flavor` parameter defines your Compute sizing.
-To provision an Isolated Compute instance, input the appropriate value for your desired CPU and RAM configuration. See the values in the following table.
+The `host_flavor` parameter defines your Compute sizing. To provision an Isolated Compute instance, input the appropriate value for your desired CPU and RAM configuration. See the values in the following tables.
+
+#### Fixed host flavors
+{: #fixed-host-flavors-terraform}
 
 | Host size | vCPU x RAM           | host_flavor value         |
 |-----------|----------------------|---------------------------|
 | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted        |
 | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted        |
-| 8x80      | 8 vCPU x 80 GB RAM   | mx3d.8x80.encrypted        |
 | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted       |
 | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted      |
 | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted      |
-{: caption="Host flavor sizing parameter" caption-side="bottom"}
+{: caption="Fixed host flavor sizing parameter" caption-side="bottom"}
+
+#### Flex host flavors
+{: #flex-host-flavors-terraform}
+
+| Host size | vCPU x RAM           | host_flavor value         |
+|-----------|----------------------|---------------------------|
+| 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted        |
+| 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
+| 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
+| 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
+| 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
+{: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring){: external}, which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
 {: note}
