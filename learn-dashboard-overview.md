@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-03"
+lastupdated: "2026-06-22"
 
 keywords: deployment, crn, task, gui, api endpoint, mysql connection strings, mysql, gen2
 
@@ -90,7 +90,7 @@ For detailed ways of connecting, go to the connect docs or open the console's (U
 ## Backups and restore
 {: #console-overview-backups-and-restore}
 
-The _Backups and restore_ tab is the UI for managing your deployments backups. All of the available backups are listed with their timestamps. Click a backup to copy its ID or to restore it into a new deployment. For more information, see [Managing backups](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-dashboard-backups).
+The _Backups and restore_ tab is the UI for managing your deployments backups. All of the available backups are listed with their timestamps. Click a backup to copy its ID or to restore it into a new deployment. For more information, see [Managing backups](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-independent-backups).
 
 ## Settings
 {: #console-overview-settings}

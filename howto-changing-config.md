@@ -1,7 +1,7 @@
 ﻿---
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-22"
 
 keywords: mysql, databases, config, mysql configuration, mysql time zone, configuration schema, gen2
 
@@ -16,7 +16,7 @@ subcollection: databases-for-mysql-gen2
 
 [Gen 2]{: tag-purple}
 
-{{site.data.keyword.databases-for-mysql_full}} allows you to change some of the MySQL configuration settings so you can tune your MySQL databases to your use case. To make permanent changes to the database configuration, use the {{site.data.keyword.databases-for}} [CLI-plugin](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-configuration) or [API](https://{DomainName}/apidocs/cloud-databases-api#change-your-database-configuration) to write the changes to the configuration file for your deployment.
+{{site.data.keyword.databases-for-mysql_full}} allows you to change some of the MySQL configuration settings so you can tune your MySQL databases to your use case. To make permanent changes to the database configuration, use the {{site.data.keyword.databases-for}} [CLI-plugin](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-cdb-reference) or [API](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-api) to write the changes to the configuration file for your deployment.
 
 The configuration is defined in a schema. To make a change, send a JSON object with the settings and their new values to the API or the CLI. For example, in the CLI or API, set the `max_connections` to 150 using a command like:
 
@@ -68,7 +68,7 @@ ibmcloud cdb deployment-configuration <deployment name or CRN> [@JSON_FILE | JSO
 ```
 {: pre}
 
-The command reads the changes that you would like to make from the JSON object or a file. For more information, see the [CLI reference page](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-configuration).
+The command reads the changes that you would like to make from the JSON object or a file. For more information, see the [CLI reference page](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-cdb-reference).
 
 ## Using the {{site.data.keyword.databases-for}} API
 {: #using-api}

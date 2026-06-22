@@ -17,7 +17,7 @@ subcollection: databases-for-mysql-gen2
 
 [Gen 2]{: tag-purple}
 
-Provision a {{site.data.keyword.databases-for-mysql_full}} deployment through the [catalog](https://cloud.ibm.com/databases/databases-for-mysql-gen2/create){: external}, the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference){: external}, the [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api){: external}, or through [Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}.
+Provision a {{site.data.keyword.databases-for-mysql_full}} deployment through the [catalog](https://cloud.ibm.com/databases/databases-for-mysql-gen2/create){: external}, the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-cdb-reference), the [{{site.data.keyword.databases-for}} API](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-api), or through [Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}.
 
 
 
@@ -398,7 +398,7 @@ In the `--parameters` object you can provide additional information to create yo
 **Before you begin:**
 
 - [Install the Terraform CLI and the IBM Cloud Provider plug-in](/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-setup_cli#tf_installation){: external}.
-- Make sure you have an [IBM Cloud API key](/docs/account?topic=account-userapikey&interface=ui#create_user_key){: external}.
+- Make sure you have an [IBM Cloud API key](/docs/account?topic=account-userapikey#create_user_key){: external}.
 
 Use Terraform to manage your infrastructure through the [`ibm_database` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external} supports provisioning {{site.data.keyword.databases-for}} deployments.
 
@@ -477,5 +477,5 @@ The `host_flavor` parameter defines your Compute sizing. To provision an Isolate
 | 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
 {: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
-CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases?topic=cloud-databases-monitoring){: external}, which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
+CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring), which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
 {: note}

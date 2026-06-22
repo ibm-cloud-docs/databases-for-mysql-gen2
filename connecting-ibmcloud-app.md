@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-03"
+lastupdated: "2026-06-22"
 
 keywords: mysql, databases, kubernetes, connecting application, mysql connection strings, gen2
 
@@ -23,9 +23,6 @@ Applications running in {{site.data.keyword.cloud_notm}} can be bound to your {{
 {: #kub-app}
 
 Connecting a Cloud databases deployment to a Kubernetes Service application is a two-step process. First, your deployment needs to be bound to your cluster and its connection strings stored in secret. The second step is configuring your application to use the connection strings.
-
-The sample app in the [Connecting a Kubernetes Service Tutorial](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-tutorial-k8s-app&interface=cli) provides a sample application that uses Node.js and demonstrates how to bind the sample application to a {{site.data.keyword.databases-for}} deployment.
-{: .tip}
 
 Before connecting your Kubernetes Service application to a deployment, make sure that the deployment and cluster are both in the same region and resource group.
 

@@ -31,7 +31,7 @@ For more information about `mysql`, see the [MySQL documentation](https://dev.my
 ## `mysql` Connection Strings
 {: #mysql-conn-strings}
 
-Connection strings are displayed in the _Endpoints_ panel of your deployment's _Overview_, and can also be retrieved from the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#deployment-connections), and the [API](https://{DomainName}/apidocs/cloud-databases-api#discover-connection-information-for-a-deployment-f-e81026).
+Connection strings are displayed in the _Endpoints_ panel of your deployment's _Overview_, and can also be retrieved from the [{{site.data.keyword.databases-for}} CLI plug-in](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-cdb-reference), and the [API](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-api).
 
 The information that you need to make a connection with `mysql` is in the "cli" section of your connection strings. The table contains a breakdown for reference.
 

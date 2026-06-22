@@ -1,7 +1,7 @@
 ﻿---
 copyright:
   years: 2026
-lastupdated: "2026-05-21"
+lastupdated: "2026-06-22"
 
 keywords: mysql, databases, soc, hipaa, gdpr, terms, mysql security compliance, mysql dedicated cores, gen2
 
@@ -35,7 +35,6 @@ subcollection: databases-for-mysql-gen2
 ### Network Isolation
 - **Private Endpoints Only:** Gen 2 supports private endpoints only for enhanced security and network isolation. All connections are made through the {{site.data.keyword.cloud_notm}} private network.
 - **VPC Deployment:** Deployments are integrated with Virtual Private Cloud for network isolation.
-- **IP Allowlisting:** All deployments support [allowlisting IP addresses](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-allowlisting&interface=ui) to restrict access to the service.
 
 ### Isolated Compute
 - **Hypervisor-Level Isolation:** Gen 2 supports Isolated Compute only, providing dedicated resources with hypervisor-level isolation to ensure that your data processing remains separated from other customers.
@@ -47,7 +46,7 @@ subcollection: databases-for-mysql-gen2
 ## Data resilience
 {: #security-compliance-data-resilience}
 
-- **Snapshot-based Backups:** [Backups](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-dashboard-backups&interface=ui) are included in the service. Gen 2 uses daily automated VPC snapshots to IBM Cloud File Storage with 30-day retention at GA (programmable retention periods available in Q3 hardening). Backups are located in [{{site.data.keyword.cos_full_notm}}](/docs/cloud-object-storage?topic=cloud-object-storage-about-cloud-object-storage&cloud-object-storage-about-cloud-object-storage) and are [encrypted](/docs/cloud-object-storage?topic=cloud-object-storage-security) with AES-256 encryption.
+- **Snapshot-based Backups:** Backups are included in the service. Gen 2 uses daily automated VPC snapshots to IBM Cloud File Storage with 30-day retention at GA (programmable retention periods available in Q3 hardening). Backups are located in [{{site.data.keyword.cos_full_notm}}](/docs/cloud-object-storage?topic=cloud-object-storage-about-cloud-object-storage) and are [encrypted](/docs/cloud-object-storage?topic=cloud-object-storage-security) with AES-256 encryption.
 - **Cross-Region Replication:** Backups support cross-region replication with BYOK support via Key Protect.
 - **Point-in-Time Recovery (PITR):** Available in Q3 hardening for granular recovery.
 - **Storage-Based Replication:** {{site.data.keyword.databases-for-mysql}} Gen 2 deployments use a 2-node cluster with Regional File Storage (RFS). Both nodes share a single regional storage solution that provides synchronous storage-based replication across all availability zones, ensuring zero data loss (RPO = 0) and eliminating replication lag.
