@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-23"
 
 keywords: mysql workbench, mysql gui, mysql, gen2, cloud databases, mysql getting started, Gen 2,
 
@@ -33,10 +33,10 @@ Follow these steps to complete the tutorial:
 * [Before you begin](#prereqs)
 * [Step 1: Provision through the console](#provision_instance_ui)
 * [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
-* [Step 3: Set up context-based restrictions](#mysql_cbr)
-* [Step 4: Create a connection](#private_connect_setup)
-* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
-* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+
+* [Step 3: Create a connection](#private_connect_setup)
+* [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 5: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
 * [Next Steps](#next_steps)
 {: ui}
 
@@ -46,10 +46,10 @@ Follow these steps to complete the tutorial:
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
 * [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
-* [Step 3: Set up context-based restrictions](#mysql_cbr)
-* [Step 4: Create a connection](#private_connect_setup)
-* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
-* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+
+* [Step 3: Create a connection](#private_connect_setup)
+* [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 5: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
 * [Next Steps](#next_steps)
 {: cli}
 
@@ -59,10 +59,10 @@ Follow these steps to complete the tutorial:
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
 * [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
-* [Step 3: Set up context-based restrictions](#mysql_cbr)
-* [Step 4: Create a connection](#private_connect_setup)
-* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
-* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+
+* [Step 3: Create a connection](#private_connect_setup)
+* [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 5: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
 * [Next Steps](#next_steps)
 {: api}
 
@@ -72,10 +72,10 @@ Follow these steps to complete the tutorial:
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
 * [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
-* [Step 3: Set up context-based restrictions](#mysql_cbr)
-* [Step 4: Create a connection](#private_connect_setup)
-* [Step 5: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
-* [Step 6: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
+
+* [Step 3: Create a connection](#private_connect_setup)
+* [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
+* [Step 5: Connect {{site.data.keyword.atracker_full}}](#mysql_logs)
 * [Next Steps](#next_steps)
 {: terraform}
 
@@ -265,14 +265,10 @@ ibmcloud resource service-key-delete <service_key_name>
 
 Changing a user password is not supported via the CLI on Gen 2.
 
-## Step 3: Set up context-based restrictions
-{: #mysql_cbr}
-
-Context-based restrictions give account owners and administrators the ability to define and enforce access restrictions for {{site.data.keyword.cloud_notm}} resources based on the context of access requests. Access to {{site.data.keyword.databases-for}} resources can be controlled with context-based restrictions and Identity and Access Management (IAM) policies.
 
 
 
-## Step 4: Create a connection
+## Step 3: Create a connection
 {: #private_connect_setup}
 
 
@@ -290,7 +286,7 @@ Also, the sections below provide a clear overview of how a connection is establi
 * [Reserve a floating IP for your VSI](https://cloud.ibm.com/infrastructure/network/floatingIPs/): A floating IP is a public IP address that lets you access your VSI from the internet.
 * [Create a Virtual Private Endpoint (VPE)](https://cloud.ibm.com/infrastructure/network/endpointGateways/): A VPE provides secure, private connectivity to {{site.data.keyword.cloud_notm}} services.
 
-## Step 5: Connect {{site.data.keyword.monitoringlong_notm}} through the console
+## Step 4: Connect {{site.data.keyword.monitoringlong_notm}} through the console
 {: #connect_monitoring_ui}
 
 You can use {{site.data.keyword.monitoringlong}} to get operational visibility into the performance and health of your applications, services, and platforms. {{site.data.keyword.monitoringlong_notm}} provides administrators, DevOps teams, and developers full stack telemetry with advanced features to monitor and troubleshoot, define alerts, and design custom dashboards.
@@ -300,7 +296,7 @@ For more information about how to use Monitoring with {{site.data.keyword.databa
 You cannot connect {{site.data.keyword.monitoringlong_notm}} by using the CLI. Use the console to complete this task.
 {: note}
 
-## Step 6: Connect IBM Cloud Logs Activity Tracker
+## Step 5: Connect IBM Cloud Logs Activity Tracker
 {: #mysql_logs}
 
 {{site.data.keyword.atracker_full}} allows you to view, and audit service activity to comply with corporate policies and industry regulations. {{site.data.keyword.atracker_short}} records user-initiated activities that change the state of a service in IBM Cloud. Use {{site.data.keyword.atracker_short}} to track how users and applications interact with the {{site.data.keyword.databases-for-mysql}} service.

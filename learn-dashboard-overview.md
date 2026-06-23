@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-23"
 
 keywords: deployment, crn, task, gui, api endpoint, mysql connection strings, mysql, gen2
 
@@ -99,7 +99,7 @@ The _Settings_ tab contains the UI for many of the tunable settings for your dep
 
 - **View encryption details:** All {{site.data.keyword.databases-for-mysql}} deployments are automatically encrypted at rest. Disks and backups are encrypted, and the encryption keys are managed automatically by {{site.data.keyword.cloud}}. If you brought your own encryption key from [{{site.data.keyword.keymanagementserviceshort}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-key-protect&interface=ui), the panel provides a link to your {{site.data.keyword.keymanagementserviceshort}} instance and displays the key name in the _Encryption key_ field.
 - **Service endpoints:** View and manage network access to your deployment. By default, only private endpoints are enabled to restrict access. For more information, see [Private endpoints on Gen 2](/docs/databases-for-mysql?topic=databases-for-mysql-service-endpoints&interface=ui).
-- **Context-based restrictions (CBR):** You can create context-based restriction rules to control access to your deployment.
+
 - **Disconnect all active connections:** You can disconnect all client connections to your database. This action immediately ends all active sessions and can cause service interruptions. Use this option with caution when you need to revoke access or apply configuration changes.
 
 ## Service credentials
