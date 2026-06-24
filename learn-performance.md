@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-24"
 
 keywords: mysql, databases, monitoring, scaling, autoscaling, resources, mysql connection limits, gen2
 
@@ -18,7 +18,6 @@ subcollection: databases-for-mysql-gen2
 [Gen 2]{: tag-purple}
 
 {{site.data.keyword.databases-for-mysql_full}} deployments can be manually [scaled to your usage](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-resources-scaling#resources-scaling-consider). There are several factors to consider when you are tuning the performance of your deployment.
-
 
 
 ## Monitoring your deployment
