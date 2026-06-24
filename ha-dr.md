@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-24"
 
 keywords: HA, DR, high availability, disaster recovery, disaster recovery plan, disaster event, mysql, gen2
 
@@ -25,7 +25,7 @@ subcollection: databases-for-mysql-gen2
 ## High availability architecture
 {: #ha-architecture}
 
-Image to be uploaded by Aman
+![Architecture](images/MySQL_HA_aarchitecture_gen2.svg){: caption="MySQL architecture" caption-side="bottom"}
 
 {{site.data.keyword.databases-for-mysql}} provides replication, failover, and high-availability features to protect your databases and data from infrastructure maintenance, upgrades, and failures. Deployments contain a cluster with two data members: primary and replica. The replica is kept up to date using synchronous replication at the storage layer. A distributed consensus mechanism is used to maintain cluster state and handle failovers. If the primary becomes unreachable, the cluster initiates a failover, and the replica is promoted to primary. The primary and replica will always be in different zones of an MZR. If the replica fails, a new replica is created. If a zone failure results in a member failing, the new replica will be created in a surviving zone.
 
@@ -73,7 +73,7 @@ Regional storage with synchronous replication has full Service Level Agreement (
 
 The general strategy for disaster recovery is to create a new database from a backup, like the Restore database below. The contents of the new database can be a backup of the source database created before the disaster.
 
-Image to be uploaded by Aman
+![Architecture](images/MySQL_DR_architecture_gen2){: caption="MySQL disaster recovery architecture" caption-side="bottom"}
 
 ### Disaster recovery features
 {: #dr-features}
