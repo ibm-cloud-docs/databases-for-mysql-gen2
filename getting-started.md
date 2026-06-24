@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-23"
+lastupdated: "2026-06-24"
 
 keywords: mysql workbench, mysql gui, mysql, gen2, cloud databases, mysql getting started, Gen 2,
 
@@ -147,9 +147,9 @@ You can provision a {{site.data.keyword.databases-for-mysql}} instance by using 
 {: #using_apis}
 {: api}
 
-Use the [{{site.data.keyword.databases-for}} API](https://cloud.ibm.com/apidocs/cloud-databases-api/cloud-databases-api-v5#introduction){: external} to work with your {{site.data.keyword.databases-for-mysql}} instance. The resource controller API is used to [provision an instance](#provision_instance_api).
+Use the [{{site.data.keyword.databases-for}} API](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-api){: external} to work with your {{site.data.keyword.databases-for-mysql}} instance. The resource controller API is used to [provision an instance](#provision_instance_api).
 
-You will need an API key to perform actions via the API. Follow [these steps](/docs/account?topic=account-userapikey#create_user_key){: external} to create an IBM Cloud API key that enables you to use the API to provision infrastructure into your account. You can create up to 20 API keys.
+You will need an API key to perform actions via the API. Follow [these steps](/docs/iam?topic=iam-userapikey&interface=ui#create_user_key){: external} to create an IBM Cloud API key that enables you to use the API to provision infrastructure into your account. You can create up to 20 API keys.
 
 For security reasons, the API key is only available to be copied or downloaded at the time of creation. If the API key is lost, you must create a new API key.
 {: note}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-24"
 
 keywords: provision cloud databases, terraform, provisioning parameters, cli, resource controller api, provision mysql, gen2
 
@@ -398,11 +398,11 @@ In the `--parameters` object you can provide additional information to create yo
 **Before you begin:**
 
 - [Install the Terraform CLI and the IBM Cloud Provider plug-in](/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-setup_cli#tf_installation){: external}.
-- Make sure you have an [IBM Cloud API key](/docs/account?topic=account-userapikey#create_user_key){: external}.
+- Make sure you have an [IBM Cloud API key](/docs/iam?topic=iam-userapikey&interface=ui#create_user_key){: external}.
 
 Use Terraform to manage your infrastructure through the [`ibm_database` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external} supports provisioning {{site.data.keyword.databases-for}} deployments.
 
-Select the [hosting model](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-hosting-models&interface=terraform) you want your database to be provisioned on. You can change this later.
+Select the [hosting model](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-isolated-compute&interface=terraform) you want your database to be provisioned on. You can change this later.
 
 ### Provisioning Isolated Compute with Terraform
 {: #provisioning-isolated-computer-terraform}
