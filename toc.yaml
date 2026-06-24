@@ -110,6 +110,5 @@ toc:
           topics:
           - include: ../cloud-databases-gen2/faq.md
             navtitle: Gen 2 FAQ
-          - backups-faq.md
           - include: ../cloud-databases-gen2/resource-config-faq.md
           - include: ../cloud-databases-gen2/availability-zones-faq.md
