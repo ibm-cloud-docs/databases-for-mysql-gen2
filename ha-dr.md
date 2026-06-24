@@ -73,7 +73,7 @@ Regional storage with synchronous replication has full Service Level Agreement (
 
 The general strategy for disaster recovery is to create a new database from a backup, like the Restore database below. The contents of the new database can be a backup of the source database created before the disaster.
 
-![Architecture](images/MySQL_DR_architecture_gen2){: caption="MySQL disaster recovery architecture" caption-side="bottom"}
+![Architecture](images/MySQL_DR_architecture_gen2.svg){: caption="MySQL disaster recovery architecture" caption-side="bottom"}
 
 ### Disaster recovery features
 {: #dr-features}
