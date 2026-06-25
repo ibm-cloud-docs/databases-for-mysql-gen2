@@ -16,13 +16,13 @@ subcollection: databases-for-mysql-gen2
 
 [Gen 2]{: tag-purple}
 
-To scale an [isolated compute](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-isolated-compute) host flavor instance, set the relevant `hostflavor` parameter to the isolated compute size that you want to use, such as "b3c.4x16.encrypted". As this includes vCPU and RAM allocation selections, do not separately select vCPU and RAM.
+To scale an [isolated compute](/docs/cloud-databases-for-mysql-gen2?topic=cloud-databases-for-mysql-gen2-isolated-compute&interface=cli#isolated-compute-sizing-cli) host flavor instance, set the relevant `hostflavor` parameter to the isolated compute size that you want to use, such as "b3c.4x16.encrypted". As this includes vCPU and RAM allocation selections, do not separately select vCPU and RAM.
 {: cli}
 
-To scale an [isolated compute](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-isolated-compute-api) host flavor instance, set the relevant `host_flavor` parameter to the isolated compute size you want to use, such as "b3c.4x16.encrypted". As this includes vCPU and RAM allocation selections, do not separately select vCPU and RAM.
+To scale an [isolated compute](cloud-databases-for-mysql-gen2?topic=cloud-databases-for-mysql-gen2-isolated-compute&interface=api#isolated-compute-sizing-api) host flavor instance, set the relevant `host_flavor` parameter to the isolated compute size you want to use, such as "b3c.4x16.encrypted". As this includes vCPU and RAM allocation selections, do not separately select vCPU and RAM.
 {: api}
 
-To scale an [isolated compute](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-isolated-compute-terraform) host flavor instance, set the relevant `host_flavor` parameter to the isolated compute size you want to use, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select vCPU and RAM.
+To scale an [isolated compute](/docs/cloud-databases-for-mysql-gen2?topic=cloud-databases-for-mysql-gen2-isolated-compute&interface=terraform#isolated-compute-sizing) host flavor instance, set the relevant `host_flavor` parameter to the isolated compute size you want to use, such as "b3c.4x16.encrypted". As this includes CPU and RAM allocation selections, do not separately select vCPU and RAM.
 {: terraform}
 
 You can manually adjust the resources available to your {{site.data.keyword.databases-for-mysql_full}} deployment to suit your workload and the size of your data.
