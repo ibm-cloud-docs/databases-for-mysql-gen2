@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-25"
 
 keywords: mysql, databases, read replica, resync, promote, cross-region replication, mysql read replica, mysql replication, gen2
 
@@ -156,7 +156,7 @@ If you need to resync a read replica, click the **Resync Read Replica** button. 
 The amount of time it takes to resync a read replica varies, but the process can be very long running.
 {: .tip}
 
-To start a resync through the CLI, use the [`cdb read-replica-resync`](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#read-replica-resync) command.
+To start a resync through the CLI, use the [`cdb read-replica-resync`](/docs/cloud-databases?topic=cloud-databases-cdb-reference#read-replica-resync) command.
 
 ```sh
 ibmcloud cdb read-replica-resync <deployment name>
@@ -185,7 +185,7 @@ When you promote a read replica, you can skip the initial backup that would norm
 
 Once a read replica is promoted to an independent deployment, it is not possible to revert it back to a read replica, or have it rejoin a source database instance.
 
-To promote through the CLI, use the [`cdb read-replica-promote`](/docs/databases-cli-plugin?topic=databases-cli-plugin-cdb-reference#read-replica-promote) command.
+To promote through the CLI, use the [`cdb read-replica-promote`](/docs/cloud-databases?topic=cloud-databases-cdb-reference#read-replica-promote) command.
 
 ```sh
 ibmcloud cdb read-replica-promote <deployment name>
