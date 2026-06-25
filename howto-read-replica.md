@@ -19,14 +19,14 @@ subcollection: databases-for-mysql-gen2
 
 You can set up your {{site.data.keyword.databases-for-mysql_full}} Gen 2 deployment to be a read replica of another {{site.data.keyword.databases-for-mysql}} deployment.
 
-## Horizontal Scaling with Read Replicas
+## Horizontal scaling with read replicas
 
 Read replicas provide horizontal scaling capabilities for Gen 2:
 
-- **Read Offloading:** Distribute read-heavy workloads across multiple read replicas to improve performance
-- **Regional Scaling:** Create read replicas in different regions for local access and reduced latency
-- **Cross-Regional Failover:** Use read replica promotion for disaster recovery scenarios
-- **Load Balancing:** Balance read operations across multiple replicas while writes go to the primary cluster
+- **Read offloading:** Distribute read-heavy workloads across multiple read replicas to improve performance
+- **Regional scaling:** Create read replicas in different regions for local access and reduced latency
+- **Cross-regional failover:** Use read replica promotion for disaster recovery scenarios
+- **Load balancing:** Balance read operations across multiple replicas while writes go to the primary cluster
 
 A read replica is set up to replicate all your data from the source instance to the replica deployment using asynchronous replication. As the name implies, read replicas support read transactions, and can be used to balance databases that have both write-heavy and read-heavy operations. You can also use read replica promotion for data recovery if the source database instance fails. The read replica has a single MySQL data member, and it is billed at the [same per member consumption rates as the source database instance](https://{DomainName}/catalog/services/databases-for-mysql-gen2/).
 
@@ -53,9 +53,9 @@ A read replica is set up to replicate all your data from the source instance to 
 
 - A read replica is a deployment with a single data member and does not have any internal high-availability. It is prone to temporary interruptions and downtime during maintenance. If you have applications that rely on read replicas, be sure to have logic to retry failed queries, or load-balancing over multiple read replicas.
 
-- **Gen 2 Horizontal Scaling:** Create up to five read replicas per source instance to distribute read workloads and improve overall system performance.
+- **Gen 2 horizontal scaling:** Create up to five read replicas per source instance to distribute read workloads and improve overall system performance.
 
-## The Leader
+## The leader
 {: #read-replicas-leader}
 
 On the _Read Replicas_ tab of a {{site.data.keyword.databases-for-mysql}} deployment before any read replicas are provisioned, the center pane notes that no read replicas exist and provides a **Create** button.
@@ -66,7 +66,7 @@ If a deployment is a leader and has a read replica that is already attached to i
 
 ![List of replicas that are attached to a leader](images/replica-after.png){: caption="List of replicas that are attached to a leader" caption-side="bottom"}
 
-## Provisioning a Read Replica
+## Provisioning a read replica
 {: #read-replicas-provisioning}
 
 You can provision a read replica from the leader's _Read Replicas_ tab by clicking **Create Read Replica**. The source instance is automatically filled in. The read replica's name is auto-generated in the _Service Name_ field, but you can rename it freely. You can choose the region to deploy it in, and its initial memory allocation. Disk size, version, and public or private endpoints are automatically configured to match the settings of the source database instance deployment.
@@ -112,14 +112,14 @@ curl -X POST \
 
 For both the CLI and API commands, you must specify both the RAM and disk amounts, keeping in mind the minimum size is 2 GB RAM and 20 GB disk. You can optionally specify whether the read replica uses public or private endpoints. You are not able to specify a version for the read replica. The version is automatically set to the same major version as the source database instance deployment.
 
-## The Read Replica
+## The read replica
 {: #read-replica}
 
 On the _Read Replicas_ tab of a read replica, the _Replication_ pane contains its name and region, and the name and region of its source database instance. It also has buttons to resync the read replica and to promote it.
 
 ![Replication pane of a read replica](images/replica-roreplica.png){: caption="Replication pane of a read replica" caption-side="bottom"}
 
-### Checking Replication Status
+### Checking replication status
 {: #read-replica-check-replication-status}
 
 Replication status is not automatically monitored, you must monitor replication.
@@ -135,7 +135,7 @@ A key field from the command's status report will be `Seconds_Behind_Master: _`.
 For more information, see MySQL's [Checking Replication Status](https://dev.mysql.com/doc/refman/5.7/en/replication-administration-status.html).
 {: .tip}
 
-### Read Replica Users and Privileges
+### Read replica users and privileges
 {: #read-replica-users-privileges}
 
 - Any user on the source database instance, even ones present before read replica provision, can log in to and run reads on a read replica with the same privileges to objects that they have on the source database instance.
@@ -148,7 +148,7 @@ For more information, see MySQL's [Checking Replication Status](https://dev.mysq
 
 - Read replica users who are created on a read replica are able to connect to the source database instance with `SELECT` permission.
 
-## Resyncing a Read Replica
+## Resyncing a read replica
 {: #read-replica-resyncing}
 
 If you need to resync a read replica, click the **Resync Read Replica** button. Resyncing is a disruptive operation and performing a resync tears down and rebuilds the data in the read replica. The read replica is not able to perform any other operations or run any queries while a resync is running. Queries are not rerouted to the source database instance, so any connections to the read replica fail until it is finished resyncing.
@@ -156,7 +156,7 @@ If you need to resync a read replica, click the **Resync Read Replica** button. 
 The amount of time it takes to resync a read replica varies, but the process can be very long running.
 {: .tip}
 
-To start a resync through the CLI, use the [`cdb read-replica-resync`](/docs/cloud-databases?topic=cloud-databases-cdb-reference#read-replica-resync) command.
+To start a resync through the CLI, use the `cdb read-replica-resync` command.
 
 ```sh
 ibmcloud cdb read-replica-resync <deployment name>
@@ -172,7 +172,7 @@ curl -X POST \
 ```
 {: pre}
 
-## Promoting a Read Replica
+## Promoting a read replica
 {: #read-replica-promoting}
 
 A read replica is able to be promoted to an independent cluster that can accept write operations as well as read operations. If something happens to the source database instance, the read replica can be promoted to a stand-alone cluster and start accepting writes from your application.
@@ -185,7 +185,7 @@ When you promote a read replica, you can skip the initial backup that would norm
 
 Once a read replica is promoted to an independent deployment, it is not possible to revert it back to a read replica, or have it rejoin a source database instance.
 
-To promote through the CLI, use the [`cdb read-replica-promote`](/docs/cloud-databases?topic=cloud-databases-cdb-reference#read-replica-promote) command.
+To promote through the CLI, use the `cdb read-replica-promote` command.
 
 ```sh
 ibmcloud cdb read-replica-promote <deployment name>
