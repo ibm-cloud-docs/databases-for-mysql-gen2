@@ -1,7 +1,7 @@
 ﻿---
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-06-25"
 
 keywords: mysql, databases, soc, hipaa, gdpr, terms, mysql security compliance, mysql dedicated cores, gen2
 
@@ -37,6 +37,8 @@ subcollection: databases-for-mysql-gen2
 - **VPC Deployment:** Deployments are integrated with Virtual Private Cloud for network isolation.
 
 ### Isolated Compute
+{: #compute-isolated}
+
 - **Hypervisor-Level Isolation:** Gen 2 supports Isolated Compute only, providing dedicated resources with hypervisor-level isolation to ensure that your data processing remains separated from other customers.
 
 ### MySQL Security Best Practices
