@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-06-11"
+lastupdated: "2026-06-26"
 
 keywords: mysql, gen 2, pricing
 
@@ -28,7 +28,7 @@ A {{site.data.keyword.databases-for-mysql}} deployment consists of a highly avai
 
 For pricing estimation, use the **Add to estimate** button on the [{{site.data.keyword.databases-for-mysql}} catalog page](https://cloud.ibm.com/catalog). 
 
-Due to the shared storage architecture, disk storage billing differs from other {{site.data.keyword.databases-for-}} offerings.
+Due to the shared storage architecture, disk storage billing differs from other {{site.data.keyword.databases-for}} offerings.
 {: important}
 
 * **Disk storage:** You are charged for the provisioned disk size once, not per member. For example, if you provision 100 GB of disk for your 2-member deployment, you are billed for 100 GB total (not 200 GB).
