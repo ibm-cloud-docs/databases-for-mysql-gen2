@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-24"
+lastupdated: "2026-06-26"
 
 keywords: troubleshooting for MySQL, mysql max_connections, mysql max connections, mysql connection pooling, mysql connection pooling, disk space, scaling considerations
 
@@ -21,7 +21,7 @@ content-type: troubleshoot
 
 [Gen 2]{: tag-purple}
 
-If you encounter a `No space left on device` error for your {{site.data.keyword.databases-for-mysql-full}} deployment, review these solutions.
+If you encounter a `No space left on device` error for your {{site.data.keyword.databases-for-mysql_full}} deployment, review these solutions.
 {: shortdesc}
 
 Once disk utilization reaches the 90% threshold, the database enters a read-only state and produces a `[Errno 28] No space left on device` error message.
