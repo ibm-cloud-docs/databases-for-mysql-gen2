@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-24"
+lastupdated: "2026-06-26"
 
 keywords: mysql, databases, point in time recovery, backups, restore, mysql pitr, mysql recovery, gen2
 
@@ -68,7 +68,7 @@ It is crucial that you do not delete the source deployment while the backup is r
 {: .tip}
 
 ### In the UI
-{: #ui}
+{: #pitr-ui}
 {: ui}
 
 To initiate a PITR, enter the time that you want to restore back to in Coordinated Universal Time. If you want to restore only to the most recent available time, select that option. Clicking **Restore** brings up the options for your recovery. Enter a name, select the version, region, and allocated resources for the new deployment. Click **Recover** to start the process.
@@ -76,7 +76,7 @@ To initiate a PITR, enter the time that you want to restore back to in Coordinat
 If you use Key Protect and have a key, use the CLI to recover. A command is provided for your convenience.
 
 ### In the CLI
-{: #cli}
+{: #pitr-cli}
 {: cli}
 
 The Resource Controller supports provisioning of database deployments, and provisioning and restoring are the responsibility of the Resource Controller CLI. Use the [`resource service-instance-create`](/docs/cli?topic=cli-ibmcloud_commands_resource#ibmcloud_resource_service_instance_create) command.
@@ -100,7 +100,7 @@ ibmcloud resource service-instance-create <SERVICE_INSTANCE_NAME> <service-id> s
 {: pre}
 
 ### In the API
-{: #api}
+{: #pitr-api}
 {: api}
 
 The [resource controller](https://cloud.ibm.com/apidocs/resource-controller/resource-controller) supports provisioning of database deployments, and provisioning and restoring are the responsibility of the Resource Controller API. Complete [the necessary steps](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-provisioning&interface=api#provision-controller-api) to use the resource controller API before using it to restore from a backup.
