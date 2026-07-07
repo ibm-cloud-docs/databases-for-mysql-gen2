@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-22"
+lastupdated: "2026-07-07"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -22,8 +22,8 @@ content-type: release-note
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
 
-## 25 June 2026
-{: #databases-for-mysql-gen2-25jun26}
+## 6 July 2026
+{: #databases-for-mysql-gen2-06july26}
 {: release-note}
 
 {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now generally available (GA)
