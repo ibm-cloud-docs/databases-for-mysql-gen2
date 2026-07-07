@@ -23,7 +23,7 @@ Use these release notes to learn about the latest updates to {{site.data.keyword
 {: shortdesc}
 
 ## 6 July 2026
-{: #databases-for-mysql-gen2-06july26}
+{: #databases-for-mysql-gen2-06jul26}
 {: release-note}
 
 {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now generally available (GA)
