@@ -31,7 +31,7 @@ subcollection: databases-for-mysql-gen2
 ## Connection Limits
 {: #connection-limits-performance}
 
-{{site.data.keyword.databases-for-mysql}} sets the maximum number of connections to your MySQL database to **200**. Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database. After the connection limit is reached, any attempts at starting a new connection results in an error. To prevent overwhelming your deployment with connections, use connection pooling, or scale your deployment and increase its connection limit. For more information, see the [Managing MySQL Connections](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections) page.
+{{site.data.keyword.databases-for-mysql}} sets the maximum number of connections to your MySQL database to **151**. Leave some connections available, as a number of them are reserved internally to maintain the state and integrity of your database. After the connection limit is reached, any attempts at starting a new connection results in an error. To prevent overwhelming your deployment with connections, use connection pooling, or scale your deployment and increase its connection limit. For more information, see the [Managing MySQL Connections](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-managing-mysql-connections) page.
 
 ## Bandwidth
 {: #bandwidth}
