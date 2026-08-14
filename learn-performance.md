@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-24"
+lastupdated: "2026-08-14"
 
 keywords: mysql, databases, monitoring, scaling, autoscaling, resources, mysql connection limits, gen2
 
@@ -23,7 +23,7 @@ subcollection: databases-for-mysql-gen2
 ## Monitoring your deployment
 {: #monitor-deployment}
 
-{{site.data.keyword.databases-for-mysql}} deployments offer an integration with the[{{site.data.keyword.monitoringfull}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring) service for basic monitoring of resource usage on your deployment. Many of the available metrics, like disk usage, are presented to help you monitor your deployment. Observing trends in your usage can help alleviate performance problems before your databases become unstable due to resource exhaustion.
+{{site.data.keyword.databases-for-mysql}} deployments offer an integration with the[{{site.data.keyword.monitoringfull}}](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring) service for basic monitoring of resource usage on your deployment. Many of the available metrics are presented to help you monitor your deployment. Observing trends in your usage can help alleviate performance problems before your databases become unstable due to resource exhaustion.
 
  
 
