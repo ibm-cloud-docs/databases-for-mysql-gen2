@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-06-25"
+lastupdated: "2026-08-24"
 
 keywords: mysql, scaling, memory, disk bandwidth, CPU, mysql dedicated cores, scaling mysql
 
@@ -138,10 +138,13 @@ The `host_flavor` parameter defines your compute sizing. Input the appropriate v
 |-----------|----------------------|---------------------|
 | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted |
 | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted |
-
 | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted |
 | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted |
 | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted |
+| 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted |
+| 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted |
+| 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted |
+| 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted |
 {: caption="Isolated compute CLI selections" caption-side="bottom"}
 
 ## Review current resources and hosting model
@@ -197,10 +200,13 @@ The `host_flavor` parameter defines your compute sizing. Choose the appropriate 
 |-----------|----------------------|---------------------|
 | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted |
 | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted |
-
 | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted |
 | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted |
 | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted |
+| 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted |
+| 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted |
+| 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted |
+| 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted |
 {: caption="Isolated compute API selections" caption-side="bottom"}
 
 ## Review current resources and hosting model
