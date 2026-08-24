@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-24"
+lastupdated: "2026-08-24"
 
 keywords: provision cloud databases, terraform, provisioning parameters, cli, resource controller api, provision mysql, gen2
 
@@ -60,20 +60,32 @@ Gen 2 supports **Isolated Compute only**. Isolated Compute provides a secure sin
 {: ui}
 
 Choose the initial host size and disk configuration for your deployment. Host size and disk allocation apply per instance member.
+Use the table to choose the available configurations of vCPU and RAM to match your workload needs.
 
-- **Host size:** Use the table to choose the available configurations of vCPU and RAM to match your workload needs.
+#### Fixed profiles
+{: #pricing-fixed-profiles-ui}
 
-   | **Host sizes/members**     |
-   |:--------------------------:|
-   | 4 vCPU x 16 RAM            |
-   | 8 vCPU x 32 RAM            |
-   | 8 vCPU x 64 RAM            |
-   | 16 vCPU x 64 RAM           |
-   | 32 vCPU x 128 RAM          |
-   | 30 vCPU x 240 RAM          |
-   {: caption="Isolated Compute sizing parameter" caption-side="bottom"}
+| Host size | vCPU x RAM |
+| --- | --- |
+| 4x20 | 4 vCPU x 20 GB RAM |
+| 8x40 | 8 vCPU x 40 GB RAM |
+| 16x80 | 16 vCPU x 80 GB RAM |
+| 32x160 | 32 vCPU x 160 GB RAM |
+| 48x240 | 48 vCPU x 240 GB RAM |
+{: caption="Fixed profile selections" caption-side="bottom"}
 
-- **Disk:** Configure the initial disk size for your deployment. Use the slider to set disk capacity.
+#### Flex profiles
+{: #pricing-flex-profiles-ui}
+
+| Host size | vCPU x RAM |
+| --- | --- |
+| 4x16 | 4 vCPU x 16 GB RAM |
+| 8x32 | 8 vCPU x 32 GB RAM |
+| 16x64 | 16 vCPU x 64 GB RAM |
+| 32x128 | 32 vCPU x 128 GB RAM |
+{: caption="Flex profile selections" caption-side="bottom"}
+
+**Disk:** Configure the initial disk size for your deployment. Use the slider to set disk capacity.
 
 Disk size can be increased after provisioning but cannot be decreased to prevent data loss.
 {: note}
@@ -213,25 +225,24 @@ The `host_flavor` parameter defines your Compute sizing. Gen 2 supports **Isolat
 #### Fixed host flavors
 {: #fixed-host-flavors-cli}
 
-  | Host size | vCPU x RAM           | host_flavor value         |
-  |-----------|----------------------|---------------------------|
-  | 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted        |
-  | 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted        |
-  | 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted       |
-  | 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted      |
-  | 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted      |
+| Host size | vCPU x RAM           | host_flavor value         |
+|-----------|----------------------|---------------------------|
+| 4x20      | 4 vCPU x 20 GB RAM   | bx3d.4x20.encrypted        |
+| 8x40      | 8 vCPU x 40 GB RAM   | bx3d.8x40.encrypted        |
+| 16x80     | 16 vCPU x 80 GB RAM  | bx3d.16x80.encrypted       |
+| 32x160    | 32 vCPU x 160 GB RAM | bx3d.32x160.encrypted      |
+| 48x240    | 48 vCPU x 240 GB RAM | bx3d.48x240.encrypted      |
 {: caption="Fixed host flavor sizing parameter" caption-side="bottom"}
 
 #### Flex host flavors
 {: #flex-host-flavors-cli}
 
-  | Host size | vCPU x RAM           | host_flavor value         |
-  |-----------|----------------------|---------------------------|
-  | 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted        |
-  | 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
-  | 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
-  | 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
-  | 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
+| Host size | vCPU x RAM           | host_flavor value         |
+|-----------|----------------------|---------------------------|
+| 4x16      | 4 vCPU x 16 GB RAM   | bxf.4x16.encrypted        |
+| 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
+| 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
+| 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
 {: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute at GA. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-monitoring){: external}, which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
@@ -371,7 +382,6 @@ The `host_flavor` parameter defines your Compute sizing. To provision an Isolate
 | 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
 | 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
 | 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
-| 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
 {: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-monitoring), which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
@@ -474,7 +484,6 @@ The `host_flavor` parameter defines your Compute sizing. To provision an Isolate
 | 8x32      | 8 vCPU x 32 GB RAM   | bxf.8x32.encrypted        |
 | 16x64     | 16 vCPU x 64 GB RAM  | bxf.16x64.encrypted       |
 | 32x128    | 32 vCPU x 128 GB RAM | bxf.32x128.encrypted      |
-| 48x192    | 48 vCPU x 192 GB RAM | bxf.48x192.encrypted      |
 {: caption="Flex host flavor sizing parameter" caption-side="bottom"}
 
 CPU and RAM autoscaling is not supported on {{site.data.keyword.databases-for}} Isolated Compute. If you have provisioned an Isolated instance or switched over from a deployment with autoscaling, keep an eye on your resources using [{{site.data.keyword.monitoringfull}} integration](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-monitoring), which provides metrics for memory and disk space. To add resources to your instance, manually scale your deployment.
