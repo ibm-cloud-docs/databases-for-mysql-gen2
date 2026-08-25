@@ -59,7 +59,6 @@ toc:
           label: Configuring MySQL
           topics:
           - howto-changing-config.md
-      - howto-pitr.md
       - howto-read-replica.md
       - topicgroup:
           label: Observability
