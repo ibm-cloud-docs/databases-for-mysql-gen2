@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-07-07"
+lastupdated: "2026-09-17"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -21,6 +21,13 @@ content-type: release-note
 
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
+
+## 17 Sep 2026
+{: #databases-for-mysql-gen2-17sep2026}
+{: release-note}
+
+The {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now available in multiple regions
+: {{site.data.keyword.databases-for-mysql}} Gen 2 is now available in Montreal (ca-mon), Chennai - Airtel (in-che), Mumbai (in-mum), Frankfurt (eu-de), Washington (us-east), Madrid (eu-es),Sydney (au-syd), Dallas (us-south), and London (eu-gb). For more information, see [Overview of Gen 1 and Gen 2](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-overview-gen1-gen2#feature-differentiators).
 
 ## 6 July 2026
 {: #databases-for-mysql-gen2-06jul26}
