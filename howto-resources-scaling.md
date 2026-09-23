@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-08-25"
+lastupdated: "2026-09-23"
 
 keywords: mysql, scaling, memory, disk bandwidth, CPU, mysql dedicated cores, scaling mysql
 
@@ -26,14 +26,6 @@ To scale an [isolated compute](/docs/databases-for-mysql-gen2?topic=databases-fo
 {: terraform}
 
 You can manually adjust the resources available to your {{site.data.keyword.databases-for-mysql_full}} deployment to suit your workload and the size of your data.
-
-Terraform scaling allocations are per-member.
-{: note}
-{: terraform}
-
-API scaling allocations use total allocation values.
-{: note}
-{: api}
 
 ## Resource breakdown
 {: #resource-breakdown}
@@ -174,6 +166,9 @@ curl -X GET https://api.{region}.databases.cloud.ibm.com/v5/ibm/deployments/{id}
 {: #resources-scaling-api}
 {: api}
 
+API scaling allocations use total allocation values.
+{: note }
+
 To scale the `host_flavor` of a deployment to `bx3d.8x40.encrypted`, use the following command:
 
 ```sh
@@ -238,6 +233,9 @@ Review resource allocations to your database by checking your Terraform scripts 
 ## Scaling with Terraform
 {: #resources-scaling-terraform}
 {: terraform}
+
+Terraform scaling allocations are per-member.
+{: note }
 
 Before executing a Terraform script on an existing instance, use the `terraform plan` command to compare the current infrastructure state with the desired state defined in your Terraform files. Any alteration to the `resource_group_id`, `service plan`, `version`, `key_protect_instance`, `key_protect_key`, `backup_encryption_key_crn` attributes recreates your instance. For a list of current argument references with the `Forces new resource` specification, see the [ibm_database Terraform Registry](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}.
 {: important}
