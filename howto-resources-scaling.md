@@ -28,10 +28,10 @@ To scale an [isolated compute](/docs/databases-for-mysql-gen2?topic=databases-fo
 You can manually adjust the resources available to your {{site.data.keyword.databases-for-mysql_full}} deployment to suit your workload and the size of your data.
 
 Terraform scaling allocations are per-member.
-{: note terraform}
+{: note } {: terraform}
 
 API scaling allocations use total allocation values.
-{: note api}
+{: note } {: api}
 
 ## Resource breakdown
 {: #resource-breakdown}
