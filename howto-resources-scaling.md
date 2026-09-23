@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-08-25"
+lastupdated: "2026-09-23"
 
 keywords: mysql, scaling, memory, disk bandwidth, CPU, mysql dedicated cores, scaling mysql
 
@@ -28,12 +28,10 @@ To scale an [isolated compute](/docs/databases-for-mysql-gen2?topic=databases-fo
 You can manually adjust the resources available to your {{site.data.keyword.databases-for-mysql_full}} deployment to suit your workload and the size of your data.
 
 Terraform scaling allocations are per-member.
-{: note}
-{: terraform}
+{: note terraform}
 
 API scaling allocations use total allocation values.
-{: note}
-{: api}
+{: note api}
 
 ## Resource breakdown
 {: #resource-breakdown}
