@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-05"
+lastupdated: "2026-10-06"
 
 keywords: mysql workbench, mysql gui, mysql, gen2, cloud databases, mysql getting started, Gen 2,
 
@@ -32,7 +32,7 @@ Follow these steps to complete the tutorial:
 
 * [Before you begin](#prereqs)
 * [Step 1: Provision through the console](#provision_instance_ui)
-* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 2: Create the `Manager` user and generate credentials](#admin_pw)
 
 * [Step 3: Create a connection](#private_connect_setup)
 * [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
@@ -45,7 +45,7 @@ Follow these steps to complete the tutorial:
 
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
-* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 2: Create the `Manager` user and generate credentials](#admin_pw)
 
 * [Step 3: Create a connection](#private_connect_setup)
 * [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
@@ -58,7 +58,7 @@ Follow these steps to complete the tutorial:
 
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
-* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 2: Create the `Manager` user and generate credentials](#admin_pw)
 
 * [Step 3: Create a connection](#private_connect_setup)
 * [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
@@ -71,7 +71,7 @@ Follow these steps to complete the tutorial:
 
 * [Before you begin](#prereqs)
 * [Step 1: Choose your plan](#choose_plan)
-* [Step 2: Create the \`Manager\` user and generate credentials](#admin_pw)
+* [Step 2: Create the `Manager` user and generate credentials](#admin_pw)
 
 * [Step 3: Create a connection](#private_connect_setup)
 * [Step 4: Connect {{site.data.keyword.mon_full_notm}}](#connect_monitoring_ui)
@@ -84,7 +84,6 @@ Follow these steps to complete the tutorial:
 {: #prereqs}
 
 - You need to have an [{{site.data.keyword.cloud_notm}} account](https://cloud.ibm.com/registration){: external}.
-
 
 ## Step 1: Provision through the console
 {: #provision_instance_ui}
@@ -214,17 +213,17 @@ Follow [these steps](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-ge
 
 Use Terraform to manage your infrastructure through the [\`ibm_database\` Resource for Terraform](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/database){: external}.
 
-## Step 2: Create the \`Manager\` user and generate credentials
+## Step 2: Create the `Manager` user and generate credentials
 {: #admin_pw}
 
 ### The `Manager` user
 {: #admin_like_manager_user}
 
-As part of provisioning a new instance in {{site.data.keyword.cloud}}, you can use the service credential console page to create a user with different roles (Manager and Writer).
+As part of provisioning a new instance in {{site.data.keyword.cloud}}, you can use the service credential console page to create a user with different roles (`Manager` and `Writer`).
 
 {{site.data.keyword.databases-for-mysql}} instances no longer include a default `admin` user. Instead, you create a user with the `Manager` or `Writer` role by using the {{site.data.keyword.cloud}} service credential interface - through the UI or CLI. These users come with necessary credentials to connect to and manage the instance.
 
-The Manager user functions as an admin-like user and is automatically granted necessary privileges to manage the database.
+The `Manager` user functions as an admin-like user and is automatically granted necessary privileges to manage the database.
 
 ### Change the user password in the UI
 {: #user-management-set-manager-password-ui}
@@ -232,7 +231,7 @@ The Manager user functions as an admin-like user and is automatically granted ne
 
 Changing the user password is not supported via the {{site.data.keyword.cloud_notm}} console on Gen 2.
 
-### Create the manager user in the CLI
+### Create the `Manager` user in the CLI
 {: #manager_user_set_cli}
 {: cli}
 
@@ -248,7 +247,7 @@ ibmcloud resource service-key-create <service_key_name> --instance-id <guid> -p 
 ```
 {: pre}
 
-Similarly, for creating a user with the `Writer` role, use the following command, updating the 'role_crn' to 'Writer' instead of 'Manager:
+Similarly, for creating a user with the `Writer` role, use the following command, updating the 'role_crn' to 'Writer' instead of `Manager`:
 
 ```
 ibmcloud resource service-key-create <service_key_name> --instance-name <INSTANCE_NAME> -p '{"role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer"}'
@@ -266,7 +265,7 @@ ibmcloud resource service-key-delete <service_key_name>
 ```
 {: pre}
 
-### Change the manager password in the CLI
+### Change the `Manager` password in the CLI
 {: #manager_pw_set_cli}
 {: cli}
 
