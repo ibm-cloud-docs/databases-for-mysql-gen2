@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-06-24"
+lastupdated: "2026-10-05"
 
 keywords: mysql workbench, mysql gui, mysql, gen2, cloud databases, mysql getting started, Gen 2,
 
@@ -239,12 +239,19 @@ Changing the user password is not supported via the {{site.data.keyword.cloud_no
 Use one of the following commands from the {{site.data.keyword.cloud_notm}} CLI {{site.data.keyword.databases-for}} plug-in to create the `Manager` user.
 
 ```sh
-ibmcloud resource service-key-create <service_key_name> Manager --instance-name <instance_name>
+ibmcloud resource service-key-create <service_key_name> --instance-name <instance_name> -p '{"role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"}'
 ```
 {: pre}
 
 ```sh
-ibmcloud resource service-key-create <service_key_name> Manager --instance-id <guid>
+ibmcloud resource service-key-create <service_key_name> --instance-id <guid> -p '{"role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager"}'
+```
+{: pre}
+
+Similarly, for creating a user with the `Writer` role, use the following command, updating the 'role_crn' to 'Writer' instead of 'Manager:
+
+```
+ibmcloud resource service-key-create <service_key_name> --instance-name <INSTANCE_NAME> -p '{"role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer"}'
 ```
 {: pre}
 

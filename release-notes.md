@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-09-17"
+lastupdated: "2026-10-06"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -21,6 +21,15 @@ content-type: release-note
 
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
+
+## 30 Sep 2026
+{: #databases-for-mysql-gen2-30sep2026}
+{: release-note}
+
+The {{site.data.keyword.databases-for-mysql_full}} Gen 2 is now available in all VPC multizone regions
+: You can now deploy {{site.data.keyword.databases-for-mysql}} Gen 2 in all supported {{site.data.keyword.cloud}} VPC multizone regions (MZRs). This release adds support for Toronto (ca-tor), Tokyo (jp-tok), Osaka (jp-osa), and Sao Paulo (br-sao). For more information, see [Overview of Gen 1 and Gen 2](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-overview-gen1-gen2#feature-differentiators).
+
+
 
 ## 17 Sep 2026
 {: #databases-for-mysql-gen2-17sep2026}
