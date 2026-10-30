@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-14"
+lastupdated: "2026-10-30"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -21,6 +21,8 @@ content-type: release-note
 
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
+
+
 
 ## 12 October 2026
 {: #databases-for-mysql-gen2-12oct2026}
