@@ -35,6 +35,8 @@ toc:
       id: howto
       topics:
       - howto-provisioning.md
+      - topic: migrate-to-gen2.md
+        navtitle: Migrating to Gen 2
       - topicgroup:
           label: Backups
           topics:
