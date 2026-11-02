@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-10-30"
+lastupdated: "2026-11-02"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -22,7 +22,12 @@ content-type: release-note
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
 
+## 2 November 2026
+{: #databases-for-mysql-gen2-02nov2026}
+{: release-note}
 
+{{site.data.keyword.databases-for-mysql}} Gen 1 to Gen 2 migration is now generally available
+:  Migration from Gen 1 (Classic) to Gen 2 (VPC) is now available for {{site.data.keyword.databases-for-mysql}}. You can migrate by using the Migration Hub in the {{site.data.keyword.cloud}} console, Terraform, the API, or the CLI. Both read replica and backup-and-restore migration paths are available. For more information, see [Migrating {{site.data.keyword.databases-for-mysql}} from Gen 1 to Gen 2](/docs/databases-for-mysql-gen2?topic=databases-for-mysql-gen2-migrating-mysql-gen1-to-gen2).
 
 ## 12 October 2026
 {: #databases-for-mysql-gen2-12oct2026}
