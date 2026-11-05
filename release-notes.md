@@ -2,7 +2,7 @@
 
 copyright:
   years: 2026
-lastupdated: "2026-11-02"
+lastupdated: "2026-11-05"
 
 keywords: mysql, databases, gen 2, release notes
 
@@ -21,6 +21,13 @@ content-type: release-note
 
 Use these release notes to learn about the latest updates to {{site.data.keyword.databases-for-mysql_full}} that are grouped by date.
 {: shortdesc}
+
+## 5 November 2026
+{: #databases-for-mysql-gen2-05nov2026}
+{: release-note}
+
+New regions available for {{site.data.keyword.databases-for-mysql}} Gen 1 to Gen 2 migration
+:  Migration from Gen 1 (Classic) to Gen 2 (VPC) is now available in the `br-sao` and `us-south` regions, in addition to `us-east`, for {{site.data.keyword.databases-for-mysql}}.
 
 ## 2 November 2026
 {: #databases-for-mysql-gen2-02nov2026}
