@@ -58,6 +58,10 @@ toc:
           topics:
           - howto-resources-scaling.md
           - howto-managing-connections.md
+      - topicgroup:
+          label: Configuring MySQL
+          topics:
+          - howto-changing-config.md
       - howto-migration.md
       - topicgroup:
           label: Observability
