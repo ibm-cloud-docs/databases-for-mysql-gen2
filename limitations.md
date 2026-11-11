@@ -1,7 +1,7 @@
 ---
 copyright:
   years: 2026
-lastupdated: "2026-10-21"
+lastupdated: "2026-11-11"
 
 keywords: mysql gen 2 differences, mysql gen 2 limitations, cloud databases gen 2 mysql, gen 1 vs gen 2
 
@@ -38,7 +38,7 @@ Architectural differences represent permanent design changes in Gen 2. Gen 2 is 
 | **Hosting models** | Shared compute and isolated compute. | Isolated compute only. | Eliminates noisy-neighbor contention on Gen 2 by deploying all instances on single-tenant compute with guaranteed vCPU, memory, and I/O allocations. |
 | **Resource scaling** | Fine-grained, linear resource scaling. | Standardized VPC compute flavors. | Standardized host profiles optimize container placement, hypervisor scheduling, and memory-to-vCPU ratios. |
 | **High availability topology** | Three-member cluster with native asynchronous replication. | Two-member cluster with storage-based replication. | Gen 2 uses storage-based replication where data is replicated to all zones within a region at the disk level, while MySQL operates a 2-member high availability topology. |
-| **Replication model** | Native MySQL asynchronous replication. | Storage-based synchronous replication. | Storage-lavel synchronous replication decouples replication operations from database compute. |
+| **Replication model** | Native MySQL asynchronous replication. | Storage-based synchronous replication. | Storage-level synchronous replication decouples replication operations from database compute. |
 | **Backup architecture** | Backups operate at file and application level; backup duration and I/O impact scale with data size. | Backups based on VPC storage level snapshots. | The new architecture decouples backup operations from database compute, with zero operational overhead on active transactions. |
 | **TLS and SSL certificates** | Certificates signed by the internal {{site.data.keyword.databases-for}} Certificate Authority. | Certificates signed by a public Certificate Authority (Let's Encrypt). | Standardizes on industry-standard CA signatures, simplifying automated certificate rotation and client trust store management. |
 | **Administrative access** | Single `admin` database user provisioned by IBM. | Dynamic database Manager role by using service credentials. | Removes fixed administrative credentials with IAM-governed, service credentials. |
@@ -54,7 +54,8 @@ The following list represents capabilities available in Gen 1 that are not yet a
 | Capability | Gen 2 status | Notes and workarounds |
 | --- | --- | --- |
 | **{{site.data.keyword.databases-for}} CLI plug-in (`ibmcloud cdb`)**  \n CLI plug-in for managing {{site.data.keyword.databases-for}} instances. | Future release | The `cdb` CLI plug-in operates on Gen 1 instances only. Dedicated Gen 2 CLI plug-in commands are planned in a future release.  \n **Workaround:** Manage instances by using `ibmcloud resource` CLI commands, the Gen 2 REST APIs, or the {{site.data.keyword.cloud_notm}} Terraform provider. |
-| **Point-in-time recovery (PITR)**  \n Granular recovery to any transaction point by using continuous binary log replay. | Future release | Granular point-in-time recovery by using continuous binary log replay is planned in a future release.  \n **Workaround:** Restore the database from the latest automated or on-demand VPC storage snapshot. |
+| **Point-in-time recovery (PITR)**  \n Granular recovery to any transaction point by using continuous binary log replay. | Future release | Granular point-in-time recovery by using continuous binary log replay is planned in a future release.  \n **Workaround:** Restore the database from the latest automated VPC storage snapshot Backup. |
+| **On-demand backup**  \n Manually initiated backups of an instance, taken outside the automated backup schedule. | Future release | On-demand backups are not currently supported for {{site.data.keyword.databases-for}} Gen 2. Support for this feature is planned for a future release. |
 | **Autoscaling**  \n Automatic threshold-based scaling of compute and storage resources. | Future release | Automatic threshold-based scaling for compute and storage resources is planned in a future release.  \n **Workaround:** Manually scale compute and disk allocations by using the {{site.data.keyword.cloud_notm}} CLI, API, or Terraform. |
 | **Cross-regional backup (disaster recovery)**  \n Automated replication of backup snapshots to a secondary (singular) region for disaster recovery. | [Available in select regions](/docs/cloud-databases-gen2?topic=cloud-databases-gen2-independent-backups&interface=ui#independent-backups-crc) | Gen 1 backup storage is distributed across multiple regions by default. In Gen 2, cross-region backup replication is customer configurable and lets you choose into which worldwide region backup copies are stored. This new feature provides greater flexibility to align with your resilience, compliance, and data locality requirements. |
 | **Small scale database instances**  \n Support for lowest price vCPU hosting models. | Future release | Cost-optimized deployment (nano) profiles that provide a lower-cost alternative for smaller workloads while maintaining the benefits of the Gen 2 architecture. Nano profiles replace the Gen 1 shared hosting model with dedicated Gen 2 deployments that offer greater flexibility and isolation. |
@@ -92,7 +93,7 @@ The following list represents capabilities available in Gen 1 that are not yet a
 {: #ha-replication-differences}
 
 - **Cluster topology:** Gen 1 deploys three-member high-availability clusters that span multiple availability zones within a region. Gen 2 deploys two-member clusters with storage-based replication.
-- **Replication mechanism:** Gen 1 uses native MySQL asynchronous replication with binary log streaming and relay logs. Gen 2 uses storage-based synchronous replication via VPC block snapshots, which decouples replication from database compute and provides consistent, predictable replica synchronization.
+- **Replication mechanism:** Gen 1 uses native MySQL asynchronous replication with binary log streaming and relay logs. Gen 2 uses storage-based synchronous replication by using VPC file storage, which decouples replication from database compute and provides consistent, predictable replica synchronization.
 - **Read-only replicas:** In Gen 1, dedicated read-only replicas can be provisioned for read offloading and disaster recovery. In Gen 2, dedicated read replica support is planned in a future release.
 
 ### Database operations, tooling, and connections
